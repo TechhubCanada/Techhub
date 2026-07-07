@@ -30,6 +30,7 @@
     "axios": "^1.13.5",
     "embla-carousel": "8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "lenis": "^1.3.25",
     "lodash": "^4.17.23",
     "meilisearch": "^0.55.0",
     "next": "16.2.10",

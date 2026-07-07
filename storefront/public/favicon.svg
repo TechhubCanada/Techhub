@@ -1,9 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TechHub computer">
-  <rect width="64" height="64" rx="14" fill="#0f172a"/>
-  <rect x="12" y="14" width="40" height="31" rx="4" fill="#e5e7eb"/>
-  <rect x="16" y="18" width="32" height="22" rx="2" fill="#38bdf8"/>
-  <path d="M20 23h12M20 28h20M20 33h15" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M28 45h8l2 7H26l2-7Z" fill="#e5e7eb"/>
-  <rect x="21" y="52" width="22" height="4" rx="2" fill="#e5e7eb"/>
-  <path d="M42 27l-6 14 5-3 3 7 4-2-3-7 6-1-9-8Z" fill="#f8fafc" stroke="#0f172a" stroke-width="2" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TechHub">
+  <rect width="64" height="64" rx="14" fill="#ffffff"/>
+  <rect x="10" y="10" width="44" height="44" rx="8" fill="none" stroke="#0f172a" stroke-width="4"/>
+  <path d="M17 20h18v6h-6v20h-6V26h-6V20Z" fill="#0f172a"/>
+  <path d="M37 20h6v10h8V20h6v26h-6V36h-8v10h-6V20Z" fill="#0f172a"/>
 </svg>

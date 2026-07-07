@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { NewsletterForm } from "@/components/NewsletterForm"
 import { LocalizedLink } from "@/components/LocalizedLink"
+import { BrandLogo } from "@/components/BrandLogo"
 
 export const Footer: React.FC = () => {
   const pathName = usePathname()
@@ -25,9 +26,11 @@ export const Footer: React.FC = () => {
           <div className="flex max-lg:flex-col justify-between md:gap-20 max-md:px-4">
             <div className="flex flex-1 max-lg:w-full max-lg:order-2 max-sm:flex-col justify-between sm:gap-30 lg:gap-20 md:items-center">
               <div className="max-w-35 md:flex-1 max-md:mb-9">
-                <h1 className="text-lg md:text-xl mb-2 md:mb-6 leading-none md:leading-[0.9]">
-                  Sofa Society Co.
-                </h1>
+                <BrandLogo
+                  className="mb-2 md:mb-6"
+                  markClassName="size-8"
+                  textClassName="text-lg md:text-xl"
+                />
                 <p className="text-xs">
                   &copy; {new Date().getFullYear()}, Sofa Society
                 </p>

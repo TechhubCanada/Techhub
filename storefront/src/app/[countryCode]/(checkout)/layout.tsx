@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
+import { BrandLogo } from "@/components/BrandLogo"
 import dynamic from "next/dynamic"
 
 const CheckoutSummaryWrapper = dynamic(
@@ -8,7 +9,7 @@ const CheckoutSummaryWrapper = dynamic(
   { loading: () => <></> }
 )
 
-const  MobileCheckoutSummaryWrapper= dynamic(
+const MobileCheckoutSummaryWrapper = dynamic(
   () => import("@modules/checkout/components/mobile-checkout-summary-wrapper"),
   { loading: () => <></> }
 )
@@ -22,8 +23,8 @@ export default function CheckoutLayout({
       <Layout className="lg:hidden">
         <LayoutColumn>
           <div className="flex justify-between items-center h-18">
-            <LocalizedLink href="/" className="text-md font-medium">
-              SofaSocietyCo.
+            <LocalizedLink href="/" aria-label="TechHub home">
+              <BrandLogo textClassName="text-md" />
             </LocalizedLink>
             <div>
               <p className="font-semibold">Checkout</p>
@@ -43,9 +44,10 @@ export default function CheckoutLayout({
           <div className="flex-1 pt-8 lg:max-w-125 xl:max-w-150 pb-9 lg:pb-40">
             <LocalizedLink
               href="/"
-              className="text-md font-medium mb-16 inline-block max-lg:hidden"
+              className="mb-16 inline-block max-lg:hidden"
+              aria-label="TechHub home"
             >
-              SofaSocietyCo.
+              <BrandLogo textClassName="text-md" />
             </LocalizedLink>
             {children}
           </div>

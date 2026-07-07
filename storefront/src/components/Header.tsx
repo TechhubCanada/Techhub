@@ -7,6 +7,7 @@ import { LocalizedLink } from "@/components/LocalizedLink"
 import { HeaderDrawer } from "@/components/HeaderDrawer"
 import { RegionSwitcher } from "@/components/RegionSwitcher"
 import { HeaderWrapper } from "@/components/HeaderWrapper"
+import { BrandLogo } from "@/components/BrandLogo"
 
 import dynamic from "next/dynamic"
 
@@ -50,8 +51,10 @@ export const Header: React.FC = async () => {
         <Layout>
           <LayoutColumn>
             <div className="flex justify-between items-center h-18 md:h-21">
-              <h1 className="font-medium text-md">
-                <LocalizedLink href="/">SofaSocietyCo.</LocalizedLink>
+              <h1>
+                <LocalizedLink href="/" aria-label="TechHub home">
+                  <BrandLogo textClassName="text-md" />
+                </LocalizedLink>
               </h1>
               <div className="flex items-center gap-8 max-md:hidden">
                 <LocalizedLink href="/about">About</LocalizedLink>
