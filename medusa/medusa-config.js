@@ -62,6 +62,7 @@ const defaultAdminCors = corsOrigins(
   'https://manage.techhubcanada.com',
   '/https:\\/\\/.*\\.vercel\\.app$/',
   '/https:\\/\\/.*\\.app\\.github\\.dev$/',
+  process.env.MEDUSA_BACKEND_URL,
   process.env.BACKEND_URL,
   process.env.RAILWAY_PUBLIC_DOMAIN
     ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
@@ -74,7 +75,9 @@ module.exports = defineConfig({
   admin: {
     disable: process.env.DISABLE_MEDUSA_ADMIN === 'true',
     backendUrl:
-      process.env.BACKEND_URL ?? 'https://sofa-society-starter.medusajs.app',
+      process.env.MEDUSA_BACKEND_URL ??
+      process.env.BACKEND_URL ??
+      'https://sofa-society-starter.medusajs.app',
     storefrontUrl: process.env.STOREFRONT_URL,
   },
   projectConfig: {

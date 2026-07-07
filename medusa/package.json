@@ -15,7 +15,7 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "medusa start",
+    "start": "test -f .medusa/server/public/admin/index.html && cd .medusa/server && medusa start --host ${HOST:-0.0.0.0} --port ${PORT:-9000}",
     "dev": "medusa develop",
     "emails:dev": "email dev --dir=src/modules/resend/emails",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
