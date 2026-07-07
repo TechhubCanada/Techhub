@@ -9,6 +9,19 @@ import { WebMCPProvider } from "@lib/webmcp/WebMCPProvider"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/favicon.ico",
+        sizes: "any",
+      },
+    ],
+    shortcut: "/favicon.svg",
+  },
 }
 
 const monaSans = Mona_Sans({
