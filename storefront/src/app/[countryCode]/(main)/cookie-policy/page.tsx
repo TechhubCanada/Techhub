@@ -1,13 +1,13 @@
 import { Metadata } from "next"
 import { Layout, LayoutColumn } from "@/components/Layout"
-import { listRegionCountryCodes } from "@lib/data/regions"
+import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
 }
 
 export async function generateStaticParams() {
-  const countryCodes = await listRegionCountryCodes()
+  const countryCodes = getStaticCountryCodes()
 
   const staticParams = countryCodes.map((countryCode) => ({
     countryCode,

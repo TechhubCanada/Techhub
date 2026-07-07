@@ -18,11 +18,13 @@ export const listRegionsSafe = async function () {
   try {
     return await listRegions()
   } catch (error) {
-    console.error(
-      `Failed to list regions: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }.`
-    )
+    if (process.env.NODE_ENV !== "production") {
+      console.error(
+        `Failed to list regions: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }.`
+      )
+    }
     return []
   }
 }

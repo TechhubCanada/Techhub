@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { listRegionCountryCodes } from "@lib/data/regions"
+import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Learn how we protect your privacy",
 }
 export async function generateStaticParams() {
-  const countryCodes = await listRegionCountryCodes()
+  const countryCodes = getStaticCountryCodes()
 
   const staticParams = countryCodes.map((countryCode) => ({
     countryCode,

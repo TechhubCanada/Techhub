@@ -1,12 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import {
-  getCollectionByHandle,
-  getCollectionsList,
-} from "@lib/data/collections"
-import { listRegionCountryCodes } from "@lib/data/regions"
-import { StoreCollection } from "@medusajs/types"
+import { getCollectionByHandle } from "@lib/data/collections"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { collectionMetadataCustomFieldsSchema } from "@lib/util/collections"
@@ -22,37 +17,7 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  try {
-    const { collections } = await getCollectionsList()
-
-    if (!collections) {
-      return []
-    }
-
-    const countryCodes = await listRegionCountryCodes()
-
-    const collectionHandles = collections.map(
-      (collection: StoreCollection) => collection.handle
-    )
-
-    const staticParams = countryCodes
-      ?.map((countryCode: string) =>
-        collectionHandles.map((handle: string | undefined) => ({
-          countryCode,
-          handle,
-        }))
-      )
-      .flat()
-
-    return staticParams
-  } catch (error) {
-    console.error(
-      `Failed to generate static paths for collection pages: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }.`
-    )
-    return []
-  }
+  return []
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

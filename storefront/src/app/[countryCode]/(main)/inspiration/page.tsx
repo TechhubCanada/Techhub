@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import Image from "next/image"
-import { listRegionCountryCodes } from "@lib/data/regions"
+import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  const countryCodes = await listRegionCountryCodes()
+  const countryCodes = getStaticCountryCodes()
 
   const staticParams = countryCodes.map((countryCode) => ({
     countryCode,
