@@ -11,7 +11,7 @@ export const CollectionsSection: React.FC<{ className?: string }> = async ({
     "title",
     "handle",
     "metadata",
-  ])
+  ]).catch(() => null)
 
   if (!collections) {
     return null

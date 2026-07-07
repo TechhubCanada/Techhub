@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import Image from "next/image"
-import { getRegion } from "@lib/data/regions"
 import { getProductTypesList } from "@lib/data/product-types"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
@@ -17,7 +16,7 @@ const ProductTypesSection: React.FC = async () => {
     "id",
     "value",
     "metadata",
-  ])
+  ]).catch(() => null)
 
   if (!productTypes) {
     return null
@@ -55,18 +54,7 @@ const ProductTypesSection: React.FC = async () => {
   )
 }
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ countryCode: string }>
-}) {
-  const { countryCode } = await params
-  const region = await getRegion(countryCode)
-
-  if (!region) {
-    return null
-  }
-
+export default async function Home() {
   return (
     <>
       <div className="max-md:pt-18">

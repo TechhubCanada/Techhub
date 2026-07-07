@@ -9,17 +9,27 @@ const codespaceHost =
     ? `${process.env.CODESPACE_NAME}-8000.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`
     : undefined
 
+const isDevelopment = process.env.NODE_ENV !== "production"
+const devActionOrigins = isDevelopment
+  ? ["localhost:8000", ...(codespaceHost ? [codespaceHost] : [])]
+  : []
+
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
   reactStrictMode: true,
-  allowedDevOrigins: codespaceHost ? [`https://${codespaceHost}`] : undefined,
+  allowedDevOrigins: isDevelopment
+    ? [
+        "http://localhost:8000",
+        ...(codespaceHost ? [`https://${codespaceHost}`] : []),
+      ]
+    : undefined,
   experimental: {
     staticGenerationRetryCount: 3,
     staticGenerationMaxConcurrency: 1,
     serverActions: {
-      allowedOrigins: codespaceHost ? [codespaceHost] : [],
+      allowedOrigins: devActionOrigins,
     },
   },
   images: {

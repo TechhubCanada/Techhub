@@ -1,5 +1,6 @@
 import * as React from "react"
 import { listRegionsSafe } from "@lib/data/regions"
+import { getDefaultCountryCode } from "@lib/util/static-country-codes"
 import { SearchField } from "@/components/SearchField"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
@@ -33,6 +34,16 @@ export const Header: React.FC = async () => {
     .flat()
     .sort((a, b) => (a?.label ?? "").localeCompare(b?.label ?? ""))
 
+  const resolvedCountryOptions = countryOptions.length
+    ? countryOptions
+    : [
+        {
+          country: getDefaultCountryCode(),
+          region: "",
+          label: "Canada",
+        },
+      ]
+
   return (
     <>
       <HeaderWrapper>
@@ -49,13 +60,13 @@ export const Header: React.FC = async () => {
               </div>
               <div className="flex items-center gap-3 lg:gap-6 max-md:hidden">
                 <RegionSwitcher
-                  countryOptions={countryOptions}
+                  countryOptions={resolvedCountryOptions}
                   className="w-16"
                   selectButtonClassName="h-auto !gap-0 !p-1 transition-none"
                   selectIconClassName="text-current"
                 />
                 <React.Suspense>
-                  <SearchField countryOptions={countryOptions} />
+                  <SearchField countryOptions={resolvedCountryOptions} />
                 </React.Suspense>
                 <LoginLink className="p-1 group-data-[light=true]:md:text-white group-data-[sticky=true]:md:text-black" />
                 <CartDrawer />
@@ -64,7 +75,7 @@ export const Header: React.FC = async () => {
                 <LoginLink className="p-1 group-data-[light=true]:md:text-white" />
                 <CartDrawer />
                 <React.Suspense>
-                  <HeaderDrawer countryOptions={countryOptions} />
+                  <HeaderDrawer countryOptions={resolvedCountryOptions} />
                 </React.Suspense>
               </div>
             </div>
