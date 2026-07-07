@@ -79,16 +79,16 @@ async function getCountryCode(
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.error(
-        "Middleware.ts: Error getting the country code. Did you set up regions in your Medusa Admin and define a NEXT_PUBLIC_MEDUSA_BACKEND_URL environment variable?"
+        "proxy.ts: Error getting the country code. Did you set up regions in your Medusa Admin and define a NEXT_PUBLIC_MEDUSA_BACKEND_URL environment variable?"
       )
     }
   }
 }
 
 /**
- * Middleware to handle region selection and onboarding status.
+ * Proxy to handle region selection and onboarding status.
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const regionMap = await getRegionMap()
   const countryCode = regionMap && (await getCountryCode(request, regionMap))
 
