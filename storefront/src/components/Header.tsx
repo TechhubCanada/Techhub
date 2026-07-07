@@ -1,5 +1,5 @@
 import * as React from "react"
-import { listRegions } from "@lib/data/regions"
+import { listRegionsSafe } from "@lib/data/regions"
 import { SearchField } from "@/components/SearchField"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
@@ -20,7 +20,7 @@ const CartDrawer = dynamic(
 )
 
 export const Header: React.FC = async () => {
-  const regions = await listRegions()
+  const regions = await listRegionsSafe()
 
   const countryOptions = regions
     .map((r) => {

@@ -14,6 +14,19 @@ export const listRegions = async function () {
     .catch(medusaError)
 }
 
+export const listRegionsSafe = async function () {
+  try {
+    return await listRegions()
+  } catch (error) {
+    console.error(
+      `Failed to list regions: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }.`
+    )
+    return []
+  }
+}
+
 export const retrieveRegion = async function (id: string) {
   return sdk.client
     .fetch<{ region: HttpTypes.StoreRegion }>(`/store/regions/${id}`, {
@@ -23,6 +36,21 @@ export const retrieveRegion = async function (id: string) {
     })
     .then(({ region }) => region)
     .catch(medusaError)
+}
+
+export const listRegionCountryCodes = async function () {
+  const regions = await listRegionsSafe()
+
+  return regions.flatMap((region) =>
+    region.countries
+      ? region.countries
+          .map((country) => country.iso_2)
+          .filter(
+            (value): value is string =>
+              typeof value === "string" && Boolean(value)
+          )
+      : []
+  )
 }
 
 const regionMap = new Map<string, HttpTypes.StoreRegion>()

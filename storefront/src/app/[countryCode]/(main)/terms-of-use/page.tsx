@@ -1,6 +1,5 @@
 import { Metadata } from "next"
-import { StoreRegion } from "@medusajs/types"
-import { listRegions } from "@lib/data/regions"
+import { listRegionCountryCodes } from "@lib/data/regions"
 import { Layout, LayoutColumn } from "@/components/Layout"
 
 export const metadata: Metadata = {
@@ -8,18 +7,7 @@ export const metadata: Metadata = {
   description: "Learn about our terms of use",
 }
 export async function generateStaticParams() {
-  const countryCodes = await listRegions().then((regions: StoreRegion[]) =>
-    regions.flatMap((r) =>
-      r.countries
-        ? r.countries
-            .map((c) => c.iso_2)
-            .filter(
-              (value): value is string =>
-                typeof value === "string" && Boolean(value)
-            )
-        : []
-    )
-  )
+  const countryCodes = await listRegionCountryCodes()
 
   const staticParams = countryCodes.map((countryCode) => ({
     countryCode,

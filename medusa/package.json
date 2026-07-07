@@ -55,7 +55,7 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": "22.x"
+    "node": ">=22 <25"
   },
   "packageManager": "pnpm@10.32.1"
 }

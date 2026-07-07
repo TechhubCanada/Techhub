@@ -2,8 +2,77 @@ const { loadEnv, defineConfig } = require('@medusajs/framework/utils');
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
+const getMeilisearchHost = () => {
+  const host = process.env.MEILISEARCH_HOST;
+  const port = process.env.MEILISEARCH_PORT;
+
+  if (!host) {
+    return 'https://fashion-starter-search.agilo.agency';
+  }
+
+  if (!port) {
+    return host;
+  }
+
+  const hasProtocol = /^[a-zA-Z][a-zA-Z\d+.-]*:\/\//.test(host);
+  const url = new URL(hasProtocol ? host : `http://${host}`);
+
+  if (!url.port) {
+    url.port = port;
+  }
+
+  return url.toString().replace(/\/$/, '');
+};
+
+const corsOrigins = (...origins) => {
+  return origins
+    .filter(Boolean)
+    .map((origin) => {
+      if (/^\/.+\/$/.test(origin)) {
+        return origin;
+      }
+
+      return origin.replace(/\/$/, '');
+    })
+    .join(',');
+};
+
+const defaultStoreCors = corsOrigins(
+  'http://localhost:8000',
+  'http://127.0.0.1:8000',
+  'https://techhubcanada.com',
+  'https://www.techhubcanada.com',
+  '/https:\\/\\/.*\\.vercel\\.app$/',
+  '/https:\\/\\/.*\\.app\\.github\\.dev$/',
+  process.env.STOREFRONT_URL,
+  process.env.NEXT_PUBLIC_BASE_URL,
+  process.env.RAILWAY_PUBLIC_DOMAIN
+    ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+    : undefined,
+);
+
+const defaultAdminCors = corsOrigins(
+  'http://localhost:7000',
+  'http://localhost:7001',
+  'http://localhost:9000',
+  'http://127.0.0.1:7000',
+  'http://127.0.0.1:7001',
+  'http://127.0.0.1:9000',
+  'https://admin.techhubcanada.com',
+  'https://manage.techhubcanada.com',
+  '/https:\\/\\/.*\\.vercel\\.app$/',
+  '/https:\\/\\/.*\\.app\\.github\\.dev$/',
+  process.env.BACKEND_URL,
+  process.env.RAILWAY_PUBLIC_DOMAIN
+    ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+    : undefined,
+);
+
+const defaultAuthCors = corsOrigins(defaultAdminCors, defaultStoreCors);
+
 module.exports = defineConfig({
   admin: {
+    disable: process.env.DISABLE_MEDUSA_ADMIN === 'true',
     backendUrl:
       process.env.BACKEND_URL ?? 'https://sofa-society-starter.medusajs.app',
     storefrontUrl: process.env.STOREFRONT_URL,
@@ -11,10 +80,11 @@ module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     redisUrl: process.env.REDIS_URL,
+    workerMode: process.env.MEDUSA_WORKER_MODE,
     http: {
-      storeCors: process.env.STORE_CORS,
-      adminCors: process.env.ADMIN_CORS,
-      authCors: process.env.AUTH_CORS,
+      storeCors: process.env.STORE_CORS || defaultStoreCors,
+      adminCors: process.env.ADMIN_CORS || defaultAdminCors,
+      authCors: process.env.AUTH_CORS || defaultAuthCors,
       jwtSecret: process.env.JWT_SECRET || 'supersecret',
       cookieSecret: process.env.COOKIE_SECRET || 'supersecret',
       jwtExpiresIn: process.env.JWT_EXPIRES_IN || '24h',
@@ -145,9 +215,7 @@ module.exports = defineConfig({
        */
       options: {
         config: {
-          host:
-            process.env.MEILISEARCH_HOST ??
-            'https://fashion-starter-search.agilo.agency',
+          host: getMeilisearchHost(),
           apiKey: process.env.MEILISEARCH_API_KEY,
         },
         settings: {

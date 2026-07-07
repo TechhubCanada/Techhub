@@ -1,14 +1,21 @@
 import { HttpTypes } from "@medusajs/types"
-import { notFound } from "next/navigation"
 import { NextRequest, NextResponse } from "next/server"
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
+type RegionMap = Map<string, HttpTypes.StoreRegion | number>
 
 const regionMapCache = {
-  regionMap: new Map<string, HttpTypes.StoreRegion>(),
+  regionMap: new Map<string, HttpTypes.StoreRegion | number>(),
   regionMapUpdated: Date.now(),
+}
+
+function setDefaultRegionFallback() {
+  regionMapCache.regionMap = new Map([[DEFAULT_REGION, 1]])
+  regionMapCache.regionMapUpdated = Date.now()
+
+  return regionMapCache.regionMap
 }
 
 async function getRegionMap() {
@@ -18,29 +25,61 @@ async function getRegionMap() {
     !regionMap.keys().next().value ||
     regionMapUpdated < Date.now() - 3600 * 1000
   ) {
-    // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
-      headers: {
-        "x-publishable-api-key": PUBLISHABLE_API_KEY!,
-      },
-      next: {
-        revalidate: 3600,
-        tags: ["regions"],
-      },
-    }).then((res) => res.json())
-
-    if (!regions?.length) {
-      notFound()
+    if (!BACKEND_URL || !PUBLISHABLE_API_KEY) {
+      return setDefaultRegionFallback()
     }
 
-    // Create a map of country codes to regions.
-    regions.forEach((region: HttpTypes.StoreRegion) => {
-      region.countries?.forEach((c) => {
-        regionMapCache.regionMap.set(c.iso_2 ?? "", region)
+    try {
+      // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
+      const response = await fetch(`${BACKEND_URL}/store/regions`, {
+        headers: {
+          "x-publishable-api-key": PUBLISHABLE_API_KEY,
+        },
+        next: {
+          revalidate: 3600,
+          tags: ["regions"],
+        },
       })
-    })
 
-    regionMapCache.regionMapUpdated = Date.now()
+      if (!response.ok) {
+        throw new Error(`Medusa returned ${response.status}`)
+      }
+
+      const contentType = response.headers.get("content-type")
+
+      if (!contentType?.includes("application/json")) {
+        throw new Error("Medusa returned a non-JSON response")
+      }
+
+      const { regions } = await response.json()
+
+      if (!regions?.length) {
+        return setDefaultRegionFallback()
+      }
+
+      regionMapCache.regionMap.clear()
+
+      // Create a map of country codes to regions.
+      regions.forEach((region: HttpTypes.StoreRegion) => {
+        region.countries?.forEach((c) => {
+          regionMapCache.regionMap.set(c.iso_2 ?? "", region)
+        })
+      })
+
+      if (!regionMapCache.regionMap.size) {
+        return setDefaultRegionFallback()
+      }
+
+      regionMapCache.regionMapUpdated = Date.now()
+    } catch (error) {
+      console.error(
+        `proxy.ts: Failed to load regions from Medusa: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }. Falling back to ${DEFAULT_REGION}.`
+      )
+
+      return setDefaultRegionFallback()
+    }
   }
 
   return regionMapCache.regionMap
@@ -53,7 +92,7 @@ async function getRegionMap() {
  */
 async function getCountryCode(
   request: NextRequest,
-  regionMap: Map<string, HttpTypes.StoreRegion | number>
+  regionMap: RegionMap
 ) {
   try {
     let countryCode
