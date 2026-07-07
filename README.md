@@ -139,6 +139,30 @@ Important values to configure before production:
 - `MEILISEARCH_MASTER_KEY`
 - `NEXT_PUBLIC_SEARCH_API_KEY`
 
+### Cloudflare R2 File Storage
+
+Medusa uses the S3-compatible file provider for product images and uploaded files. Local development can use the MinIO values in `medusa/.env.template`; production should set Cloudflare R2 values in Railway for the Medusa service.
+
+Use these variables in Railway:
+
+```env
+S3_FILE_URL=https://YOUR_PUBLIC_R2_DEV_OR_CUSTOM_DOMAIN
+S3_ACCESS_KEY_ID=YOUR_R2_ACCESS_KEY_ID
+S3_SECRET_ACCESS_KEY=YOUR_R2_SECRET_ACCESS_KEY
+S3_REGION=auto
+S3_BUCKET=YOUR_R2_BUCKET
+S3_ENDPOINT=https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
+S3_FORCE_PATH_STYLE=true
+```
+
+`S3_FILE_URL` must be the public bucket URL, such as the Cloudflare `r2.dev` public URL or a custom domain like `https://files.techhubcanada.com`. Do not use the private `r2.cloudflarestorage.com` API endpoint for `S3_FILE_URL`.
+
+`S3_ENDPOINT` must be the private R2 S3 API endpoint without the bucket path:
+
+```env
+S3_ENDPOINT=https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
+```
+
 ## Useful Commands
 
 Root monorepo commands:
