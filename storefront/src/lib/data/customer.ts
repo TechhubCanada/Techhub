@@ -19,6 +19,19 @@ import {
   updateCustomerFormSchema,
 } from "hooks/customer"
 
+type AuthRedirectResponse = {
+  location: string
+}
+
+function isAuthRedirectResponse(response: unknown): response is AuthRedirectResponse {
+  return (
+    typeof response === "object" &&
+    response !== null &&
+    "location" in response &&
+    typeof response.location === "string"
+  )
+}
+
 export const getCustomer = async function () {
   return await sdk.client
     .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
@@ -46,13 +59,13 @@ export const updateCustomer = async function (
       await getAuthHeaders()
     )
     .then(() => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return {
         state: "success" as const,
       }
     })
     .catch(() => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return {
         state: "error" as const,
         error: "Failed to update customer personal information",
@@ -85,10 +98,14 @@ export async function signup(formData: z.infer<typeof signupFormSchema>) {
       password: formData.password,
     })
 
-    if (typeof loginToken === "object") {
+    if (isAuthRedirectResponse(loginToken)) {
       redirect(loginToken.location)
 
       return { success: true, customer: createdCustomer }
+    }
+
+    if (typeof loginToken === "object") {
+      throw new Error("Additional authentication steps are required")
     }
 
     await setAuthToken(loginToken)
@@ -98,12 +115,12 @@ export async function signup(formData: z.infer<typeof signupFormSchema>) {
       headers: await getAuthHeaders(),
     })
 
-    revalidateTag("customer")
+    revalidateTag("customer", { expire: 0 })
 
     const cartId = await getCartId()
     if (cartId) {
       await sdk.store.cart.transferCart(cartId, {}, await getAuthHeaders())
-      revalidateTag("cart")
+      revalidateTag("cart", { expire: 0 })
     }
 
     return { success: true, customer: createdCustomer }
@@ -124,17 +141,21 @@ export async function login(formData: z.infer<typeof loginFormSchema>) {
       password: formData.password,
     })
 
-    if (typeof token === "object") {
+    if (isAuthRedirectResponse(token)) {
       return { success: true, redirectUrl: token.location }
     }
 
+    if (typeof token === "object") {
+      throw new Error("Additional authentication steps are required")
+    }
+
     await setAuthToken(token)
-    revalidateTag("customer")
+    revalidateTag("customer", { expire: 0 })
 
     const cartId = await getCartId()
     if (cartId) {
       await sdk.store.cart.transferCart(cartId, {}, await getAuthHeaders())
-      revalidateTag("cart")
+      revalidateTag("cart", { expire: 0 })
     }
     return { success: true, redirectUrl: redirectUrl || "/" }
   } catch (error) {
@@ -148,7 +169,7 @@ export async function login(formData: z.infer<typeof loginFormSchema>) {
 export async function signout(countryCode: string) {
   await sdk.auth.logout()
   await removeAuthToken()
-  revalidateTag("customer")
+  revalidateTag("customer", { expire: 0 })
   return countryCode
 }
 
@@ -173,7 +194,7 @@ export const addCustomerAddress = async (
       await getAuthHeaders()
     )
     .then(({ customer }) => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return {
         addressId: customer.addresses[customer.addresses.length - 1].id,
         success: true,
@@ -181,7 +202,7 @@ export const addCustomerAddress = async (
       }
     })
     .catch((err) => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { addressId: "", success: false, error: err.toString() }
     })
 }
@@ -201,7 +222,7 @@ export const deleteCustomerAddress = async (
     .catch((err) => {
       return { success: false, error: err.toString() }
     })
-  revalidateTag("customer")
+  revalidateTag("customer", { expire: 0 })
 }
 
 export const updateCustomerAddress = async (
@@ -231,11 +252,11 @@ export const updateCustomerAddress = async (
       await getAuthHeaders()
     )
     .then(() => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { addressId, success: true, error: null }
     })
     .catch((err) => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { addressId, success: false, error: err.toString() }
     })
 }
@@ -372,11 +393,11 @@ export async function updateDefaultShippingAddress(addressId: string) {
       await getAuthHeaders()
     )
     .then(() => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { success: true, error: null }
     })
     .catch((err) => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { success: false, error: err.toString() }
     })
 }
@@ -396,11 +417,11 @@ export async function updateDefaultBillingAddress(addressId: string) {
       await getAuthHeaders()
     )
     .then(() => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { success: true, error: null }
     })
     .catch((err) => {
-      revalidateTag("customer")
+      revalidateTag("customer", { expire: 0 })
       return { success: false, error: err.toString() }
     })
 }
