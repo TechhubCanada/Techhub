@@ -1,0 +1,14 @@
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Starter/project tooling
+.DS_Store
+.agents/
+node_modules/
+**/.turbo/
+pnpm-debug.log*
+
+# Local Codex config
+.codex/

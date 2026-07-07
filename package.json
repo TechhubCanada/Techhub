@@ -1,0 +1,35 @@
+{
+  "name": "techhub-canada-redesign",
+  "private": true,
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "dev": "turbo dev --parallel",
+    "dev:medusa": "turbo dev --filter=@techhub/medusa",
+    "dev:storefront": "turbo dev --filter=@techhub/storefront",
+    "build": "turbo build",
+    "build:medusa": "turbo build --filter=@techhub/medusa",
+    "build:storefront": "turbo build --filter=@techhub/storefront",
+    "lint": "turbo lint",
+    "review:graph": "node scripts/code-review-graph.mjs",
+    "seed": "turbo seed --filter=@techhub/medusa",
+    "test:medusa": "turbo test:unit --filter=@techhub/medusa",
+    "test:e2e": "turbo test-e2e --filter=@techhub/storefront"
+  },
+  "pnpm": {
+    "overrides": {
+      "webpack": "^5"
+    },
+    "onlyBuiltDependencies": [
+      "@medusajs/telemetry",
+      "@swc/core",
+      "esbuild",
+      "msgpackr-extract",
+      "protobufjs",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "devDependencies": {
+    "turbo": "^2.10.4"
+  }
+}

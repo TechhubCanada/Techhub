@@ -1,0 +1,44 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".medusa/**",
+        "build/**",
+        "dist/**"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputs": []
+    },
+    "seed": {
+      "cache": false
+    },
+    "test:unit": {
+      "outputs": ["coverage/**"]
+    },
+    "test-e2e": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "outputs": [
+        "playwright-report/**",
+        "test-results/**"
+      ]
+    },
+    "emails:dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
