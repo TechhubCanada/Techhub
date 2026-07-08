@@ -15,6 +15,7 @@ export function Pagination({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const currentPage = Math.min(Math.max(page, 1), totalPages)
 
   // Helper function to generate an array of numbers within a range
   const arrayRange = (start: number, stop: number) =>
@@ -65,41 +66,43 @@ export function Pagination({
       // Show all pages
       buttons.push(
         ...arrayRange(1, totalPages).map((p) =>
-          renderPageButton(p, p, p === page)
+          renderPageButton(p, p, p === currentPage)
         )
       )
     } else {
       // Handle different cases for displaying pages and ellipses
-      if (page <= 4) {
+      if (currentPage <= 4) {
         // Show 1, 2, 3, 4, 5, ..., lastpage
         buttons.push(
-          ...arrayRange(1, 5).map((p) => renderPageButton(p, p, p === page))
+          ...arrayRange(1, 5).map((p) =>
+            renderPageButton(p, p, p === currentPage)
+          )
         )
         buttons.push(renderEllipsis("ellipsis1"))
         buttons.push(
-          renderPageButton(totalPages, totalPages, totalPages === page)
+          renderPageButton(totalPages, totalPages, totalPages === currentPage)
         )
-      } else if (page >= totalPages - 3) {
+      } else if (currentPage >= totalPages - 3) {
         // Show 1, ..., lastpage - 4, lastpage - 3, lastpage - 2, lastpage - 1, lastpage
-        buttons.push(renderPageButton(1, 1, 1 === page))
+        buttons.push(renderPageButton(1, 1, 1 === currentPage))
         buttons.push(renderEllipsis("ellipsis2"))
         buttons.push(
           ...arrayRange(totalPages - 4, totalPages).map((p) =>
-            renderPageButton(p, p, p === page)
+            renderPageButton(p, p, p === currentPage)
           )
         )
       } else {
         // Show 1, ..., page - 1, page, page + 1, ..., lastpage
-        buttons.push(renderPageButton(1, 1, 1 === page))
+        buttons.push(renderPageButton(1, 1, 1 === currentPage))
         buttons.push(renderEllipsis("ellipsis3"))
         buttons.push(
-          ...arrayRange(page - 1, page + 1).map((p) =>
-            renderPageButton(p, p, p === page)
+          ...arrayRange(currentPage - 1, currentPage + 1).map((p) =>
+            renderPageButton(p, p, p === currentPage)
           )
         )
         buttons.push(renderEllipsis("ellipsis4"))
         buttons.push(
-          renderPageButton(totalPages, totalPages, totalPages === page)
+          renderPageButton(totalPages, totalPages, totalPages === currentPage)
         )
       }
     }
@@ -109,10 +112,16 @@ export function Pagination({
 
   // Render the component
   return (
-    <div className="flex justify-center w-full mt-12">
+    <nav
+      className="flex flex-col items-center justify-center w-full mt-12 gap-3"
+      aria-label="Product pagination"
+    >
+      <p className="txt-small text-fg-muted dark:text-fg-muted-dark">
+        Page {currentPage} of {totalPages}
+      </p>
       <div className="flex gap-2 items-end" data-testid={dataTestid}>
         {renderPageButtons()}
       </div>
-    </div>
+    </nav>
   )
 }

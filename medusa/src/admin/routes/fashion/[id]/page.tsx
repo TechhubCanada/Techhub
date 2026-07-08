@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { z } from 'zod';
-import { useParams } from 'react-router-dom';
 import {
   Container,
   Heading,
@@ -22,7 +21,6 @@ import {
   ArrowPath,
 } from '@medusajs/icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
 
 import type { MaterialModelType } from '../../../../modules/fashion/models/material';
 import { ColorModelType } from '../../../../modules/fashion/models/color';
@@ -31,6 +29,7 @@ import { Form } from '../../../components/Form/Form';
 import { InputField } from '../../../components/Form/InputField';
 import { EditMaterialDrawer } from '../../../components/EditMaterialDrawer';
 import { withQueryClient } from '../../../components/QueryClientProvider';
+import { getAdminPathParam, useAdminSearchParams } from '../../../utils/routing';
 
 const colorFormSchema = z.object({
   name: z.string().min(1),
@@ -215,7 +214,7 @@ const RestoreColorPrompt: React.FC<{
 };
 
 const MaterialColors: React.FC<{ materialId: string }> = ({ materialId }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useAdminSearchParams();
   const page = Number(searchParams.get('page')) || 1;
   const setPage = React.useCallback(
     (page: number) => {
@@ -464,7 +463,7 @@ const MaterialColors: React.FC<{ materialId: string }> = ({ materialId }) => {
 };
 
 const MaterialPage = () => {
-  const { id } = useParams();
+  const id = getAdminPathParam('fashion');
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ['fashion', id],
     queryFn: async () => {

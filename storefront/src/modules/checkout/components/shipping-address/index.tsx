@@ -3,6 +3,7 @@ import React, { useEffect, useMemo } from "react"
 import * as ReactAria from "react-aria-components"
 
 import compareAddresses from "@lib/util/compare-addresses"
+import { isCheckoutAddressComplete } from "@modules/checkout/components/address-completeness"
 import { UpsertAddressForm } from "@modules/account/components/UpsertAddressForm"
 import { CountrySelectField, InputField } from "@/components/Forms"
 import { UiDialogTrigger, UiDialog, UiCloseButton } from "@/components/Dialog"
@@ -19,34 +20,6 @@ import {
 } from "@/components/ui/Checkbox"
 import { useFormContext, useWatch } from "react-hook-form"
 
-const isShippingAddressEmpty = (formData: {
-  shipping_address?: Pick<
-    HttpTypes.StoreCartAddress,
-    | "first_name"
-    | "last_name"
-    | "address_1"
-    | "address_2"
-    | "company"
-    | "postal_code"
-    | "city"
-    | "country_code"
-    | "province"
-    | "phone"
-  >
-}) => {
-  return (
-    !formData?.shipping_address?.first_name &&
-    !formData?.shipping_address?.last_name &&
-    !formData?.shipping_address?.address_1 &&
-    !formData?.shipping_address?.address_2 &&
-    !formData?.shipping_address?.company &&
-    !formData?.shipping_address?.postal_code &&
-    !formData?.shipping_address?.city &&
-    !formData?.shipping_address?.country_code &&
-    !formData?.shipping_address?.province &&
-    !formData?.shipping_address?.phone
-  )
-}
 // import AddressSelect from "../address-select"
 
 const ShippingAddress = ({
@@ -100,6 +73,7 @@ const ShippingAddress = ({
         first_name: address?.first_name || "",
         last_name: address?.last_name || "",
         address_1: address?.address_1 || "",
+        address_2: address?.address_2 || "",
         company: address?.company || "",
         postal_code: address?.postal_code || "",
         city: address?.city || "",
@@ -113,7 +87,7 @@ const ShippingAddress = ({
   useEffect(() => {
     // Ensure cart is not null and has a shipping_address before setting form data
     if (cart) {
-      if (cart.shipping_address) {
+      if (isCheckoutAddressComplete(cart.shipping_address)) {
         setFormAddress(cart.shipping_address)
       } else if (
         // If customer has saved addresses in the region and form data is empty
@@ -121,7 +95,7 @@ const ShippingAddress = ({
         customer &&
         addressesInRegion &&
         addressesInRegion.length &&
-        isShippingAddressEmpty(formData)
+        !isCheckoutAddressComplete(formData?.shipping_address)
       ) {
         const defaultShippingAddress =
           addressesInRegion.find((a) => a.is_default_shipping) ||
@@ -156,7 +130,7 @@ const ShippingAddress = ({
     <>
       {customer &&
       (addressesInRegion?.length || 0) > 0 &&
-      !isShippingAddressEmpty(formData) ? (
+      isCheckoutAddressComplete(formData?.shipping_address) ? (
         <div className="w-full border border-grayscale-200 rounded-xs p-4 flex flex-wrap gap-8 max-lg:flex-col mb-8">
           <div className="flex flex-1 gap-8">
             <Icon name="user" className="w-6 h-6 mt-2.5" />
@@ -203,7 +177,7 @@ const ShippingAddress = ({
             </Button>
             <UiModalOverlay>
               <UiModal>
-                <UiDialog>
+                <UiDialog aria-label="Change shipping address">
                   <p className="text-md mb-10">Change address</p>
                   <ReactAria.RadioGroup
                     className="flex flex-col gap-4 mb-10"
@@ -296,7 +270,7 @@ const ShippingAddress = ({
                       <Button>Add new address</Button>
                       <UiModalOverlay>
                         <UiModal>
-                          <UiDialog>
+                          <UiDialog aria-label="Add shipping address">
                             <UpsertAddressForm
                               region={cart?.region}
                               defaultValues={{ country_code: countryCode }}

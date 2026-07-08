@@ -9,6 +9,7 @@ This repository contains a Tech Hub Canada ecommerce redesign with a Medusa 2 ba
 Use `pnpm` as the root package manager. Run workspace commands from the repository root through Turborepo.
 
 - `corepack enable`: enable package-manager shims.
+- `sudo apt-get update && sudo apt-get install -y ripgrep`: install `rg` when it is missing in fresh Ubuntu/Codespaces environments.
 - `cd medusa && docker compose up -d`: start local backend services.
 - `pnpm install`: install all workspace dependencies.
 - `pnpm dev`: run backend and storefront development tasks through Turbo.
@@ -34,7 +35,11 @@ The Git history only contains an initial commit, so use concise imperative subje
 
 ## Agent-Specific Instructions
 
-Gortex is the main code navigation and impact-analysis system. Use Gortex first for broad file reads, edits, symbol search, summaries, callers, dependency context, and code review impact checks. The local code review graph is only a backup when Gortex is unavailable or not responding. In that fallback case, do not fall back to only reading package scripts; run `pnpm review:graph` and use its output as the backup navigation map: changed files, impacted workspaces, package scripts, imports from changed source files, Turbo build tasks, and suggested verification. Then use local tools such as `git diff`, `git status --short`, `find`, `grep`, `pnpm turbo run build --dry=json`, and focused file reads to continue. Use installed Medusa skills for backend, storefront, migration, and Medusa Cloud work; source guidance comes from https://docs.medusajs.com/learn/introduction/build-with-llms-ai/agentic-skills. For storefront UI changes, use the Playwright/browser skills or a local browser at `http://localhost:8000` to confirm rendering, interactions, and screenshots. Use `pnpm` in examples and automation.
+Gortex is the mandatory main code navigation and impact-analysis system. Use Gortex first for broad file reads, edits, symbol search, summaries, callers, dependency context, and code review impact checks; do not bypass it when it is available. Prefer Gortex MCP tools when they are available; use `tools_search` to promote deferred Gortex schemas when a named tool is not initially visible. Start broad work with `smart_context`; use `winnow_symbols` or `graph_completion_search` for symbol discovery, `batch_symbols` for source plus caller/callee context, `find_usages` or `check_references` for references, `get_edit_plan` for multi-file edit impact, and `edit_file`/`batch_edit` for graph-aware writes. Otherwise use the Gortex CLI, such as `gortex context`, `gortex query`, `gortex wakeup`, or `gortex review`, before falling back to shell-only navigation. The local code review graph is only a backup when Gortex is unavailable or not responding. In that fallback case, do not fall back to only reading package scripts; run `pnpm review:graph` and use its output as the backup navigation map: changed files, impacted workspaces, package scripts, imports from changed source files, Turbo build tasks, and suggested verification. Then use local tools such as `git diff`, `git status --short`, `find`, `grep`, `pnpm turbo run build --dry=json`, and focused file reads to continue. Agent Browser (`agent-browser`) is the preferred browser automation path. If a direct `agent-browser` tool namespace is exposed, use it; otherwise use the `agent-browser` CLI (`agent-browser skills get core --full`, then `agent-browser open`, `agent-browser snapshot`, `agent-browser screenshot`, and related commands). Fall back to installed Playwright/browser skills or Playwright CLI only when `agent-browser` is missing, failing, or the task explicitly requires Playwright test execution, and report the fallback used. Use installed Medusa skills for backend, storefront, migration, and Medusa Cloud work; source guidance comes from https://docs.medusajs.com/learn/introduction/build-with-llms-ai/agentic-skills. For storefront UI changes, use `agent-browser` at `http://localhost:8000` to confirm rendering, interactions, and screenshots; use Playwright only under the fallback rule above. Use `pnpm` in examples and automation. All agents must use `.agents/skills/documenting-changes` before finalizing repository changes; update the relevant README, the root README `Documentation version:`, docs under `docs/`, and reusable skills whenever the change affects code, configuration, workflow, dependencies, user-visible behavior, or agent behavior.
+
+Do not start, stop, restart, or kill backend, storefront, database, or tunnel/dev server processes unless the user explicitly asks for that action in the current turn. If verification would normally require a server lifecycle change, report the required command and wait for permission.
+
+Codex should keep this workspace trusted and configured with Gortex enabled. The expected local Codex baseline is `model_provider = 'g0i'`, `model = 'gpt-5.5'`, `model_context_window = 1050000`, `model_auto_compact_token_limit = 525000`, and `model_catalog_json = '/home/codespace/.codex/model-catalogs/g0i-gpt55-1m.json'`. The expected `g0i` provider resilience settings are `request_max_retries = 12`, `stream_max_retries = 16`, and `stream_idle_timeout_ms = 3600000`; keep these high enough for long Codex responses that may reconnect before `response.completed`. The compact threshold is 50% of the 1.05M context window, and the model catalog override makes Codex status/debug views report the same 1.05M effective window.
 
 ## Security & Configuration Tips
 
@@ -46,13 +51,14 @@ Do not commit secrets. Keep real `.env*` files ignored by Git; do not remove env
 
 | Area | Description | Skill |
 |------|-------------|-------|
-| Components 12 Dirs | 220 symbols | `/gortex-components-12-dirs` |
-| Components 36 Dirs | 125 symbols | `/gortex-components-36-dirs` |
-| Admin Fashion 8 Dirs | 105 symbols | `/gortex-admin-fashion-8-dirs` |
-| Components Icons 14 Dirs | 104 symbols | `/gortex-components-icons-14-dirs` |
-| Components Ui 15 Dirs | 102 symbols | `/gortex-components-ui-15-dirs` |
+| Components 13 Dirs | 226 symbols | `/gortex-components-13-dirs` |
+| Medusa Types 1 Dirs | 155 symbols | `/gortex-medusa-types-1-dirs` |
+| Components 38 Dirs | 143 symbols | `/gortex-components-38-dirs` |
+| Modules Fashion 8 Dirs | 105 symbols | `/gortex-modules-fashion-8-dirs` |
+| Components Ui 15 Dirs | 91 symbols | `/gortex-components-ui-15-dirs` |
 | E2e Fixtures Checkoutpage | 91 symbols | `/gortex-e2e-fixtures-checkoutpage` |
-| Fashion Id 2 Dirs | 74 symbols | `/gortex-fashion-id-2-dirs` |
+| Components Icons 9 Dirs | 86 symbols | `/gortex-components-icons-9-dirs` |
+| Workflows 6 Dirs | 85 symbols | `/gortex-workflows-6-dirs` |
 | Account Components 9 Dirs | 70 symbols | `/gortex-account-components-9-dirs` |
 | Fixtures Account Profilepage | 62 symbols | `/gortex-fixtures-account-profilepage` |
 | Lib Data 3 Dirs Getauthheaders | 59 symbols | `/gortex-lib-data-3-dirs-getauthheaders` |
@@ -61,11 +67,10 @@ Do not commit secrets. Keep real `.env*` files ignored by Git; do not remove env
 | Hooks 2 Dirs Stripepaymentbutton | 39 symbols | `/gortex-hooks-2-dirs-stripepaymentbutton` |
 | E2e Fixtures Orderpage | 36 symbols | `/gortex-e2e-fixtures-orderpage` |
 | Components Icons 3 Dirs | 35 symbols | `/gortex-components-icons-3-dirs` |
-| Lib Data 2 Dirs Getcartid | 34 symbols | `/gortex-lib-data-2-dirs-getcartid` |
-| Lib Data 1 Dirs Login | 32 symbols | `/gortex-lib-data-1-dirs-login` |
+| Lib Data 2 Dirs | 34 symbols | `/gortex-lib-data-2-dirs` |
+| Lib Data 6 Dirs | 31 symbols | `/gortex-lib-data-6-dirs` |
 | Fixtures Account Addressmodal | 31 symbols | `/gortex-fixtures-account-addressmodal` |
 | Fixtures Account Orderpage | 31 symbols | `/gortex-fixtures-account-orderpage` |
-| Hooks Uselineitemquantityupdater | 30 symbols | `/gortex-hooks-uselineitemquantityupdater` |
 <!-- gortex:skills:end -->
 
 <!-- gortex:communities:end -->

@@ -1,31 +1,35 @@
 import { Metadata } from "next"
 import { Layout, LayoutColumn } from "@/components/Layout"
+import { Link } from "@/components/Link"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
+import { storeBusinessInfo } from "@lib/business-info"
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
+  description: "How Tech Hub Canada uses cookies and similar technologies.",
 }
 
 export async function generateStaticParams() {
-  const countryCodes = getStaticCountryCodes()
-
-  const staticParams = countryCodes.map((countryCode) => ({
-    countryCode,
-  }))
-
-  return staticParams
+  return getStaticCountryCodes().map((countryCode) => ({ countryCode }))
 }
 
-export default function CookiePolicyPage() {
+export default async function CookiePolicyPage({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}) {
+  const { countryCode } = await params
+
   return (
     <Layout className="pt-30 pb-20 md:pt-47 md:pb-32">
       <LayoutColumn
         start={{ base: 1, lg: 2, xl: 3 }}
         end={{ base: 13, lg: 11, xl: 10 }}
       >
-        <h1 className="text-lg md:text-2xl mb-16 md:mb-25">
-          Cookie Policy for Sofa Society
-        </h1>
+        <p className="mb-4 text-sm text-grayscale-500">
+          Last updated: July 8, 2026
+        </p>
+        <h1 className="text-xl md:text-3xl mb-10 md:mb-16">Cookie Policy</h1>
       </LayoutColumn>
       <LayoutColumn
         start={{ base: 1, lg: 2, xl: 3 }}
@@ -33,82 +37,83 @@ export default function CookiePolicyPage() {
         className="article"
       >
         <p>
-          This Cookie Policy explains how Sofa Society uses cookies and similar
-          technologies on our website. By using our website, you consent to the
-          use of cookies as described in this policy.
+          Tech Hub Canada uses cookies, pixels, and browser storage to run our
+          online store, remember choices, understand site performance, and
+          improve the shopping experience. This policy explains the categories
+          we use and how you can control optional cookies.
         </p>
-        <h2>1. What Are Cookies:</h2>
+
+        <h2>1. What cookies do</h2>
         <p>
-          Cookies are small text files that are placed on your computer or
-          device when you visit a website. They are widely used to make websites
-          work more efficiently and provide a better browsing experience.
-          Cookies also enable website owners to collect certain information
-          about visitors.
+          Cookies are small files or browser records stored on your device. They
+          can remember a cart, keep a checkout session active, prevent repeated
+          prompts, measure page activity, or support marketing tools. Similar
+          technologies include local storage, pixels, tags, and SDKs.
         </p>
-        <h2>2. Types of Cookies We Use:</h2>
-        <p>We use the following types of cookies on our website:</p>
-        <ul>
-          <li>
-            Essential Cookies: These cookies are necessary for the operation of
-            our website and enable you to navigate and use its features. They
-            are typically set in response to your actions, such as setting your
-            privacy preferences, logging in, or filling out forms.
-          </li>
-          <li>
-            Analytics and Performance Cookies: These cookies help us understand
-            how visitors interact with our website by collecting information
-            such as the number of visitors, pages visited, and sources of
-            traffic. This data helps us improve our website&apos;s performance
-            and usability.
-          </li>
-          <li>
-            Functionality Cookies: These cookies allow our website to remember
-            choices you make (such as language preferences) and provide enhanced
-            features. They may also be used to provide personalized content
-            based on your browsing history.
-          </li>
-          <li>
-            Advertising and Targeting Cookies: These cookies are used to deliver
-            advertisements that are relevant to your interests. They may also be
-            used to limit the number of times you see an advertisement and
-            measure the effectiveness of advertising campaigns.
-          </li>
-        </ul>
-        <h2>3. Third-Party Cookies:</h2>
+
+        <h2>2. Essential cookies</h2>
         <p>
-          We may allow third-party service providers, such as analytics and
-          advertising companies, to place cookies on our website. These third
-          parties may collect information about your online activities over time
-          and across different websites.
+          Essential cookies are always on because the website cannot work
+          properly without them. They support cart, checkout, region selection,
+          account login, fraud prevention, security, load balancing, and storing
+          your cookie choices.
         </p>
-        <h2>4. Cookie Management:</h2>
+
+        <h2>3. Preference cookies</h2>
         <p>
-          You can manage and control cookies through your browser settings. Most
-          web browsers allow you to block or delete cookies. However, please
-          note that blocking or deleting certain cookies may impact the
-          functionality and user experience of our website.
+          Preference cookies remember choices that make the site easier to use,
+          such as selected country, display settings, or returning visitor
+          preferences. Turning these off may reset some convenience features.
         </p>
+
+        <h2>4. Analytics cookies</h2>
         <p>
-          For more information on how to manage cookies, you can visit the help
-          or settings section of your browser.
+          Analytics cookies help us understand how visitors find and use the
+          website, which pages are useful, and where checkout or product
+          discovery can be improved. We use this information in aggregate where
+          possible.
         </p>
-        <h2>5. Updates to the Cookie Policy:</h2>
+
+        <h2>5. Marketing cookies</h2>
         <p>
-          We may update this Cookie Policy from time to time to reflect changes
-          in our use of cookies or for other operational, legal, or regulatory
-          reasons. We will notify you of any material changes by posting a
-          prominent notice on our website.
+          Marketing cookies may help measure campaigns, understand whether ads
+          or emails are effective, and show more relevant offers. These are
+          optional and stay off unless accepted.
         </p>
-        <h2>6. Contact Us:</h2>
+
+        <h2>6. Third-party services</h2>
         <p>
-          If you have any questions, concerns, or requests regarding this
-          Privacy Policy or how we handle your personal information, please
-          contact us at:
+          Some cookies may be set by providers that help us operate the store,
+          process payments, send email, measure traffic, host the website,
+          prevent fraud, or run advertising. Those providers may process data
+          under their own policies when their services are used.
         </p>
+
+        <h2>7. Managing cookies</h2>
         <p>
-          Email: privacy@sofasociety.com
-          <br />
-          Address: Skärgårdsvägen 12, 124 55 Stockholm
+          Optional cookies are off unless you accept them. You can update your
+          choices anytime on the{" "}
+          <Link href={`/${countryCode}/cookie-preferences`} variant="underline">
+            Manage Cookie Preferences
+          </Link>{" "}
+          page. You can also block or delete cookies in your browser settings,
+          but some store features may not work if essential cookies are blocked.
+        </p>
+
+        <h2>8. Banner timing</h2>
+        <p>
+          The cookie banner closes slowly after 45 seconds if no choice is made.
+          Auto-close saves essential cookies only. It does not accept optional
+          analytics or marketing cookies for you.
+        </p>
+
+        <h2>9. Contact</h2>
+        <p>
+          Questions can be sent to{" "}
+          <a href={storeBusinessInfo.email.href}>
+            {storeBusinessInfo.email.label}
+          </a>
+          .
         </p>
       </LayoutColumn>
     </Layout>

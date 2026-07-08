@@ -1,0 +1,174 @@
+diff --git a/.medusa/server/src/admin/index.js b/.medusa/server/src/admin/index.js
+index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56ffff70bd9 100644
+--- a/.medusa/server/src/admin/index.js
++++ b/.medusa/server/src/admin/index.js
+@@ -7,7 +7,6 @@ const icons = require("@medusajs/icons");
+ const lucideReact = require("lucide-react");
+ const dateFns = require("date-fns");
+ const reactAriaComponents = require("react-aria-components");
+-const reactRouterDom = require("react-router-dom");
+ const recharts = require("recharts");
+ const Medusa = require("@medusajs/js-sdk");
+ const clsx = require("clsx");
+@@ -842,6 +841,21 @@ const sdk = new Medusa__default.default({
+     type: "session"
+   }
+ });
++const getAdminBasePath = () => {
++  const marker = "/app";
++  const index = window.location.pathname.indexOf(marker);
++  return index >= 0 ? window.location.pathname.slice(0, index + marker.length) : marker;
++};
++const navigateAdmin = (path) => {
++  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
++  window.location.assign(`${getAdminBasePath()}${normalizedPath}`);
++};
++const getCurrentSearchParams = () => new URLSearchParams(window.location.search);
++const pushCurrentSearchParams = (params) => {
++  const query = params.toString();
++  const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
++  window.history.pushState(window.history.state, "", nextUrl);
++};
+ const BarChart = ({
+   data,
+   xAxisDataKey,
+@@ -1025,7 +1039,6 @@ const ProductsTable = ({ products }) => {
+   const [sorting, setSorting] = React__namespace.useState(
+     null
+   );
+-  const navigate = reactRouterDom.useNavigate();
+   const shownProducts = React__namespace.useMemo(() => {
+     let filtered = products.filter(
+       (product) => product.variantName.toLowerCase().includes(search.toLowerCase()) || product.sku.toLowerCase().includes(search.toLowerCase())
+@@ -1066,7 +1079,7 @@ const ProductsTable = ({ products }) => {
+       onSortingChange: setSorting
+     },
+     onRowClick: (_, row) => {
+-      navigate(`/products/${row.original.productId}/variants/${row.original.variantId}`);
++      navigateAdmin(`/products/${row.original.productId}/variants/${row.original.variantId}`);
+     }
+   });
+   return /* @__PURE__ */ jsxRuntime.jsxs(ui.DataTable, { instance: table, children: [
+@@ -1412,7 +1425,6 @@ const CustomersTable = ({
+   const [sorting, setSorting] = React__namespace.useState(
+     null
+   );
+-  const navigate = reactRouterDom.useNavigate();
+   const shownCustomers = React__namespace.useMemo(() => {
+     let filtered = customers.filter(
+       (customer) => customer.name.toLowerCase().includes(search.toLowerCase()) || customer.email.toLowerCase().includes(search.toLowerCase())
+@@ -1510,7 +1522,7 @@ const CustomersTable = ({
+       onSortingChange: setSorting
+     },
+     onRowClick: (_, row) => {
+-      navigate(`/customers/${row.original.customer_id}`);
++      navigateAdmin(`/customers/${row.original.customer_id}`);
+     }
+   });
+   return /* @__PURE__ */ jsxRuntime.jsxs(ui.DataTable, { instance: table, children: [
+@@ -1574,7 +1586,17 @@ function presetToDateRange(preset) {
+ const DATE_RANGE_REGEX = /^(\d{4}-\d{2}-\d{2})-(\d{4}-\d{2}-\d{2})$/;
+ const AnalyticsPage = () => {
+   var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
+-  const [searchParams, setSearchParams] = reactRouterDom.useSearchParams();
++  const [searchParams, setSearchParamsState] = React__namespace.useState(getCurrentSearchParams);
++  const setSearchParams = React__namespace.useCallback((params) => {
++    const nextParams = params instanceof URLSearchParams ? params : new URLSearchParams(params);
++    pushCurrentSearchParams(nextParams);
++    setSearchParamsState(new URLSearchParams(nextParams.toString()));
++  }, []);
++  React__namespace.useEffect(() => {
++    const handlePopState = () => setSearchParamsState(getCurrentSearchParams());
++    window.addEventListener("popstate", handlePopState);
++    return () => window.removeEventListener("popstate", handlePopState);
++  }, []);
+   const rangeParam = searchParams.get("range") || "this-month";
+   const date = React__namespace.useMemo(() => {
+     if (rangeParam === "this-month" || rangeParam === "last-month" || rangeParam === "last-3-months") {
+diff --git a/.medusa/server/src/admin/index.mjs b/.medusa/server/src/admin/index.mjs
+index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c300d2e9200 100644
+--- a/.medusa/server/src/admin/index.mjs
++++ b/.medusa/server/src/admin/index.mjs
+@@ -7,7 +7,6 @@ import { ChartBar, Calendar, ChevronDown, ChevronLeft, ChevronRight, ShoppingCar
+ import { ChartNoAxesCombined } from "lucide-react";
+ import { format, parse, startOfMonth, endOfMonth, subMonths } from "date-fns";
+ import { DateRangePicker, Group, DateInput, DateSegment, Button, Popover, Dialog, RangeCalendar, Heading as Heading$1, CalendarGrid, CalendarCell } from "react-aria-components";
+-import { useNavigate, useSearchParams } from "react-router-dom";
+ import { ResponsiveContainer, BarChart as BarChart$1, CartesianGrid, XAxis, YAxis, Tooltip, Bar, LineChart as LineChart$1, Line, Cell, PieChart as PieChart$1, Pie } from "recharts";
+ import Medusa from "@medusajs/js-sdk";
+ import { clsx } from "clsx";
+@@ -822,6 +821,21 @@ const sdk = new Medusa({
+     type: "session"
+   }
+ });
++const getAdminBasePath = () => {
++  const marker = "/app";
++  const index = window.location.pathname.indexOf(marker);
++  return index >= 0 ? window.location.pathname.slice(0, index + marker.length) : marker;
++};
++const navigateAdmin = (path) => {
++  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
++  window.location.assign(`${getAdminBasePath()}${normalizedPath}`);
++};
++const getCurrentSearchParams = () => new URLSearchParams(window.location.search);
++const pushCurrentSearchParams = (params) => {
++  const query = params.toString();
++  const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
++  window.history.pushState(window.history.state, "", nextUrl);
++};
+ const BarChart = ({
+   data,
+   xAxisDataKey,
+@@ -1005,7 +1019,6 @@ const ProductsTable = ({ products }) => {
+   const [sorting, setSorting] = React.useState(
+     null
+   );
+-  const navigate = useNavigate();
+   const shownProducts = React.useMemo(() => {
+     let filtered = products.filter(
+       (product) => product.variantName.toLowerCase().includes(search.toLowerCase()) || product.sku.toLowerCase().includes(search.toLowerCase())
+@@ -1046,7 +1059,7 @@ const ProductsTable = ({ products }) => {
+       onSortingChange: setSorting
+     },
+     onRowClick: (_, row) => {
+-      navigate(`/products/${row.original.productId}/variants/${row.original.variantId}`);
++      navigateAdmin(`/products/${row.original.productId}/variants/${row.original.variantId}`);
+     }
+   });
+   return /* @__PURE__ */ jsxs(DataTable, { instance: table, children: [
+@@ -1392,7 +1405,6 @@ const CustomersTable = ({
+   const [sorting, setSorting] = React.useState(
+     null
+   );
+-  const navigate = useNavigate();
+   const shownCustomers = React.useMemo(() => {
+     let filtered = customers.filter(
+       (customer) => customer.name.toLowerCase().includes(search.toLowerCase()) || customer.email.toLowerCase().includes(search.toLowerCase())
+@@ -1490,7 +1502,7 @@ const CustomersTable = ({
+       onSortingChange: setSorting
+     },
+     onRowClick: (_, row) => {
+-      navigate(`/customers/${row.original.customer_id}`);
++      navigateAdmin(`/customers/${row.original.customer_id}`);
+     }
+   });
+   return /* @__PURE__ */ jsxs(DataTable, { instance: table, children: [
+@@ -1554,7 +1566,17 @@ function presetToDateRange(preset) {
+ const DATE_RANGE_REGEX = /^(\d{4}-\d{2}-\d{2})-(\d{4}-\d{2}-\d{2})$/;
+ const AnalyticsPage = () => {
+   var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
+-  const [searchParams, setSearchParams] = useSearchParams();
++  const [searchParams, setSearchParamsState] = React.useState(getCurrentSearchParams);
++  const setSearchParams = React.useCallback((params) => {
++    const nextParams = params instanceof URLSearchParams ? params : new URLSearchParams(params);
++    pushCurrentSearchParams(nextParams);
++    setSearchParamsState(new URLSearchParams(nextParams.toString()));
++  }, []);
++  React.useEffect(() => {
++    const handlePopState = () => setSearchParamsState(getCurrentSearchParams());
++    window.addEventListener("popstate", handlePopState);
++    return () => window.removeEventListener("popstate", handlePopState);
++  }, []);
+   const rangeParam = searchParams.get("range") || "this-month";
+   const date = React.useMemo(() => {
+     if (rangeParam === "this-month" || rangeParam === "last-month" || rangeParam === "last-3-months") {

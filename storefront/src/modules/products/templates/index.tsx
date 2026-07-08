@@ -5,9 +5,8 @@ import Image from "next/image"
 
 import { collectionMetadataCustomFieldsSchema } from "@lib/util/collections"
 import ImageGallery from "@modules/products/components/image-gallery"
-import ProductActions from "@modules/products/components/product-actions"
+import { LiveProductDetails } from "@modules/products/components/live-product-details"
 import RelatedProducts from "@modules/products/components/related-products"
-import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { Layout, LayoutColumn } from "@/components/Layout"
@@ -62,14 +61,11 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
               </div>
             )}
             <div className="sticky flex-1 top-0">
-              <ProductInfo product={product} />
-              <Suspense>
-                <ProductActions
-                  product={product}
-                  materials={materials}
-                  region={region}
-                />
-              </Suspense>
+              <LiveProductDetails
+                product={product}
+                materials={materials}
+                region={region}
+              />
             </div>
             {!hasImages && <div className="flex-1" />}
           </div>

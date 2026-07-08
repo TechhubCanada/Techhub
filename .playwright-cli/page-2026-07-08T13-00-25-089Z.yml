@@ -1,0 +1,225 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e6]:
+      - heading "TechHub home" [level=1] [ref=e7]:
+        - link "TechHub home" [ref=e8] [cursor=pointer]:
+          - /url: /ca
+          - generic [ref=e9]:
+            - generic [ref=e14]: TH
+            - generic [ref=e15]: TechHub
+      - generic [ref=e16]:
+        - link "About" [ref=e17] [cursor=pointer]:
+          - /url: /ca/about
+        - link "Inspiration" [ref=e18] [cursor=pointer]:
+          - /url: /ca/inspiration
+        - link "Shop" [ref=e19] [cursor=pointer]:
+          - /url: /ca/store
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - button "CA Select country" [ref=e22] [cursor=pointer]:
+            - generic [ref=e23]: CA
+            - img [ref=e25]
+          - combobox [ref=e29]
+        - generic [ref=e30]:
+          - button "Open search" [ref=e31] [cursor=pointer]:
+            - img [ref=e33]
+          - generic:
+            - generic:
+              - generic:
+                - combobox "Search" [disabled]
+        - link "Open account" [ref=e36] [cursor=pointer]:
+          - /url: /ca/auth/login
+          - img [ref=e38]
+        - button "Open cart" [ref=e41] [cursor=pointer]:
+          - img [ref=e43]
+    - img "Inside Tech Hub with laptops, desktops, monitors, and accessories on display" [ref=e47]
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - heading "Computers, parts, accessories, and repair support in one place." [level=3] [ref=e51]
+        - generic [ref=e54]:
+          - paragraph [ref=e55]: Find the tech you need.
+          - link "Shop now" [ref=e56] [cursor=pointer]:
+            - /url: /ca/store
+      - generic [ref=e57]:
+        - heading "Our products" [level=3] [ref=e59]
+        - link "Desktop" [ref=e61] [cursor=pointer]:
+          - /url: /ca/store?type=Desktop
+          - paragraph [ref=e62]: Desktop
+        - link "Laptop" [ref=e64] [cursor=pointer]:
+          - /url: /ca/store?type=Laptop
+          - paragraph [ref=e65]: Laptop
+        - link "Tablet" [ref=e67] [cursor=pointer]:
+          - /url: /ca/store?type=Tablet
+          - paragraph [ref=e68]: Tablet
+        - link "Projector" [ref=e70] [cursor=pointer]:
+          - /url: /ca/store?type=Projector
+          - paragraph [ref=e71]: Projector
+        - link "Printer" [ref=e73] [cursor=pointer]:
+          - /url: /ca/store?type=Printer
+          - paragraph [ref=e74]: Printer
+        - link "Workstation" [ref=e76] [cursor=pointer]:
+          - /url: /ca/store?type=Workstation
+          - paragraph [ref=e77]: Workstation
+        - link "Networking" [ref=e79] [cursor=pointer]:
+          - /url: /ca/store?type=Networking
+          - paragraph [ref=e80]: Networking
+        - link "Toner" [ref=e82] [cursor=pointer]:
+          - /url: /ca/store?type=Toner
+          - paragraph [ref=e83]: Toner
+        - link "Accessory" [ref=e85] [cursor=pointer]:
+          - /url: /ca/store?type=Accessory
+          - paragraph [ref=e86]: Accessory
+        - link "Docking Station" [ref=e88] [cursor=pointer]:
+          - /url: /ca/store?type=Docking Station
+          - paragraph [ref=e89]: Docking Station
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - heading "Collections" [level=3] [ref=e94]
+          - generic [ref=e95]:
+            - link "View All" [ref=e96] [cursor=pointer]:
+              - /url: /ca/store
+            - generic [ref=e97]:
+              - button "Previous" [disabled] [ref=e98]:
+                - img [ref=e101]
+              - button "Next" [disabled] [ref=e103]:
+                - img [ref=e106]
+        - generic [ref=e109]:
+          - link "Business Desktops Reliable office systems for everyday business workloads." [ref=e111] [cursor=pointer]:
+            - /url: /ca/collections/business-desktops
+            - heading "Business Desktops" [level=3] [ref=e112]
+            - paragraph [ref=e113]: Reliable office systems for everyday business workloads.
+          - link "Mobile Workstations Portable performance hardware for design, CAD, and field work." [ref=e115] [cursor=pointer]:
+            - /url: /ca/collections/mobile-workstations
+            - heading "Mobile Workstations" [level=3] [ref=e116]
+            - paragraph [ref=e117]: Portable performance hardware for design, CAD, and field work.
+          - link "Office Print Printers, projectors, toner, and supplies for office teams." [ref=e119] [cursor=pointer]:
+            - /url: /ca/collections/office-print
+            - heading "Office Print" [level=3] [ref=e120]
+            - paragraph [ref=e121]: Printers, projectors, toner, and supplies for office teams.
+          - link "Network & Support Networking hardware and support-focused infrastructure." [ref=e123] [cursor=pointer]:
+            - /url: /ca/collections/network-support
+            - heading "Network & Support" [level=3] [ref=e124]
+            - paragraph [ref=e125]: Networking hardware and support-focused infrastructure.
+          - link "Parts & Accessories Accessories and upgrades that keep office hardware running." [ref=e127] [cursor=pointer]:
+            - /url: /ca/collections/parts-accessories
+            - heading "Parts & Accessories" [level=3] [ref=e128]
+            - paragraph [ref=e129]: Accessories and upgrades that keep office hardware running.
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - heading "About TechHub" [level=3] [ref=e132]
+          - img "Laptop computers displayed on a retail table" [ref=e133]
+        - heading "TechHub Canada helps customers buy, repair, and set up everyday technology." [level=2] [ref=e135]
+        - generic [ref=e137]:
+          - paragraph [ref=e138]: Shop laptops, desktops, monitors, printers, networking products, ink, toner, parts, and accessories.
+          - paragraph [ref=e139]: Need help choosing or fixing a device? Our team supports repairs, setup, service, and web development.
+          - link "Learn about TechHub" [ref=e140] [cursor=pointer]:
+            - /url: /ca/about
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e151]: TH
+            - generic [ref=e152]: TechHub
+          - paragraph [ref=e153]: Practical computers, networking gear, accessories, and local IT support from our Markham store.
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - paragraph [ref=e156]: Visit us
+              - link "7595 Markham Rd Unit 2 Markham, ON L3S 0B6 Canada" [ref=e157] [cursor=pointer]:
+                - /url: https://www.google.com/maps/search/?api=1&query=7595%20Markham%20Rd%20Unit%202%2C%20Markham%2C%20ON%20L3S%200B6
+                - generic [ref=e158]: 7595 Markham Rd Unit 2
+                - generic [ref=e159]: Markham, ON L3S 0B6
+                - generic [ref=e160]: Canada
+            - generic [ref=e161]:
+              - paragraph [ref=e162]: Call the store
+              - link "Call Tech Hub Canada" [ref=e163] [cursor=pointer]:
+                - /url: tel:+19055540641
+                - text: (905) 554-0641
+        - generic [ref=e164]:
+          - heading "Join our newsletter" [level=2] [ref=e165]
+          - paragraph [ref=e166]: We will also send you our discount coupons!
+          - group [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e171]:
+                - textbox "Your email" [ref=e172]
+                - generic: Your email
+              - button "Subscribe" [ref=e173] [cursor=pointer]
+          - paragraph [ref=e174]:
+            - text: By subscribing you agree to with our
+            - link "Privacy Policy" [ref=e175] [cursor=pointer]:
+              - /url: /ca/privacy-policy
+            - text: and provide consent to receive updates from our company.
+      - generic [ref=e176]:
+        - navigation "Footer navigation" [ref=e177]:
+          - heading "Shop" [level=2] [ref=e178]
+          - list [ref=e179]:
+            - listitem [ref=e180]:
+              - link "Shop all" [ref=e181] [cursor=pointer]:
+                - /url: /ca/store
+            - listitem [ref=e182]:
+              - link "About" [ref=e183] [cursor=pointer]:
+                - /url: /ca/about
+            - listitem [ref=e184]:
+              - link "Featured tech" [ref=e185] [cursor=pointer]:
+                - /url: /ca/inspiration
+            - listitem [ref=e186]:
+              - link "Account" [ref=e187] [cursor=pointer]:
+                - /url: /ca/account
+        - navigation "Product categories" [ref=e188]:
+          - heading "Categories" [level=2] [ref=e189]
+          - list [ref=e190]:
+            - listitem [ref=e191]:
+              - link "Computers" [ref=e192] [cursor=pointer]:
+                - /url: /ca/store
+            - listitem [ref=e193]:
+              - link "Printers" [ref=e194] [cursor=pointer]:
+                - /url: /ca/store
+            - listitem [ref=e195]:
+              - link "Networking" [ref=e196] [cursor=pointer]:
+                - /url: /ca/store
+            - listitem [ref=e197]:
+              - link "Accessories" [ref=e198] [cursor=pointer]:
+                - /url: /ca/store
+        - navigation "Policies" [ref=e199]:
+          - heading "Support" [level=2] [ref=e200]
+          - list [ref=e201]:
+            - listitem [ref=e202]:
+              - link "Privacy Policy" [ref=e203] [cursor=pointer]:
+                - /url: /ca/privacy-policy
+            - listitem [ref=e204]:
+              - link "Cookie Policy" [ref=e205] [cursor=pointer]:
+                - /url: /ca/cookie-policy
+            - listitem [ref=e206]:
+              - link "Terms of Use" [ref=e207] [cursor=pointer]:
+                - /url: /ca/terms-of-use
+        - region "Store hours" [ref=e208]:
+          - heading "Store hours" [level=2] [ref=e209]
+          - list [ref=e210]:
+            - listitem [ref=e211]:
+              - generic [ref=e212]: Monday
+              - generic [ref=e213]: 10 a.m. - 7 p.m.
+            - listitem [ref=e214]:
+              - generic [ref=e215]: Tuesday
+              - generic [ref=e216]: 10 a.m. - 7 p.m.
+            - listitem [ref=e217]:
+              - generic [ref=e218]: Wednesday
+              - generic [ref=e219]: 10 a.m. - 7 p.m.
+            - listitem [ref=e220]:
+              - generic [ref=e221]: Thursday
+              - generic [ref=e222]: 10 a.m. - 7 p.m.
+            - listitem [ref=e223]:
+              - generic [ref=e224]: Friday
+              - generic [ref=e225]: 10 a.m. - 7 p.m.
+            - listitem [ref=e226]:
+              - generic [ref=e227]: Saturday
+              - generic [ref=e228]: 12 - 6 p.m.
+            - listitem [ref=e229]:
+              - generic [ref=e230]: Sunday
+              - generic [ref=e231]: Closed
+      - generic [ref=e232]:
+        - paragraph [ref=e233]: © 2026, TechHub 2009 - 2026 by Samsan Inc.
+        - paragraph [ref=e234]:
+          - text: Designed and developed by
+          - link "Agency by namakataria" [ref=e235] [cursor=pointer]:
+            - /url: https://agency.namankataria.com
+  - button "Open Next.js Dev Tools" [ref=e241] [cursor=pointer]:
+    - img [ref=e242]

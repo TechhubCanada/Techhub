@@ -7,15 +7,15 @@ export default function RegisterLoadingPage() {
   return (
     <div className="flex min-h-screen">
       <Image
-        src="/images/content/living-room-dark-gray-corner-sofa-coffee-table.png"
+        src="/images/content/techhub-pc-wiring-detail.png"
         width={1440}
         height={1632}
-        alt="Living room with dark gray corner sofa and coffee table"
+        alt="Computer tower wiring and repair detail"
         className="max-lg:hidden lg:w-1/2 shrink-0 object-cover"
       />
       <div className="shrink-0 max-w-100 lg:max-w-96 w-full mx-auto pt-30 lg:pt-37 pb-16 max-sm:px-4">
         <h1 className="text-xl md:text-2xl mb-10 md:mb-16">
-          Hey, welcome to Sofa Society!
+          Hey, welcome to TechHub!
         </h1>
         <form className="flex flex-col gap-6 md:gap-8 mb-8 md:mb-16">
           <div className="flex gap-4 md:gap-6">

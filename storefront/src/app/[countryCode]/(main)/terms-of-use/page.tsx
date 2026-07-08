@@ -1,19 +1,15 @@
 import { Metadata } from "next"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
+import { storeBusinessInfo } from "@lib/business-info"
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "Learn about our terms of use",
+  description: "Terms for using the Tech Hub Canada website.",
 }
+
 export async function generateStaticParams() {
-  const countryCodes = getStaticCountryCodes()
-
-  const staticParams = countryCodes.map((countryCode) => ({
-    countryCode,
-  }))
-
-  return staticParams
+  return getStaticCountryCodes().map((countryCode) => ({ countryCode }))
 }
 
 export default function TermsOfUsePage() {
@@ -23,9 +19,10 @@ export default function TermsOfUsePage() {
         start={{ base: 1, lg: 2, xl: 3 }}
         end={{ base: 13, lg: 11, xl: 10 }}
       >
-        <h1 className="text-lg md:text-2xl mb-16 md:mb-25">
-          Terms of Use for Sofa Society
-        </h1>
+        <p className="mb-4 text-sm text-grayscale-500">
+          Last updated: July 8, 2026
+        </p>
+        <h1 className="text-xl md:text-3xl mb-10 md:mb-16">Terms of Use</h1>
       </LayoutColumn>
       <LayoutColumn
         start={{ base: 1, lg: 2, xl: 3 }}
@@ -33,104 +30,106 @@ export default function TermsOfUsePage() {
         className="article"
       >
         <p>
-          Welcome to Sofa Society. These Terms of Use govern your access to and
-          use of our website, products, and services. By accessing or using our
-          platform, you agree to be bound by these terms and conditions. If you
-          do not agree with any part of these terms, please do not use our
-          website.
+          These terms apply when you use the Tech Hub Canada website. Tech Hub
+          Canada is operated by Samsan Inc. By browsing, creating an account,
+          placing an order, requesting support, or using our online services,
+          you agree to use the website according to these terms.
         </p>
-        <h2>1. Terms of Use:</h2>
+
+        <h2>1. Website use</h2>
         <p>
-          All content and materials on our website, including text, graphics,
-          logos, images, videos, and trademarks, are the property of Sofa
-          Society or its licensors and are protected by intellectual property
-          laws. You may not use, reproduce, modify, or distribute any of our
-          content without our prior written permission.
+          You may use the website to browse products, create an account, place
+          orders, request service, contact our store, and manage your customer
+          information. You must not misuse the website, interfere with security,
+          scrape or copy content without permission, upload malicious code,
+          submit false information, or use the site for unlawful activity.
         </p>
-        <h2>2. Use of the Website:</h2>
-        <ol>
-          <li>
-            Eligibility: You must be at least 16 years old to use our website.
-            If you are under the age of 18, you should review these terms with a
-            parent or guardian to ensure their understanding and agreement.
-          </li>
-          <li>
-            User Account: Some features of our website may require you to create
-            an account. You are responsible for maintaining the confidentiality
-            of your account credentials and are solely responsible for any
-            activity that occurs under your account.
-          </li>
-          <li>
-            Prohibited Activities: You agree not to engage in any of the
-            following activities:
-            <ul>
-              <li>Violating any applicable laws or regulations.</li>
-              <li>
-                Impersonating any person or entity or falsely representing your
-                affiliation with any person or entity.
-              </li>
-              <li>
-                Interfering with or disrupting the functionality of our website
-                or servers.
-              </li>
-              <li>
-                Uploading or transmitting any viruses, malware, or other
-                malicious code.
-              </li>
-              <li>
-                Collecting or harvesting any information from our website
-                without our consent.
-              </li>
-            </ul>
-          </li>
-        </ol>
-        <h2>3. Third-Party Links and Content:</h2>
+
+        <h2>2. Product information</h2>
         <p>
-          Our website may contain links to third-party websites or display
-          content from third parties. We do not endorse or control these
-          third-party websites or content, and your use of them is at your own
-          risk. We are not responsible for the accuracy, reliability, or
-          legality of any third-party websites or content.
+          We try to keep product names, descriptions, images, prices,
+          availability, and specifications accurate. Electronics inventory,
+          supplier pricing, manufacturer details, and service availability can
+          change. If a listing has an obvious error or a product is no longer
+          available, we may correct the listing, contact you, cancel the order,
+          or offer another option.
         </p>
-        <h2>4. Disclaimer of Warranties:</h2>
+
+        <h2>3. Orders and acceptance</h2>
         <p>
-          Our website is provided on an &quot;as is&quot; and &quot;as
-          available&quot; basis. We do not make any warranties, express or
-          implied, regarding the operation, availability, or accuracy of our
-          website or the content therein. Your use of our website is at your
-          sole risk.
+          An order confirmation means we received your order request. It does
+          not always mean the order has been finally accepted or shipped. Orders
+          may be reviewed for stock, payment, fraud prevention, delivery limits,
+          or pricing errors. We may refuse or cancel an order where reasonably
+          necessary.
         </p>
-        <h2>5. Limitation of Liability:</h2>
+
+        <h2>4. Accounts</h2>
         <p>
-          To the maximum extent permitted by law, Sofa Society and its
-          affiliates, officers, directors, employees, and agents shall not be
-          liable for any direct, indirect, incidental, consequential, or special
-          damages arising out of or in connection with your use of our website,
-          even if advised of the possibility of such damages.
+          You are responsible for keeping account credentials secure and for
+          activity under your account. Contact us promptly if you believe your
+          account or order information has been used without authorization.
         </p>
-        <h2>6. Indemnification:</h2>
+
+        <h2>5. Payments</h2>
         <p>
-          You agree to indemnify, defend, and hold harmless Sofa Society and its
-          affiliates, officers, directors, employees, and agents from and
-          against any claims, liabilities, damages, losses, and expenses,
-          including reasonable attorney&apos;s fees, arising out of or in
-          connection with your use of our website or violation of these Terms of
-          Use.
+          Payments are processed through third-party payment providers. Do not
+          send full card numbers by email or message. Orders may be delayed or
+          cancelled if payment cannot be verified or if a transaction appears
+          suspicious.
         </p>
-        <h2>7. Modifications to the Terms:</h2>
+
+        <h2>6. Repairs, service, and support</h2>
         <p>
-          You agree to indemnify, defend, and hold harmless Sofa Society and its
-          affiliates, officers, directors, employees, and agents from and
-          against any claims, liabilities, damages, losses, and expenses,
-          including reasonable attorney&apos;s fees, arising out of or in
-          connection with your use of our website or violation of these Terms of
-          Use.
+          Repair and technical support timelines are estimates unless confirmed
+          in writing. Service work may require inspection before a final quote.
+          Customers are responsible for backing up important data before
+          providing a device for service. We are not responsible for
+          pre-existing device issues, data loss caused by failing hardware, or
+          manufacturer restrictions outside our control.
         </p>
-        <h2>8. Governing Law and Jurisdiction:</h2>
+
+        <h2>7. Returns and refunds</h2>
         <p>
-          These Terms of Use shall be governed by and construed in accordance
-          with the laws. Any disputes arising out of or in connection with these
-          terms shall be subject to the exclusive jurisdiction of the courts.
+          Returns and refunds are handled under our Refund & Returns Policy.
+          Some items, opened consumables, special orders, software, licenses,
+          repair labour, and final-sale products may have different limits.
+        </p>
+
+        <h2>8. Website content</h2>
+        <p>
+          Website text, images, branding, product organization, and other
+          content belong to Tech Hub Canada, Samsan Inc., suppliers, or
+          licensors. You may not copy, reproduce, or reuse site content for
+          commercial purposes without permission.
+        </p>
+
+        <h2>9. Third-party links and services</h2>
+        <p>
+          The website may link to payment, map, delivery, manufacturer,
+          warranty, or support services. Those third-party services have their
+          own terms and policies.
+        </p>
+
+        <h2>10. Limitation of liability</h2>
+        <p>
+          The website is provided as available. To the extent permitted by law,
+          Tech Hub Canada is not responsible for indirect losses, website
+          interruptions, third-party service issues, or damages beyond the
+          amount paid for the relevant product or service.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Email:{" "}
+          <a href={storeBusinessInfo.email.href}>
+            {storeBusinessInfo.email.label}
+          </a>
+          <br />
+          Phone:{" "}
+          <a href={storeBusinessInfo.phone.href}>
+            {storeBusinessInfo.phone.label}
+          </a>
         </p>
       </LayoutColumn>
     </Layout>

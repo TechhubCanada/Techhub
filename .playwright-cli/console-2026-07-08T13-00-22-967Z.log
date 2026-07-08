@@ -1,0 +1,58 @@
+[    1785ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[    1892ms] [LOG] [HMR] connected @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[    2373ms] [INFO] WebMCP is not supported, skipping registration @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[    2390ms] [ERROR] In HTML, %s cannot be a descendant of <%s>.
+This will cause a hydration error.%s <div> p 
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/ca" tree={[...]} params={{...}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="layout" pagePath="[countryCo...">
+            <SegmentTrieNode>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <PageLayout>
+              <HeaderWrapper>
+              <OuterLayoutRouter>
+              <Footer>
+                <footer className="bg-graysca...">
+                  <_c>
+                    <div ref={null} className="mx-auto gr...">
+                      <LayoutColumn className="col-span-13">
+                        <div className="col-start-...">
+                          <div>
+                          <div>
+                          <div data-testid="footer-bottom" className="mt-10 flex...">
+                            <p>
+>                           <p className="sm:text-right">
+                              <LinkPreview url="https://ag..." className="font-mediu..." width={260} height={160}>
+>                               <div className="hidden">
+                                ...
+        ...
+ @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:3318
+[    2390ms] [ERROR] <%s> cannot contain a nested %s.
+See this log for the ancestor stack trace. p <div> @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:3318
+[    2626ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[    2634ms] [LOG] %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[    2745ms] [LOG] [Fast Refresh] done in 225ms @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[   87555ms] [WARNING] Image with src "/images/content/techhub-laptop-display.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[  103094ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477
+[  103269ms] [LOG] [Fast Refresh] done in 251ms @ http://localhost:8000/_next/static/chunks/1rwx_next_dist_0pt7adv._.js:2477

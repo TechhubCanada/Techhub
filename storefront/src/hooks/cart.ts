@@ -3,19 +3,20 @@ import {
   applyPromotions,
   deleteLineItem,
   getCartQuantity,
-  getPaymentMethod,
   initiatePaymentSession,
   placeOrder,
   retrieveCart,
   setAddresses,
   setEmail,
-  setPaymentMethod,
   setShippingMethod,
   updateLineItem,
   updateRegion,
 } from "@lib/data/cart"
 import { listCartShippingMethods } from "@lib/data/fulfillment"
-import { listCartPaymentMethods } from "@lib/data/payment"
+import {
+  getSquarePaymentConfig,
+  listCartPaymentMethods,
+} from "@lib/data/payment"
 import { HttpTypes } from "@medusajs/types"
 import {
   useMutation,
@@ -26,7 +27,13 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react"
 import { z } from "zod"
 
-export const useCart = ({ enabled }: { enabled: boolean }) => {
+export const useCart = ({
+  enabled,
+  initialData,
+}: {
+  enabled: boolean
+  initialData?: HttpTypes.StoreCart | null
+}) => {
   return useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
@@ -34,6 +41,7 @@ export const useCart = ({ enabled }: { enabled: boolean }) => {
       return res
     },
     enabled,
+    initialData,
   })
 }
 
@@ -135,7 +143,7 @@ export const useUpdateLineItem = (
 
       return { ...coerceMutationContext(userContext), previousCart }
     },
-    onError: (error, variables, onMutateResult, context) => {
+    onError: (error, variables, onMutateResult) => {
       if (onMutateResult?.previousCart) {
         queryClient.setQueryData(["cart"], onMutateResult.previousCart)
         const total = (onMutateResult.previousCart.items ?? []).reduce(
@@ -145,7 +153,7 @@ export const useUpdateLineItem = (
         queryClient.setQueryData(["cart", "cart-quantity"], total)
       }
 
-      options?.onError?.(error, variables, onMutateResult, context)
+      options?.onError?.(error, variables, onMutateResult)
     },
     async onSuccess(...args) {
       await queryClient.invalidateQueries({
@@ -328,7 +336,7 @@ export const useDeleteLineItem = (
 
       return { previousCart }
     },
-    onError: (error, variables, onMutateResult, context) => {
+    onError: (error, variables, onMutateResult) => {
       if (onMutateResult?.previousCart) {
         queryClient.setQueryData(["cart"], onMutateResult.previousCart)
         const total = (onMutateResult.previousCart.items ?? []).reduce(
@@ -338,7 +346,7 @@ export const useDeleteLineItem = (
         queryClient.setQueryData(["cart", "cart-quantity"], total)
       }
 
-      options?.onError?.(error, variables, onMutateResult, context)
+      options?.onError?.(error, variables, onMutateResult)
     },
     async onSuccess(...args) {
       await queryClient.invalidateQueries({
@@ -516,6 +524,7 @@ export const useInitiatePaymentSession = (
     Error,
     {
       providerId: string
+      data?: Record<string, unknown>
     },
     unknown
   >
@@ -523,8 +532,14 @@ export const useInitiatePaymentSession = (
   const queryClient = useQueryClient()
   return useMutation({
     mutationKey: ["initiate-payment"],
-    mutationFn: async (payload: { providerId: string }) => {
-      const response = await initiatePaymentSession(payload.providerId)
+    mutationFn: async (payload: {
+      providerId: string
+      data?: Record<string, unknown>
+    }) => {
+      const response = await initiatePaymentSession(
+        payload.providerId,
+        payload.data
+      )
 
       return response
     },
@@ -540,44 +555,14 @@ export const useInitiatePaymentSession = (
   })
 }
 
-export const useSetPaymentMethod = (
-  options?: UseMutationOptions<
-    void,
-    Error,
-    { sessionId: string; token: string | null | undefined },
-    unknown
-  >
-) => {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationKey: ["set-payment"],
-    mutationFn: async (payload) => {
-      const response = await setPaymentMethod(payload.sessionId, payload.token)
-
-      return response
-    },
-    ...options,
-    async onSuccess(...args) {
-      await queryClient.invalidateQueries({
-        exact: false,
-        queryKey: ["cart"],
-      })
-
-      await options?.onSuccess?.(...args)
-    },
-  })
-}
-
-export const useGetPaymentMethod = (id: string | undefined) => {
+export const useSquarePaymentConfig = (enabled: boolean) => {
   return useQuery({
-    queryKey: ["payment", id],
+    queryKey: ["square-payment-config"],
     queryFn: async () => {
-      if (!id) {
-        return null
-      }
-      const res = await getPaymentMethod(id)
+      const res = await getSquarePaymentConfig()
       return res
     },
+    enabled,
   })
 }
 

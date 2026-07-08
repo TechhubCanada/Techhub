@@ -1,0 +1,104 @@
+[   15903ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:21550
+[   16853ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[   16871ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[   16897ms] [LOG] i18next: languageChanged en @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[   16898ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[   16923ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4191
+[   16972ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/feature-flags' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app:0
+[   16973ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/feature-flags:0
+[   16977ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app:0
+[   16977ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me:0
+[   17991ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/feature-flags' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app:0
+[   17991ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/feature-flags:0
+[   17996ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app:0
+[   17996ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me:0
+[   18121ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/cloud/auth' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app/login:0
+[   18121ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/cloud/auth:0
+[   19138ms] [ERROR] Access to fetch at 'https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/cloud/auth' from origin 'http://localhost:9000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://localhost:9000/app/login:0
+[   19138ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/cloud/auth:0
+[  243663ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:9000/app/@vite/client:559
+[  243666ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  244668ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  245674ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  246675ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  247678ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  248680ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  249681ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  250690ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  251693ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  252695ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  253701ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  254703ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  255708ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  256710ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  257715ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  258718ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  259724ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  260728ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  261733ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  262735ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  263737ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  264743ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  265746ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  266748ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  267751ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  268753ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  269760ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  270762ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  271763ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  272765ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  273768ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  274770ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  275772ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  276773ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  277775ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  278779ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  279781ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  280784ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  281790ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  282792ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  283794ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  284796ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  285798ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  286800ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  287802ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  288812ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  289815ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  290821ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  291824ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  292830ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  293833ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  294844ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  295846ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  296850ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  297854ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  298857ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  299859ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  300861ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  301863ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  302864ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  303866ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  304868ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  305869ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  306871ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  307873ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  308874ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  309876ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  310880ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  311886ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  312887ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  313889ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  314891ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  315894ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  316897ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  317903ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  318910ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  319921ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  320924ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  321929ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:42475/app/:0
+[  327460ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:21550
+[  328129ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[  328140ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[  328154ms] [LOG] i18next: languageChanged en @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[  328154ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[  328192ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4191

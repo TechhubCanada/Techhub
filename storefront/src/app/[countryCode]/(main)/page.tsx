@@ -6,9 +6,9 @@ import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "TechHub Canada",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "Shop computers, printers, networking gear, parts, accessories, and repair services from TechHub Canada.",
 }
 
 const ProductTypesSection: React.FC = async () => {
@@ -59,10 +59,10 @@ export default async function Home() {
     <>
       <div className="max-md:pt-18">
         <Image
-          src="/images/content/living-room-gray-armchair-two-seater-sofa.png"
+          src="/images/content/techhub-real-store-interior-hero.png"
           width={2880}
           height={1500}
-          alt="Living room with gray armchair and two-seater sofa"
+          alt="Inside Tech Hub with laptops, desktops, monitors, and accessories on display"
           className="md:h-screen md:object-cover"
         />
       </div>
@@ -70,15 +70,15 @@ export default async function Home() {
         <Layout className="mb-26 md:mb-36">
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md max-md:mb-6 md:text-2xl">
-              Elevate Your Living Space with Unmatched Comfort & Style
+              Computers, parts, accessories, and repair support in one place.
             </h3>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
             <div className="flex items-center h-full">
               <div className="md:text-md">
-                <p>Discover Your Perfect Sofa Today</p>
+                <p>Find the tech you need.</p>
                 <LocalizedLink href="/store" variant="underline">
-                  Explore Now
+                  Shop now
                 </LocalizedLink>
               </div>
             </div>
@@ -89,20 +89,20 @@ export default async function Home() {
         <Layout>
           <LayoutColumn className="col-span-full">
             <h3 className="text-md md:text-2xl mb-8 md:mb-16">
-              About Sofa Society
+              About TechHub
             </h3>
             <Image
-              src="/images/content/gray-sofa-against-concrete-wall.png"
+              src="/images/content/techhub-laptop-display.png"
               width={2496}
               height={1400}
-              alt="Gray sofa against concrete wall"
+              alt="Laptop computers displayed on a retail table"
               className="mb-8 md:mb-16 max-md:aspect-[3/2] max-md:object-cover"
             />
           </LayoutColumn>
           <LayoutColumn start={1} end={{ base: 13, md: 7 }}>
             <h2 className="text-md md:text-2xl">
-              At Sofa Society, we believe that a sofa is the heart of every
-              home.
+              TechHub Canada helps customers buy, repair, and set up everyday
+              technology.
             </h2>
           </LayoutColumn>
           <LayoutColumn
@@ -112,15 +112,15 @@ export default async function Home() {
           >
             <div className="md:text-md">
               <p className="mb-5 md:mb-9">
-                We are dedicated to delivering high-quality, thoughtfully
-                designed sofas that merge comfort and style effortlessly.
+                Shop laptops, desktops, monitors, printers, networking
+                products, ink, toner, parts, and accessories.
               </p>
               <p className="mb-5 md:mb-3">
-                Our mission is to transform your living space into a sanctuary
-                of relaxation and beauty, with products built to last.
+                Need help choosing or fixing a device? Our team supports
+                repairs, setup, service, and web development.
               </p>
               <LocalizedLink href="/about" variant="underline">
-                Read more about Sofa Society
+                Learn about TechHub
               </LocalizedLink>
             </div>
           </LayoutColumn>

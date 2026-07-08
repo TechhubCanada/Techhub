@@ -2,12 +2,43 @@ import type { SubscriberArgs, SubscriberConfig } from "@medusajs/medusa";
 import { ContainerRegistrationKeys, Modules } from "@medusajs/framework/utils";
 import type { CustomerDTO } from "@medusajs/framework/types";
 
+type PasswordResetEventData = {
+  entity_id: string;
+  token: string;
+  actor_type: string;
+};
+
+const trimTrailingSlash = (url: string) => url.replace(/\/$/, "");
+
+const getAdminResetUrl = (token: string) => {
+  const adminUrl = process.env.ADMIN_URL
+    ? trimTrailingSlash(process.env.ADMIN_URL)
+    : `${trimTrailingSlash(process.env.BACKEND_URL || "http://localhost:9000")}/app`;
+
+  return `${adminUrl}/reset-password?token=${encodeURIComponent(token)}`;
+};
+
 export default async function sendPasswordResetNotification({
   event: { data },
   container,
-}: SubscriberArgs<{ entity_id: string; token: string; actor_type: string }>) {
+}: SubscriberArgs<PasswordResetEventData>) {
   const query = container.resolve(ContainerRegistrationKeys.QUERY);
   const notificationModuleService = container.resolve(Modules.NOTIFICATION);
+
+  if (data.actor_type === "user") {
+    await notificationModuleService.createNotifications({
+      to: data.entity_id,
+      channel: "email",
+      template: "auth-admin-password-reset",
+      data: {
+        email: data.entity_id,
+        resetUrl: getAdminResetUrl(data.token),
+        token: data.token,
+      },
+    });
+
+    return;
+  }
 
   const fields = [
     "id",

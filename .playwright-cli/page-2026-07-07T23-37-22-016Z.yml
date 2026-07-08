@@ -1,0 +1,86 @@
+- generic [ref=f3e3]:
+  - generic [ref=f3e31]:
+    - complementary [ref=f3e35]:
+      - generic [ref=f3e36]:
+        - generic [ref=f3e37]:
+          - button [disabled] [ref=f3e39]:
+            - img [ref=f3e43]
+          - separator [ref=f3e46]
+        - generic [ref=f3e47]:
+          - generic [ref=f3e48]:
+            - navigation [ref=f3e49]:
+              - button "Search ⌘K" [ref=f3e51] [cursor=pointer]:
+                - img [ref=f3e52]
+                - paragraph [ref=f3e55]: Search
+                - paragraph [ref=f3e56]: ⌘K
+              - link "Orders" [ref=f3e59] [cursor=pointer]:
+                - /url: /app/orders
+                - img [ref=f3e61]
+                - paragraph [ref=f3e64]: Orders
+              - link "Products" [ref=f3e67] [cursor=pointer]:
+                - /url: /app/products
+                - img [ref=f3e69]
+                - paragraph [ref=f3e72]: Products
+              - link "Inventory" [ref=f3e75] [cursor=pointer]:
+                - /url: /app/inventory
+                - img [ref=f3e77]
+                - paragraph [ref=f3e80]: Inventory
+              - link "Customers" [ref=f3e83] [cursor=pointer]:
+                - /url: /app/customers
+                - img [ref=f3e85]
+                - paragraph [ref=f3e88]: Customers
+              - link "Promotions" [ref=f3e91] [cursor=pointer]:
+                - /url: /app/promotions
+                - img [ref=f3e93]
+                - paragraph [ref=f3e97]: Promotions
+              - link "Price Lists" [ref=f3e100] [cursor=pointer]:
+                - /url: /app/price-lists
+                - img [ref=f3e102]
+                - paragraph [ref=f3e106]: Price Lists
+            - generic [ref=f3e107]:
+              - separator [ref=f3e109]
+              - generic [ref=f3e111]:
+                - button "Extensions" [expanded] [ref=f3e113] [cursor=pointer]:
+                  - paragraph [ref=f3e114]: Extensions
+                  - img [ref=f3e116]
+                - navigation [ref=f3e118]:
+                  - link "Square" [ref=f3e121] [cursor=pointer]:
+                    - /url: /app/square
+                    - img [ref=f3e125]
+                    - paragraph [ref=f3e127]: Square
+                  - link "Materials & Colors" [ref=f3e130] [cursor=pointer]:
+                    - /url: /app/fashion
+                    - img [ref=f3e134]
+                    - paragraph [ref=f3e137]: Materials & Colors
+                  - link "Analytics" [ref=f3e140] [cursor=pointer]:
+                    - /url: /app/analytics
+                    - img [ref=f3e144]
+                    - paragraph [ref=f3e147]: Analytics
+          - link "Settings" [ref=f3e151] [cursor=pointer]:
+            - /url: /app/settings
+            - img [ref=f3e153]
+            - paragraph [ref=f3e157]: Settings
+        - generic [ref=f3e159]:
+          - separator [ref=f3e161]
+          - button "A admin@medusa-test.com" [ref=f3e164] [cursor=pointer]:
+            - generic [ref=f3e166]:
+              - generic: A
+            - paragraph [ref=f3e168]: admin@medusa-test.com
+            - img [ref=f3e169]
+    - generic [ref=f3e171]:
+      - generic [ref=f3e172]:
+        - generic [ref=f3e173]:
+          - button [ref=f3e175] [cursor=pointer]:
+            - img [ref=f3e176]
+          - list [ref=f3e179]:
+            - listitem [ref=f3e180]:
+              - generic [ref=f3e181]: Square
+        - button [ref=f3e183] [cursor=pointer]:
+          - img [ref=f3e184]
+      - main [ref=f3e186]:
+        - generic [ref=f3e190]:
+          - img [ref=f3e191]
+          - generic [ref=f3e195]:
+            - paragraph [ref=f3e196]: An error occurred
+            - paragraph [ref=f3e197]: An unexpected error occurred while rendering this page.
+  - region "Notifications alt+T"

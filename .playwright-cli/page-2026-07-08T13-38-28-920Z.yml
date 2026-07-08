@@ -1,0 +1,11 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e5]:
+      - link "TechHub home" [ref=e6] [cursor=pointer]:
+        - /url: /ca
+        - generic [ref=e7]:
+          - generic [ref=e12]: TH
+          - generic [ref=e13]: TechHub
+      - img [ref=e16]
+  - button "Open Next.js Dev Tools" [ref=e44] [cursor=pointer]:
+    - img [ref=e45]

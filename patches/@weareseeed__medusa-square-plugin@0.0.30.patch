@@ -1,0 +1,92 @@
+diff --git a/.medusa/server/src/admin/index.js b/.medusa/server/src/admin/index.js
+index 4c76bb8d947cdce8cebc55a539b8f14c3cc61ea3..57d241d251e5da1c8435114cbc77b1f034664af7 100644
+--- a/.medusa/server/src/admin/index.js
++++ b/.medusa/server/src/admin/index.js
+@@ -6,7 +6,6 @@ const ui = require("@medusajs/ui");
+ const reactQuery = require("@tanstack/react-query");
+ const react = require("react");
+ const Medusa = require("@medusajs/js-sdk");
+-const reactRouterDom = require("react-router-dom");
+ const _interopDefault = (e) => e && e.__esModule ? e : { default: e };
+ const Medusa__default = /* @__PURE__ */ _interopDefault(Medusa);
+ const sdk = new Medusa__default.default({
+@@ -16,6 +15,12 @@ const sdk = new Medusa__default.default({
+     type: "session"
+   }
+ });
++const getCurrentSearchParams = () => new URLSearchParams(window.location.search);
++const replaceCurrentSearchParams = (params) => {
++  const query = params.toString();
++  const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
++  window.history.replaceState(window.history.state, "", nextUrl);
++};
+ const createColumns = (main_location_id) => {
+   const columnHelper = ui.createDataTableColumnHelper();
+   return [
+@@ -425,18 +430,18 @@ const SettingsTab = () => {
+ };
+ const SquarePage = () => {
+   var _a;
+-  const [searchParams, setSearchParams] = reactRouterDom.useSearchParams();
+   const { data } = reactQuery.useQuery({
+     queryFn: () => sdk.client.fetch("/admin/square/config"),
+     queryKey: [["config"]]
+   });
+   react.useEffect(() => {
++    const searchParams = getCurrentSearchParams();
+     const status = searchParams.get("status");
+     if (status === "ok") {
+       ui.toast.success("Successfully linked to Square");
+       const newSearchParams = new URLSearchParams(searchParams.toString());
+       newSearchParams.delete("status");
+-      setSearchParams(newSearchParams, { replace: true });
++      replaceCurrentSearchParams(newSearchParams);
+     }
+   }, []);
+   const showTabs = (data == null ? void 0 : data.integration_key) && ((_a = data == null ? void 0 : data.location_id) == null ? void 0 : _a.length) > 0;
+diff --git a/.medusa/server/src/admin/index.mjs b/.medusa/server/src/admin/index.mjs
+index 1252c3509c5404f8d35fb2bb574b488e8e974605..6546afe2e0e27131f1b23c3aa62ba56cc4002817 100644
+--- a/.medusa/server/src/admin/index.mjs
++++ b/.medusa/server/src/admin/index.mjs
+@@ -5,7 +5,6 @@ import { createDataTableColumnHelper, usePrompt, toast, Button, useDataTable, Co
+ import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+ import { useState, useMemo, useEffect } from "react";
+ import Medusa from "@medusajs/js-sdk";
+-import { useSearchParams } from "react-router-dom";
+ const sdk = new Medusa({
+   baseUrl: "/",
+   debug: false,
+@@ -13,6 +12,12 @@ const sdk = new Medusa({
+     type: "session"
+   }
+ });
++const getCurrentSearchParams = () => new URLSearchParams(window.location.search);
++const replaceCurrentSearchParams = (params) => {
++  const query = params.toString();
++  const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
++  window.history.replaceState(window.history.state, "", nextUrl);
++};
+ const createColumns = (main_location_id) => {
+   const columnHelper = createDataTableColumnHelper();
+   return [
+@@ -422,18 +427,18 @@ const SettingsTab = () => {
+ };
+ const SquarePage = () => {
+   var _a;
+-  const [searchParams, setSearchParams] = useSearchParams();
+   const { data } = useQuery({
+     queryFn: () => sdk.client.fetch("/admin/square/config"),
+     queryKey: [["config"]]
+   });
+   useEffect(() => {
++    const searchParams = getCurrentSearchParams();
+     const status = searchParams.get("status");
+     if (status === "ok") {
+       toast.success("Successfully linked to Square");
+       const newSearchParams = new URLSearchParams(searchParams.toString());
+       newSearchParams.delete("status");
+-      setSearchParams(newSearchParams, { replace: true });
++      replaceCurrentSearchParams(newSearchParams);
+     }
+   }, []);
+   const showTabs = (data == null ? void 0 : data.integration_key) && ((_a = data == null ? void 0 : data.location_id) == null ? void 0 : _a.length) > 0;

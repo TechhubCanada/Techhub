@@ -6,8 +6,8 @@ import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
 
 export const metadata: Metadata = {
-  title: "Inspiration",
-  description: "Get inspired by our latest collections",
+  title: "Featured Tech",
+  description: "Explore practical tech picks from TechHub Canada",
 }
 
 export async function generateStaticParams() {
@@ -25,10 +25,10 @@ export default function InspirationPage() {
     <>
       <div className="max-md:pt-18">
         <Image
-          src="/images/content/living-room-dark-green-three-seater-sofa.png"
+          src="/images/content/techhub-electronics-storefront.png"
           width={2880}
           height={1500}
-          alt="Living room with dark green three-seater sofa"
+          alt="Electronics store exterior with large signage"
           className="md:h-screen md:object-cover mb-8 md:mb-26"
         />
       </div>
@@ -36,145 +36,141 @@ export default function InspirationPage() {
         <Layout>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
-              The Astrid Curve sofa is a masterpiece of minimalism and luxury.
+              Work-ready laptops and desktops for home, school, and business.
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Our design philosophy revolves around creating pieces that are
-                both beautiful and practical. Inspired by Scandinavian
-                simplicity, modern luxury, and timeless classics.
+                Choose reliable computers, monitors, keyboards, and accessories
+                that are easy to set up and ready for daily use.
               </p>
             </div>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
-            <LocalizedLink href="/products/astrid-curve">
+            <LocalizedLink href="/store">
               <Image
-                src="/images/content/dark-gray-three-seater-sofa.png"
+                src="/images/content/techhub-laptop-product-table.png"
                 width={768}
                 height={572}
-                alt="Dark gray three-seater sofa"
+                alt="Laptop computer on a product display table"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Astrid Curve</p>
+                  <p className="mb-1">Workstations</p>
                   <p className="text-grayscale-500 text-xs">
-                    Scandinavian Simplicity
+                    Computers and displays
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold">1500€</p>
+                  <p className="font-semibold">Shop</p>
                 </div>
               </div>
             </LocalizedLink>
           </LayoutColumn>
           <LayoutColumn>
             <Image
-              src="/images/content/living-room-brown-armchair-gray-corner-sofa.png"
+              src="/images/content/techhub-laptop-workspace-coffee.png"
               width={2496}
               height={1404}
-              alt="Living room with brown armchair and gray corner sofa"
+              alt="Laptop on a table beside a coffee cup"
               className="mt-26 md:mt-36 mb-8 md:mb-26"
             />
           </LayoutColumn>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
-              Haven Sofas have minimalistic designs, neutral colors, and
-              high-quality textures.
+              Networking gear, routers, switches, and cables for stable
+              connections.
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Perfect for those who seek comfort with a clean and understated
-                aesthetic. This collection brings the essence of Scandinavian
-                elegance to your living room.
+                Build a cleaner setup at home or at work with products that
+                keep devices connected and organized.
               </p>
             </div>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
             <LocalizedLink
-              href="/products/nordic-haven"
+              href="/store"
               className="mb-8 md:mb-16 inline-block"
             >
               <Image
-                src="/images/content/gray-three-seater-sofa.png"
+                src="/images/content/techhub-ethernet-switch.png"
                 width={768}
                 height={572}
-                alt="Gray three-seater sofa"
+                alt="Ethernet switch with network cables"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Nordic Haven</p>
+                  <p className="mb-1">Switches</p>
                   <p className="text-grayscale-500 text-xs">
-                    Scandinavian Simplicity
+                    Wired networking
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold">1500€</p>
+                  <p className="font-semibold">Shop</p>
                 </div>
               </div>
             </LocalizedLink>
-            <LocalizedLink href="/products/nordic-breeze">
+            <LocalizedLink href="/store">
               <Image
-                src="/images/content/gray-arm-chair.png"
+                src="/images/content/techhub-network-router.png"
                 width={768}
                 height={572}
-                alt="Gray arm chair"
+                alt="Network router close-up"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Nordic Breeze</p>
+                  <p className="mb-1">Routers</p>
                   <p className="text-grayscale-500 text-xs">
-                    Scandinavian Simplicity
+                    Wi-Fi and routing
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold">1200€</p>
+                  <p className="font-semibold">Shop</p>
                 </div>
               </div>
             </LocalizedLink>
           </LayoutColumn>
         </Layout>
         <Image
-          src="/images/content/living-room-gray-two-seater-puffy-sofa.png"
+          src="/images/content/techhub-dual-monitor-workstation.png"
           width={2880}
           height={1618}
-          alt="Living room with gray two-seater puffy sofa"
+          alt="Dual monitor desk workstation"
           className="md:h-screen md:object-cover mt-26 md:mt-36 mb-8 md:mb-26"
         />
         <Layout>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
-              Oslo Drift is infused with playful textures and vibrant patterns
-              with eclectic vibes.
+              Gaming, audio, repairs, and accessories for a better setup.
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Whether you&apos;re looking for bold statement pieces or subtle
-                elegance, this collection elevates your home with a touch of
-                glamour, sophistication, and unmatched coziness.
+                Find headsets, parts, tools, and service support to keep your
+                devices working the way you need.
               </p>
             </div>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
-            <LocalizedLink href="/products/oslo-drift">
+            <LocalizedLink href="/store">
               <Image
-                src="/images/content/white-two-seater-sofa.png"
+                src="/images/content/techhub-gaming-headset.png"
                 width={768}
                 height={572}
-                alt="White two-seater sofa"
+                alt="Gaming headset on a desk with ambient lighting"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Oslo Drift</p>
+                  <p className="mb-1">Gaming audio</p>
                   <p className="text-grayscale-500 text-xs">
-                    Scandinavian Simplicity
+                    Headsets and accessories
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold">1500€</p>
+                  <p className="font-semibold">Shop</p>
                 </div>
               </div>
             </LocalizedLink>

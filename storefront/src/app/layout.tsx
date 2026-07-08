@@ -8,6 +8,9 @@ import "lenis/dist/lenis.css"
 import React from "react"
 import { WebMCPProvider } from "@lib/webmcp/WebMCPProvider"
 import { SmoothScroll } from "@/components/SmoothScroll"
+import { RealtimeProvider } from "@/components/RealtimeProvider"
+import { CookieConsentBanner } from "@/components/CookieConsentBanner"
+import { ReactQueryProvider } from "@lib/util/react-query"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
@@ -39,11 +42,15 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light" className="antialiased">
       <body className={`${monaSans.className}`}>
-        <SmoothScroll>
-          <main className="relative">{props.children}</main>
-        </SmoothScroll>
-        <SpeedInsights />
-        <WebMCPProvider />
+        <ReactQueryProvider>
+          <SmoothScroll>
+            <main className="relative">{props.children}</main>
+          </SmoothScroll>
+          <RealtimeProvider />
+          <SpeedInsights />
+          <WebMCPProvider />
+          <CookieConsentBanner />
+        </ReactQueryProvider>
       </body>
     </html>
   )

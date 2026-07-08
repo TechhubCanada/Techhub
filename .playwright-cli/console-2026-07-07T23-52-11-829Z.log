@@ -1,0 +1,153 @@
+[     105ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/favicon.ico:0
+[   83291ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:21550
+[   83559ms] [LOG] i18next: languageChanged en @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=d998add6:13
+[   83559ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=d998add6:13
+[   83573ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4191
+[   83611ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me:0
+[   84628ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/admin/users/me:0
+[  209408ms] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at HTMLUnknownElement.callCallback2 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3674:22)
+    at Object.invokeGuardedCallbackDev (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3699:24)
+    at invokeGuardedCallback (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3733:39)
+[  209411ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  209412ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  209447ms] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at HTMLUnknownElement.callCallback2 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3674:22)
+    at Object.invokeGuardedCallbackDev (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3699:24)
+    at invokeGuardedCallback (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:3733:39)
+[  209447ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  209447ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  209460ms] [ERROR] The above error occurred in the <SquarePage> component:
+
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at RenderedRoute (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3908:5)
+    at RenderErrorBoundary (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3868:5)
+    at RenderedRoute (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3908:5)
+    at Outlet (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4255:26)
+    at div
+    at Gutter (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:95339:17)
+    at main
+    at div
+    at div
+    at KeybindProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:95096:3)
+    at Shell (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:95295:16)
+    at MainLayout
+    at RenderedRoute (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3908:5)
+    at Outlet (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4255:26)
+    at SearchProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:94883:25)
+    at SidebarProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:94859:26)
+    at ProtectedRoute (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:94927:31)
+    at RenderedRoute (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3908:5)
+    at RenderErrorBoundary (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3868:5)
+    at DataRoutes (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4916:5)
+    at Router (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4259:15)
+    at RouterProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:4730:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithLocale (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-EXTHEUEF.js?v=d998add6:53980:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-EXTHEUEF.js?v=d998add6:53999:9)
+    at I18nProvider
+    at I18nProvider2 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:727:24)
+    at FeatureFlagProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ACSIFYHC.js?v=d998add6:46:30)
+    at ThemeProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:755:24)
+    at QueryClientProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-44XT2E74.js?v=d998add6:2528:3)
+    at _a (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:673:5)
+    at ExtensionProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-4DACX2QJ.js?v=d998add6:26:3)
+    at Provider2 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-EXTHEUEF.js?v=d998add6:31964:15)
+    at TooltipProvider (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-EXTHEUEF.js?v=d998add6:45056:5)
+    at TooltipProvider2 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-EXTHEUEF.js?v=d998add6:46100:27)
+    at Providers (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:796:20)
+    at div
+    at App (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@medusajs_dashboard.js?v=d998add6:97:16)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14031
+[  209460ms] [ERROR] React Router caught the following error during render Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) {componentStack: 
+    at SquarePage (https://probable-xylophone-jjv…ite/deps/@medusajs_dashboard.js?v=d998add6:97:16)} @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-NIBVSLYK.js?v=d998add6:3894
+[  209515ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  209516ms] [ERROR] Error: useLocation() may be used only in the context of a <Router> component.
+    at invariant (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:204:11)
+    at useLocation (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:3855:34)
+    at useSearchParams (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-DBCV2QRH.js?v=d998add6:5621:18)
+    at SquarePage (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=d998add6:1792:43)
+    at renderWithHooks (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:11548:26)
+    at mountIndeterminateComponent (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:14926:21)
+    at beginWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:15914:22)
+    at beginWork$1 (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19753:22)
+    at performUnitOfWork (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19198:20)
+    at workLoopSync (https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-ILO4JA4Q.js?v=d998add6:19137:13) @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-2XMQXYD5.js?v=d998add6:96219
+[  216840ms] [ERROR] WebSocket connection to 'wss://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev:40795/app/?token=cBpQcVGqAodJ' failed: Error in connection establishment: net::ERR_CONNECTION_TIMED_OUT @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@vite/client:535
+[  216841ms] [LOG] [vite] server connection lost. Polling for restart... @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev/app/@vite/client:559
+[  352009ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev:40795/app/:0
+[  487176ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ https://probable-xylophone-jjv5v6vv7rgvc54pj-9000.app.github.dev:40795/app/:0

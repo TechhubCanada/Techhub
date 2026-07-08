@@ -3,7 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "dev": "turbo dev --parallel",
+    "dev": "turbo dev",
     "dev:medusa": "turbo dev --filter=@techhub/medusa",
     "dev:storefront": "turbo dev --filter=@techhub/storefront",
     "build": "turbo build",
@@ -12,11 +12,16 @@
     "lint": "turbo lint",
     "review:graph": "node scripts/code-review-graph.mjs",
     "seed": "turbo seed --filter=@techhub/medusa",
+    "seed:techhub": "turbo seed:techhub --filter=@techhub/medusa",
     "test:medusa": "turbo test:unit --filter=@techhub/medusa",
     "test:e2e": "turbo test-e2e --filter=@techhub/storefront"
   },
   "pnpm": {
     "overrides": {
+      "@tanstack/query-core": "5.64.2",
+      "@tanstack/react-query": "5.64.2",
+      "@types/react": "19.2.17",
+      "@types/react-dom": "19.2.3",
       "webpack": "^5"
     },
     "onlyBuiltDependencies": [
@@ -27,7 +32,11 @@
       "protobufjs",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "patchedDependencies": {
+      "@weareseeed/medusa-square-plugin@0.0.30": "patches/@weareseeed__medusa-square-plugin@0.0.30.patch",
+      "@agilo/medusa-analytics-plugin": "patches/@agilo__medusa-analytics-plugin.patch"
+    }
   },
   "devDependencies": {
     "turbo": "^2.10.4"

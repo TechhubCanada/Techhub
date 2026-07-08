@@ -1,7 +1,7 @@
 import React from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getCartId } from "@lib/data/cookies"
+import { retrieveCart } from "@lib/data/cart"
 import { CheckoutForm } from "@modules/checkout/components/checkout-form"
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default async function Checkout({
   params: Promise<{ countryCode: string }>
   searchParams: Promise<{ step?: string }>
 }) {
-  const cart = await getCartId()
+  const cart = await retrieveCart()
   if (!cart) {
     return notFound()
   }
@@ -23,5 +23,7 @@ export default async function Checkout({
   const { countryCode } = await params
   const { step } = await searchParams
 
-  return <CheckoutForm countryCode={countryCode} step={step} />
+  return (
+    <CheckoutForm countryCode={countryCode} step={step} initialCart={cart} />
+  )
 }

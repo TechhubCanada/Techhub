@@ -21,7 +21,6 @@ import {
   Label,
 } from '@medusajs/ui';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useSearchParams, Link } from 'react-router-dom';
 
 import { MaterialModelType } from '../../../modules/fashion/models/material';
 import { useCreateMaterialMutation } from '../../hooks/fashion';
@@ -32,6 +31,7 @@ import {
   materialFormSchema,
 } from '../../components/EditMaterialDrawer';
 import { withQueryClient } from '../../components/QueryClientProvider';
+import { getAdminHref, useAdminSearchParams } from '../../utils/routing';
 
 const DeleteMaterialPrompt: React.FC<{
   id: string;
@@ -132,7 +132,7 @@ const RestoreMaterialPrompt: React.FC<{
 };
 
 const FashionPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useAdminSearchParams();
   const page = Number(searchParams.get('page')) || 1;
   const setPage = React.useCallback(
     (page: number) => {
@@ -277,7 +277,9 @@ const FashionPage = () => {
             data.materials.map((material) => (
               <Table.Row key={material.id}>
                 <Table.Cell>
-                  <Link to={`/fashion/${material.id}`}>{material.name}</Link>
+                  <a href={getAdminHref(`/fashion/${material.id}`)}>
+                    {material.name}
+                  </a>
                 </Table.Cell>
                 <Table.Cell className="text-right">
                   <DropdownMenu>

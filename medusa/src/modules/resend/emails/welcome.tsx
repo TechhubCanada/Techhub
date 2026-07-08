@@ -6,7 +6,7 @@ import { CustomerDTO } from '@medusajs/framework/types';
 import EmailLayout, { EmailLayoutProps } from './components/EmailLayout';
 
 const UnorderedList: React.FC<{
-  children?: React.ReactNode;
+  children?: any;
   className?: string;
 }> = ({ children, className }) => {
   return (
@@ -17,7 +17,7 @@ const UnorderedList: React.FC<{
 };
 
 const UnorderedListItem: React.FC<{
-  children?: React.ReactNode;
+  children?: any;
   className?: string;
   textClassName?: string;
 }> = ({ children, className, textClassName }) => {
@@ -46,10 +46,10 @@ export default function WelcomeEmail({
   return (
     <EmailLayout {...emailLayoutProps}>
       <Heading className="text-2xl mt-0 mb-10 font-medium">
-        Welcome to Sofa Society!
+        Welcome to TechHub!
       </Heading>
       <Text className="text-md !mb-8">
-        Welcome to Sofa Society! We're excited to have you join our community of
+        Welcome to TechHub! We're excited to have you join our community of
         comfort enthusiasts. With our carefully crafted sofas, you&apos;re just
         steps away from adding elegance and coziness to your living space.
       </Text>
@@ -73,7 +73,7 @@ export default function WelcomeEmail({
       <Text className="text-md">
         Best wishes,
         <br />
-        The Sofa Society Team
+        The TechHub Team
       </Text>
     </EmailLayout>
   );

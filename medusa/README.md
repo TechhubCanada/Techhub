@@ -68,3 +68,16 @@ Join our [Discord server](https://discord.com/invite/medusajs) to meet other com
 - [Twitter](https://twitter.com/medusajs)
 - [LinkedIn](https://www.linkedin.com/company/medusajs)
 - [Medusa Blog](https://medusajs.com/blog/)
+## Tech Hub notification setup
+
+This backend uses Medusa's Notification Module with the local notification provider and a custom Resend provider. The Resend React Email templates are source-controlled under `src/modules/resend/emails` and registered in `src/modules/resend/emails/index.ts`. The Builder/Lexical notification email admin plugin is intentionally not installed.
+
+Required email environment variables:
+
+```sh
+RESEND_API_KEY=
+RESEND_FROM="TechHub <noreply@techhubcanada.com>"
+```
+
+See `../docs/medusa-notifications.md` for provider details and template names.
+

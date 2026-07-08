@@ -1,7 +1,12 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
+import { getMedusaBackendUrl } from "@lib/medusa-url"
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
+const BACKEND_URL = getMedusaBackendUrl({
+  isServer: true,
+  serverUrl: process.env.MEDUSA_BACKEND_URL,
+  publicUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
+})
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 type RegionMap = Map<string, HttpTypes.StoreRegion | number>
@@ -90,10 +95,7 @@ async function getRegionMap() {
  * @param request
  * @param response
  */
-async function getCountryCode(
-  request: NextRequest,
-  regionMap: RegionMap
-) {
+async function getCountryCode(request: NextRequest, regionMap: RegionMap) {
   try {
     let countryCode
 
@@ -159,6 +161,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|favicon.ico|favicon.svg|_next/image|images|robots.txt).*)",
+    "/((?!api|medusa|_next/static|favicon.ico|favicon.svg|_next/image|images|robots.txt).*)",
   ],
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Documenting Changes"
+  short_description: "Keep README, versions, and docs in sync"
+  default_prompt: "Use $documenting-changes before finalizing repository changes."

@@ -71,14 +71,46 @@ const defaultAdminCors = corsOrigins(
 
 const defaultAuthCors = corsOrigins(defaultAdminCors, defaultStoreCors);
 
+const adminSingletonDependencies = [
+  'react',
+  'react/jsx-runtime',
+  'react/jsx-dev-runtime',
+  'react-dom',
+  'react-dom/client',
+  '@tanstack/react-query',
+  'react-router',
+  'react-router-dom',
+];
+
+const adminSingletonDedupe = [
+  'react',
+  'react-dom',
+  '@tanstack/react-query',
+  'react-router',
+  'react-router-dom',
+];
+
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const adminSingletonAliases = adminSingletonDependencies.map((dependency) => ({
+  find: new RegExp(`^${escapeRegExp(dependency)}$`),
+  replacement: require.resolve(dependency, { paths: [__dirname] }),
+}));
+
 module.exports = defineConfig({
   admin: {
     disable: process.env.DISABLE_MEDUSA_ADMIN === 'true',
-    backendUrl:
-      process.env.MEDUSA_BACKEND_URL ??
-      process.env.BACKEND_URL ??
-      'https://sofa-society-starter.medusajs.app',
+    backendUrl: process.env.MEDUSA_ADMIN_BACKEND_URL ?? '/',
     storefrontUrl: process.env.STOREFRONT_URL,
+    vite: () => ({
+      resolve: {
+        alias: adminSingletonAliases,
+        dedupe: adminSingletonDedupe,
+      },
+      optimizeDeps: {
+        include: adminSingletonDependencies,
+      },
+    }),
   },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
@@ -99,12 +131,9 @@ module.exports = defineConfig({
       options: {
         providers: [
           {
-            id: 'stripe',
-            resolve: '@medusajs/medusa/payment-stripe',
-            options: {
-              apiKey: process.env.STRIPE_API_KEY,
-              webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-            },
+            id: 'square',
+            resolve:
+              '@weareseeed/medusa-square-plugin/providers/square-payment',
           },
         ],
       },
@@ -140,14 +169,21 @@ module.exports = defineConfig({
       options: {
         providers: [
           {
+            resolve: '@medusajs/medusa/notification-local',
+            id: 'local',
+            options: {
+              channels: ['feed'],
+            },
+          },
+          {
             resolve: './src/modules/resend',
             id: 'resend',
             options: {
               channels: ['email'],
               api_key: process.env.RESEND_API_KEY,
               from: process.env.RESEND_FROM,
-              siteTitle: 'SofaSocietyCo.',
-              companyName: 'Sofa Society',
+              siteTitle: 'TechHub',
+              companyName: 'TechHub',
               footerLinks: [
                 {
                   url: 'https://agilo.com',
@@ -288,8 +324,53 @@ module.exports = defineConfig({
         },
       },
     },
+    {
+      key: 'agenticCommerce',
+      resolve:
+        '@financedistrict/medusa-plugin-agentic-commerce/modules/agentic-commerce',
+      options: {
+        api_key: process.env.AGENTIC_COMMERCE_API_KEY,
+        signatureKey: process.env.AGENTIC_COMMERCE_SIGNATURE_KEY,
+        storefront_url: process.env.STOREFRONT_URL || 'http://localhost:8000',
+        store_name: process.env.AGENTIC_STORE_NAME || 'TechHub Canada',
+        store_description:
+          process.env.AGENTIC_STORE_DESCRIPTION ||
+          'Computers, parts, accessories, and repair support from TechHub Canada.',
+        payment_provider_id:
+          process.env.AGENTIC_PAYMENT_PROVIDER || 'pp_square_square',
+        payment_handler_adapters: [],
+      },
+    },
   ],
   plugins: [
+    {
+      resolve: '@weareseeed/medusa-square-plugin',
+      options: {},
+    },
+    {
+      resolve: 'medusa-plugin-content',
+      options: {},
+    },
+    {
+      resolve: '@alphabite/medusa-collection-images',
+      options: {},
+    },
+    {
+      resolve: '@empty-complete-org/medusa-product-attributes',
+      options: {},
+    },
+    {
+      resolve: '@reorderjs/reorder',
+      options: {},
+    },
+    {
+      resolve: '@financedistrict/medusa-plugin-agentic-commerce',
+      options: {},
+    },
+    {
+      resolve: '@codee-sh/medusa-plugin-automations',
+      options: {},
+    },
     {
       resolve: '@agilo/medusa-analytics-plugin',
       options: {},

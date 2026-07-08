@@ -28,8 +28,7 @@ export type FormProps<T extends z.ZodType<any, any, any>> = UseFormProps<
   ) => void | Promise<void>
   defaultValues?: DefaultValues<z.infer<T>>
   children?:
-    | React.ReactNode
-    | ((form: UseFormReturn<z.infer<T>>) => React.ReactNode)
+    React.ReactNode | ((form: UseFormReturn<z.infer<T>>) => React.ReactNode)
 
   formProps?: Omit<React.ComponentProps<"form">, "onSubmit">
 }
@@ -60,7 +59,7 @@ export const Form = <T extends z.ZodType<any, any, any>>({
       (event) => {
         event.preventDefault()
         event.stopPropagation()
-        form.handleSubmit(submitHandler, (err) => console.error(err))(event)
+        form.handleSubmit(submitHandler)(event)
       },
       [form, submitHandler]
     )

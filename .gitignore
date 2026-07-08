@@ -5,7 +5,13 @@
 
 # Starter/project tooling
 .DS_Store
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/documenting-changes/
+!.agents/skills/documenting-changes/**
+!.agents/skills/gortex-navigation/
+!.agents/skills/gortex-navigation/**
 node_modules/
 **/.turbo/
 pnpm-debug.log*

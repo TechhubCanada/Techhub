@@ -10,6 +10,7 @@ import { getCategoriesList } from "@lib/data/categories"
 import { getProductTypesList } from "@lib/data/product-types"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import { getRegion } from "@lib/data/regions"
+import { resolveSelectedIds } from "@modules/store/templates/filter-utils"
 
 const StoreTemplate = async ({
   sortBy,
@@ -34,6 +35,17 @@ const StoreTemplate = async ({
     getProductTypesList(0, 100, ["id", "value"]),
     getRegion(countryCode),
   ])
+  const collectionIds = resolveSelectedIds(
+    collections.collections,
+    collection,
+    "handle"
+  )
+  const categoryIds = resolveSelectedIds(
+    categories.product_categories,
+    category,
+    "handle"
+  )
+  const typeIds = resolveSelectedIds(types.productTypes, type, "value")
 
   return (
     <div className="md:pt-47 py-26 md:pb-36">
@@ -59,27 +71,9 @@ const StoreTemplate = async ({
             sortBy={sortBy}
             page={pageNumber}
             countryCode={countryCode}
-            collectionId={
-              !collection
-                ? undefined
-                : collections.collections
-                    .filter((c) => collection.includes(c.handle))
-                    .map((c) => c.id)
-            }
-            categoryId={
-              !category
-                ? undefined
-                : categories.product_categories
-                    .filter((c) => category.includes(c.handle))
-                    .map((c) => c.id)
-            }
-            typeId={
-              !type
-                ? undefined
-                : types.productTypes
-                    .filter((t) => type.includes(t.value))
-                    .map((t) => t.id)
-            }
+            collectionId={collectionIds}
+            categoryId={categoryIds}
+            typeId={typeIds}
           />
         )}
       </Suspense>

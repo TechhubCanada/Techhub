@@ -8,40 +8,12 @@ import { UiCloseButton, UiDialog, UiDialogTrigger } from "@/components/Dialog"
 import { Button } from "@/components/Button"
 import { UiModal, UiModalOverlay } from "@/components/ui/Modal"
 import compareAddresses from "@lib/util/compare-addresses"
+import { isCheckoutAddressComplete } from "@modules/checkout/components/address-completeness"
 import { UiRadio, UiRadioBox, UiRadioLabel } from "@/components/ui/Radio"
 import { UpsertAddressForm } from "@modules/account/components/UpsertAddressForm"
 import { useCountryCode } from "hooks/country-code"
 import { twMerge } from "tailwind-merge"
 import { useFormContext } from "react-hook-form"
-
-const isBillingAddressEmpty = (formData: {
-  billing_address?: Pick<
-    HttpTypes.StoreCartAddress,
-    | "first_name"
-    | "last_name"
-    | "address_1"
-    | "address_2"
-    | "company"
-    | "postal_code"
-    | "city"
-    | "country_code"
-    | "province"
-    | "phone"
-  >
-}) => {
-  return (
-    !formData?.billing_address?.first_name &&
-    !formData?.billing_address?.last_name &&
-    !formData?.billing_address?.address_1 &&
-    !formData?.billing_address?.address_2 &&
-    !formData?.billing_address?.company &&
-    !formData?.billing_address?.postal_code &&
-    !formData?.billing_address?.city &&
-    !formData?.billing_address?.country_code &&
-    !formData?.billing_address?.province &&
-    !formData?.billing_address?.phone
-  )
-}
 
 const BillingAddress = ({
   cart,
@@ -74,6 +46,7 @@ const BillingAddress = ({
         first_name: address?.first_name || "",
         last_name: address?.last_name || "",
         address_1: address?.address_1 || "",
+        address_2: address?.address_2 || "",
         company: address?.company || "",
         postal_code: address?.postal_code || "",
         city: address?.city || "",
@@ -109,7 +82,7 @@ const BillingAddress = ({
   useEffect(() => {
     // Ensure cart is not null and has a billing_address before setting form data
     if (cart) {
-      if (cart.billing_address) {
+      if (isCheckoutAddressComplete(cart.billing_address)) {
         setFormAddress(cart.billing_address)
       } else if (
         // If customer has saved addresses in the region and form data is empty
@@ -117,7 +90,7 @@ const BillingAddress = ({
         customer &&
         addressesInRegion &&
         addressesInRegion.length &&
-        isBillingAddressEmpty(formData)
+        !isCheckoutAddressComplete(formData?.billing_address)
       ) {
         const defaultBillingAddress =
           addressesInRegion.find((a) => a.is_default_billing) ||
@@ -144,7 +117,7 @@ const BillingAddress = ({
     <>
       {customer &&
       (addressesInRegion?.length || 0) > 0 &&
-      !isBillingAddressEmpty(formData) ? (
+      isCheckoutAddressComplete(formData?.billing_address) ? (
         <div className="w-full border border-grayscale-200 rounded-xs p-4 flex flex-wrap gap-8 max-lg:flex-col mt-8">
           <div className="flex flex-1 gap-8">
             <Icon name="user" className="w-6 h-6 mt-2.5" />
@@ -191,7 +164,7 @@ const BillingAddress = ({
             </Button>
             <UiModalOverlay>
               <UiModal>
-                <UiDialog>
+                <UiDialog aria-label="Change billing address">
                   <p className="text-md mb-10">Change address</p>
                   <ReactAria.RadioGroup
                     className="flex flex-col gap-4 mb-10"
@@ -284,7 +257,7 @@ const BillingAddress = ({
                       <Button>Add new address</Button>
                       <UiModalOverlay>
                         <UiModal>
-                          <UiDialog>
+                          <UiDialog aria-label="Add billing address">
                             <UpsertAddressForm
                               region={cart?.region}
                               defaultValues={{ country_code: countryCode }}

@@ -1,0 +1,275 @@
+[    1407ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:21550
+[    2305ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[    2328ms] [WARNING] [@medusajs/dashboard] Menu item for path "/mpn/templates/:id/blocks" can't be added to the sidebar as it contains a mandatory parameter. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:97943
+[    2356ms] [LOG] i18next: languageChanged en @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[    2356ms] [LOG] i18next: initialized {debug: true, initImmediate: true, ns: Array(1), defaultNS: Array(1), fallbackLng: Array(1)} @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-GLTDJFD4.js?v=56e26756:13
+[    2455ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4191
+[   67692ms] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3674:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3699:24)
+    at invokeGuardedCallback (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3733:39)
+[   67709ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[   67710ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[   68280ms] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at HTMLUnknownElement.callCallback2 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3674:22)
+    at Object.invokeGuardedCallbackDev (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3699:24)
+    at invokeGuardedCallback (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:3733:39)
+[   68278ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[   68278ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[   68456ms] [ERROR] The above error occurred in the <SquarePage> component:
+
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at RenderedRoute (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3908:5)
+    at RenderErrorBoundary (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3868:5)
+    at RenderedRoute (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3908:5)
+    at Outlet (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4255:26)
+    at div
+    at Gutter (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:95339:17)
+    at main
+    at div
+    at div
+    at KeybindProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:95096:3)
+    at Shell (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:95295:16)
+    at MainLayout
+    at RenderedRoute (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3908:5)
+    at Outlet (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4255:26)
+    at SearchProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:94883:25)
+    at SidebarProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:94859:26)
+    at ProtectedRoute (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:94927:31)
+    at RenderedRoute (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3908:5)
+    at RenderErrorBoundary (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3868:5)
+    at DataRoutes (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4916:5)
+    at Router (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4259:15)
+    at RouterProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:4730:5)
+    at $2eb8e6d23f3d0cb0$var$I18nProviderWithLocale (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-6DNBSS35.js?v=56e26756:53980:9)
+    at $2eb8e6d23f3d0cb0$export$a54013f0d02a8f82 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-6DNBSS35.js?v=56e26756:53999:9)
+    at I18nProvider
+    at I18nProvider2 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:727:24)
+    at FeatureFlagProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-Z5TRYVJ2.js?v=56e26756:46:30)
+    at ThemeProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:755:24)
+    at QueryClientProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-VSOK6CMU.js?v=56e26756:2528:3)
+    at _a (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:673:5)
+    at ExtensionProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-W53VHTOB.js?v=56e26756:26:3)
+    at Provider2 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-6DNBSS35.js?v=56e26756:31964:15)
+    at TooltipProvider (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-6DNBSS35.js?v=56e26756:45056:5)
+    at TooltipProvider2 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-6DNBSS35.js?v=56e26756:46100:27)
+    at Providers (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:796:20)
+    at div
+    at App (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@medusajs_dashboard.js?v=56e26756:97:16)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14031
+[   68457ms] [ERROR] React Router caught the following error during render Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) {componentStack: 
+    at SquarePage (http://localhost:9000/app/@fs/…ite/deps/@medusajs_dashboard.js?v=56e26756:97:16)} @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RAE5D536.js?v=56e26756:3894
+[   68696ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[   68697ms] [ERROR] Error: No QueryClient set, use QueryClientProvider to set one
+    at useQueryClient (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1123:11)
+    at useBaseQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1215:18)
+    at useQuery (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-RIKDQXWG.js?v=56e26756:1293:10)
+    at SquarePage (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/@weareseeed_medusa-square-plugin_admin.js?v=56e26756:474:20)
+    at renderWithHooks (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:11548:26)
+    at mountIndeterminateComponent (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:14926:21)
+    at beginWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:15914:22)
+    at beginWork$1 (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19753:22)
+    at performUnitOfWork (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19198:20)
+    at workLoopSync (http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-AAEUBMPE.js?v=56e26756:19137:13) @ http://localhost:9000/app/@fs/workspaces/Techhub/medusa/node_modules/.vite/deps/chunk-F6QYHABG.js?v=56e26756:96219
+[  275507ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:9000/app/@vite/client:559
+[  275687ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  276716ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  277719ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  278722ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  279726ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  280732ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  281734ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  282741ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  283742ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  284744ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  285746ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  286748ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  287750ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  288756ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  289762ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  290764ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  291772ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  292773ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  293775ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  294776ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  295778ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  296780ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  297784ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  298786ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  299791ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  300794ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  301805ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  302809ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  303812ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  304851ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  305856ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  306863ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  307866ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  308885ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  309503ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:9000/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  309892ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  310529ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:9000/admin/notifications?limit=1&offset=0&fields=created_at:0
+[  310895ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  311897ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  312901ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  313917ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  314923ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  315953ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  316955ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  317963ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  318968ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  319977ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  320979ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  321982ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  322984ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  323986ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  324989ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  325996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  326998ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  328000ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  329003ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  330017ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  331020ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  332023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  333026ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  334040ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  335042ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  336045ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  337048ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  338081ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  339087ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  340094ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  341099ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  342103ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  343127ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  344141ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  345150ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  346152ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  347204ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  348209ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  349214ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  350220ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  351247ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  352254ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  353256ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  354257ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  355261ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  356263ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  357265ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  358266ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  359303ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  360306ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  361309ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  362310ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  363313ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  364318ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  365322ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  366416ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  367758ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  368940ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  371498ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  372522ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  373525ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  374758ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  375761ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  376764ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  377766ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  378777ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  379787ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  380789ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  381791ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  382794ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  383796ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  384799ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  385803ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  386806ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  387815ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  388820ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  389825ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  390829ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  391833ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  392881ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  393884ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  394891ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  395892ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  396905ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  397908ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  398913ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  399921ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  400924ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0
+[  401929ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:35257/app/:0

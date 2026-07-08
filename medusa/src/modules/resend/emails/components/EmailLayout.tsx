@@ -28,7 +28,7 @@ export type EmailLayoutProps = {
 
 export default function EmailLayout(
   props: {
-    children: React.ReactNode;
+    children: any;
   } & EmailLayoutProps
 ) {
   return (
@@ -142,7 +142,7 @@ export default function EmailLayout(
               href={process.env.STOREFRONT_URL || 'http://localhost:8000'}
               className="text-lg mb-18 inline-block text-black"
             >
-              {props.siteTitle || 'SofaSocietyCo.'}
+              {props.siteTitle || 'TechHub'}
             </Link>
             {props.children}
             <Hr className="mt-20 mb-8" />
@@ -153,11 +153,11 @@ export default function EmailLayout(
                     href={process.env.STOREFRONT_URL || 'http://localhost:8000'}
                     className="text-lg text-grayscale-500"
                   >
-                    {props.siteTitle || 'SofaSocietyCo.'}
+                    {props.siteTitle || 'TechHub'}
                   </Link>
                   <Text className="text-xs m-0">
                     &copy; {new Date().getFullYear()},{' '}
-                    {props.companyName || 'Sofa Society'}
+                    {props.companyName || 'TechHub'}
                   </Text>
                 </Column>
                 {props.footerLinks && props.footerLinks.length > 0 && (

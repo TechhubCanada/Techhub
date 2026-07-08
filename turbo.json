@@ -25,6 +25,9 @@
     "seed": {
       "cache": false
     },
+    "seed:techhub": {
+      "cache": false
+    },
     "test:unit": {
       "outputs": ["coverage/**"]
     },

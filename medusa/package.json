@@ -15,6 +15,7 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
+    "seed:techhub": "medusa exec ./src/scripts/seed-techhub-products.ts",
     "start": "test -f .medusa/server/public/admin/index.html && cd .medusa/server && medusa start --host ${HOST:-0.0.0.0} --port ${PORT:-9000}",
     "dev": "medusa develop",
     "emails:dev": "email dev --dir=src/modules/resend/emails",
@@ -24,6 +25,10 @@
   },
   "dependencies": {
     "@agilo/medusa-analytics-plugin": "^1.4.0",
+    "@alphabite/medusa-collection-images": "^0.3.7",
+    "@codee-sh/medusa-plugin-automations": "^1.0.11",
+    "@empty-complete-org/medusa-product-attributes": "^1.2.0",
+    "@financedistrict/medusa-plugin-agentic-commerce": "^0.1.10",
     "@medusajs/admin-sdk": "2.17.2",
     "@medusajs/cli": "2.17.2",
     "@medusajs/framework": "2.17.2",
@@ -32,10 +37,15 @@
     "@medusajs/types": "2.17.2",
     "@medusajs/ui": "4.1.19",
     "@react-email/components": "^1.0.7",
+    "@reorderjs/reorder": "^1.0.8",
     "@tanstack/react-query": "5.64.2",
+    "@weareseeed/medusa-square-plugin": "^0.0.30",
+    "medusa-plugin-content": "^0.2.2",
     "meilisearch": "0.55.0",
     "posthog-node": "^5.24.15",
     "react-dropzone": "^15.0.0",
+    "react-router": "6.30.4",
+    "react-router-dom": "6.30.4",
     "resend": "^6.9.2"
   },
   "devDependencies": {

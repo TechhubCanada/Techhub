@@ -1,0 +1,31 @@
+- generic [ref=f2e3]:
+  - generic [ref=f2e5]:
+    - generic [ref=f2e6]:
+      - heading "Techhub Workspace" [level=1] [ref=f2e7]
+      - paragraph [ref=f2e8]: Sign in to manage Techhub Canada operations
+    - generic [ref=f2e9]:
+      - generic [ref=f2e10]:
+        - generic [ref=f2e11]:
+          - textbox "Email" [ref=f2e14]: admin@medusa-test.com
+          - generic [ref=f2e16]:
+            - textbox [ref=f2e17]:
+              - /placeholder: Password
+              - text: supersecret
+            - button "Show password" [ref=f2e19] [cursor=pointer]:
+              - generic [ref=f2e20]: Show password
+              - img [ref=f2e21]
+        - generic [ref=f2e31]:
+          - img [ref=f2e32]
+          - generic [ref=f2e35]: Failed to fetch
+          - button [ref=f2e36] [cursor=pointer]:
+            - img [ref=f2e37]
+        - button "Sign in" [ref=f2e25] [cursor=pointer]
+      - paragraph [ref=f2e27]:
+        - text: Designed and developed by
+        - link "Agency by Naman Kataria" [ref=f2e28] [cursor=pointer]:
+          - /url: https://agency.namankataria.com/
+    - generic [ref=f2e29]:
+      - text: Forgot password? -
+      - link "Reset" [ref=f2e30] [cursor=pointer]:
+        - /url: /app/reset-password
+  - region "Notifications alt+T"

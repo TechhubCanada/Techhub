@@ -42,6 +42,22 @@ export const getProductByHandle = async function (
     .then(({ products }) => products[0])
 }
 
+export const getLiveProductByHandle = async function (
+  handle: string,
+  regionId: string
+) {
+  return sdk.client
+    .fetch<{ products: HttpTypes.StoreProduct[] }>(`/store/products`, {
+      query: {
+        handle,
+        region_id: regionId,
+        fields: "*variants.calculated_price,+variants.inventory_quantity",
+      } satisfies HttpTypes.StoreProductListParams,
+      cache: "no-store",
+    })
+    .then(({ products }) => products[0])
+}
+
 export const getProductFashionDataByHandle = async function (handle: string) {
   return sdk.client.fetch<{
     materials: {
@@ -95,8 +111,7 @@ export const getProductsList = async function ({
           fields: "*variants.calculated_price",
           ...queryParams,
         } satisfies HttpTypes.StoreProductListParams,
-        next: { tags: ["products"] },
-        cache: "force-cache",
+        cache: "no-store",
       }
     )
     .then(({ products, count }) => {

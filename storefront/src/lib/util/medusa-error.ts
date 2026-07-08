@@ -1,5 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function medusaError(error: any): never {
+  if (typeof error?.status === "number") {
+    console.error("Medusa API error:", {
+      status: error.status,
+      statusText: error.statusText,
+      message: error.message,
+    })
+
+    throw new Error(error.message || error.statusText || "Medusa API error")
+  }
+
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx

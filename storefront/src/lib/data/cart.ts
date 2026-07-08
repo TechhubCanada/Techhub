@@ -4,7 +4,6 @@ import { HttpTypes } from "@medusajs/types"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
-import { PaymentMethod } from "@stripe/stripe-js"
 
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -231,32 +230,10 @@ export async function setShippingMethod({
     .catch(medusaError)
 }
 
-export async function setPaymentMethod(
-  session_id: string,
-  token: string | null | undefined
+export async function initiatePaymentSession(
+  provider_id: unknown,
+  data?: Record<string, unknown>
 ) {
-  await sdk.client
-    .fetch("/store/custom/stripe/set-payment-method", {
-      method: "POST",
-      body: { session_id, token },
-    })
-    .then((resp) => {
-      revalidateTag("cart", { expire: 0 })
-      return resp
-    })
-    .catch(medusaError)
-}
-
-export async function getPaymentMethod(id: string) {
-  return await sdk.client
-    .fetch<PaymentMethod>(`/store/custom/stripe/get-payment-method/${id}`)
-    .then((resp: PaymentMethod) => {
-      return resp
-    })
-    .catch(medusaError)
-}
-
-export async function initiatePaymentSession(provider_id: unknown) {
   const cart = await retrieveCart()
 
   if (!cart) {
@@ -272,6 +249,7 @@ export async function initiatePaymentSession(provider_id: unknown) {
       cart,
       {
         provider_id,
+        data,
       },
       {},
       await getAuthHeaders()

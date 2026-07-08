@@ -14,6 +14,22 @@ const devActionOrigins = isDevelopment
   ? ["localhost:8000", ...(codespaceHost ? [codespaceHost] : [])]
   : []
 
+const getHostname = (value) => {
+  if (!value) {
+    return undefined
+  }
+
+  try {
+    return new URL(value).hostname
+  } catch {
+    return undefined
+  }
+}
+
+const medusaFileHost = getHostname(
+  process.env.NEXT_PUBLIC_MEDUSA_FILE_URL || process.env.S3_FILE_URL
+)
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -33,6 +49,7 @@ const nextConfig = {
     },
   },
   images: {
+    qualities: [50, 75],
     remotePatterns: [
       {
         protocol: "http",
@@ -42,6 +59,18 @@ const nextConfig = {
         protocol: "https",
         hostname: "fashion-starter-demo.s3.eu-central-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "pub-7f577dfb54474739bd8983ff26f855de.r2.dev",
+      },
+      ...(medusaFileHost
+        ? [
+            {
+              protocol: "https",
+              hostname: medusaFileHost,
+            },
+          ]
+        : []),
     ],
   },
 }

@@ -1,0 +1,12 @@
+[    2346ms] [INFO] vscs:web-client:6b93:port-forwarding-telemetry:telemetry-service initialize {
+  "browserId": "5481dfbe9f5c3a69d7c77b236510c0a7",
+  "sessionId": "eac8efe3-9a3c-4303-b00c-e6f98a2edfb6",
+  "pageLoadId": "b47ee304478e16a79bf2aa354f45752b",
+  "host": "github.dev",
+  "browserName": "chrome",
+  "browserVersion": "150.0.0",
+  "browserOS": "Linux",
+  "vscodeCommit": "<unknown>",
+  "vscodeQuality": "<unknown>"
+} @ https://probable-xylophone-jjv5v6vv7rgvc54pj.github.dev/static/5249.7bce0cd99aee06ce68c6.js:0
+[    2370ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://probable-xylophone-jjv5v6vv7rgvc54pj.github.dev/keychain-keys:0

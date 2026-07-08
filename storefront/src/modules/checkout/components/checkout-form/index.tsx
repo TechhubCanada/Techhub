@@ -12,12 +12,17 @@ import Review from "@modules/checkout/components/review"
 import { useCart } from "hooks/cart"
 import { getCheckoutStep } from "@modules/cart/utils/getCheckoutStep"
 import { Icon } from "@/components/Icon"
+import type { StoreCart } from "@medusajs/types"
 
 export const CheckoutForm = withReactQueryProvider<{
   countryCode: string
   step: string | undefined
-}>(({ countryCode, step }) => {
-  const { data: cart, isPending } = useCart({ enabled: true })
+  initialCart: StoreCart
+}>(({ countryCode, step, initialCart }) => {
+  const { data: cart, isPending } = useCart({
+    enabled: true,
+    initialData: initialCart,
+  })
   const router = useRouter()
   React.useEffect(() => {
     if (!step && cart) {
