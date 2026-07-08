@@ -1,5 +1,7 @@
 # Tech Hub Canada Redesign
 
+Documentation version: 2026.07.08.16
+
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
 The goal is to modernize the existing Tech Hub Canada shopping experience while keeping the business focus clear: computers, printers, tablets, networking equipment, software, toners and ink cartridges, computer parts, accessories, technical support, web development, service, and repairs.
@@ -44,6 +46,12 @@ Supporting services include:
 ├── pnpm-workspace.yaml
 └── README.md     # Project overview and setup
 ```
+
+## Project Documentation
+
+- `docs/medusa-only-realtime.md` - Medusa-only SSE architecture for live storefront updates without external realtime services.
+- `docs/medusa-notifications.md` - Medusa local notification and Resend email template setup.
+- `docs/superpowers/plans/2026-07-08-medusa-only-realtime-storefront.md` - Implementation plan for the Medusa-only realtime storefront work.
 
 ## Prerequisites
 
@@ -137,7 +145,13 @@ Important values to configure before production:
 - `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`
 - `RESEND_API_KEY`
 - `MEILISEARCH_MASTER_KEY`
+- `MEILISEARCH_HOST`
+- `MEILISEARCH_API_KEY`
 - `NEXT_PUBLIC_SEARCH_API_KEY`
+
+### Railway MeiliSearch
+
+For the Railway `Techhub` service, `MEILISEARCH_HOST` should point at the Railway MeiliSearch public HTTPS URL, and `MEILISEARCH_API_KEY` should match the running MeiliSearch service `MEILI_MASTER_KEY`. Do not set `MEILISEARCH_PORT` when `MEILISEARCH_HOST` is already a full Railway HTTPS URL; the backend config will otherwise append that port to the public URL.
 
 ### Cloudflare R2 File Storage
 
@@ -162,6 +176,10 @@ S3_FORCE_PATH_STYLE=true
 ```env
 S3_ENDPOINT=https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com
 ```
+
+## Agent Change Documentation Policy
+
+All repository changes must keep README files, documentation, version markers, and reusable agent skills in sync. See `docs/agent-change-policy.md` for the required workflow. Gortex MCP navigation expectations are documented in `docs/gortex-agent-workflow.md`.
 
 ## Useful Commands
 
@@ -191,7 +209,7 @@ The current Tech Hub Canada website presents a broad electronics catalog and cus
 
 - Shop categories: computers, printers, tablets, handheld devices, networking, software, toner, ink cartridges, parts, and accessories.
 - Services: technical support, web development, service, and repairs.
-- Customer trust: after-sales support, returns policy, contact information, and customer testimonials.
+- Customer trust: after-sales support, returns policy, contact information, current store hours, and customer testimonials.
 - Ecommerce flows: product listing, product details, cart, checkout, order confirmation, and customer account pages.
 
 ## Design Direction
