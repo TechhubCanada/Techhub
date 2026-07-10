@@ -68,7 +68,7 @@ export const CookieConsentBanner = () => {
   return (
     <section
       aria-label="Cookie notice"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-grayscale-200 bg-white shadow-[0_-16px_48px_rgba(15,23,42,0.12)]"
+      className="fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 overflow-hidden rounded-sm border border-grayscale-200 bg-white shadow-[0_16px_48px_rgba(15,23,42,0.18)] sm:inset-x-auto sm:right-6 sm:w-[32rem]"
     >
       <div
         className="h-1 bg-grayscale-100"
@@ -80,7 +80,7 @@ export const CookieConsentBanner = () => {
         />
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:px-8">
+      <div className="grid gap-5 px-4 py-5 sm:px-5">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.12em] text-grayscale-500">
             Cookies
@@ -89,24 +89,17 @@ export const CookieConsentBanner = () => {
             We use cookies to keep Tech Hub Canada working.
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-grayscale-600">
-            Essential cookies support cart, checkout, account security, and
-            saved choices. Optional cookies stay off unless you accept them.
-            This banner closes in {secondsRemaining} seconds with essential
-            cookies only.
+            Essential cookies keep cart, checkout, account security, and saved
+            choices working. Optional cookies stay off unless you accept them.
+            Auto-closes in {secondsRemaining} seconds with essential cookies
+            only.
           </p>
-
-          <Link
-            href={`/${countryCode}/cookie-preferences`}
-            variant="underline"
-            className="mt-4 inline-flex text-sm text-black"
-          >
-            Open full cookie preferences
-          </Link>
         </div>
 
-        <div className="flex flex-col gap-3 sm:flex-row md:min-w-96 md:justify-end">
+        <div className="grid gap-3 sm:grid-cols-3">
           <Button
             size="md"
+            className="px-3 text-sm"
             onPress={() =>
               savePreferences(allCookiePreferences(), "accept-all")
             }
@@ -116,6 +109,7 @@ export const CookieConsentBanner = () => {
           <Button
             size="md"
             variant="outline"
+            className="px-3 text-sm"
             onPress={() =>
               savePreferences(essentialOnlyPreferences(), "reject-optional")
             }
@@ -124,7 +118,7 @@ export const CookieConsentBanner = () => {
           </Button>
           <Link
             href={`/${countryCode}/cookie-preferences`}
-            className="inline-flex h-12 items-center justify-center rounded-xs border border-grayscale-200 px-6 text-sm text-black transition-colors hover:border-black"
+            className="inline-flex h-12 items-center justify-center rounded-xs border border-grayscale-200 px-3 text-sm text-black transition-colors hover:border-black"
           >
             Manage
           </Link>
