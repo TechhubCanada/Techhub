@@ -5,6 +5,10 @@ import { revalidateTag } from "next/cache"
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import {
+  createWishlistPayload,
+  normalizeWishlistVariantId,
+} from "@lib/data/wishlist-payload"
+import {
   getAuthHeaders,
   getWishlistId,
   removeWishlistId,
@@ -49,6 +53,10 @@ type WishlistItemsResponse = {
   data?: WishlistItem[]
 }
 
+type SalesChannelResponse = {
+  sales_channel_id?: string
+}
+
 const getWishlistFromResponse = (response: WishlistResponse) =>
   response.wishlist ?? response.data
 
@@ -57,6 +65,21 @@ const getWishlistsFromResponse = (response: WishlistsResponse) =>
 
 const getItemsFromResponse = (response: WishlistItemsResponse) =>
   response.items ?? response.wishlist_items ?? response.data ?? []
+
+const retrieveStoreSalesChannelId = async () =>
+  sdk.client
+    .fetch<SalesChannelResponse>("/store/custom/sales-channel", {
+      headers: { ...(await getAuthHeaders()) },
+      cache: "no-store",
+    })
+    .then(({ sales_channel_id }) => {
+      if (!sales_channel_id) {
+        throw new Error("Sales channel response did not include an ID")
+      }
+
+      return sales_channel_id
+    })
+    .catch(medusaError)
 
 export async function listWishlists() {
   return sdk.client
@@ -113,7 +136,7 @@ export async function retrieveWishlistItems(id?: string | null) {
     .catch(() => [])
 }
 
-export async function getOrCreateWishlist() {
+export async function getOrCreateWishlist(salesChannelId?: unknown) {
   const existingWishlist = await retrieveWishlist()
 
   if (existingWishlist) {
@@ -127,10 +150,15 @@ export async function getOrCreateWishlist() {
     return customerWishlist
   }
 
+  const wishlistSalesChannelId =
+    typeof salesChannelId === "string" && salesChannelId.trim()
+      ? salesChannelId
+      : await retrieveStoreSalesChannelId()
+
   return sdk.client
     .fetch<WishlistResponse>("/store/wishlists", {
       method: "POST",
-      body: { name: "Favorites" },
+      body: createWishlistPayload(wishlistSalesChannelId),
       headers: { ...(await getAuthHeaders()) },
     })
     .then(async (response) => {
@@ -148,16 +176,14 @@ export async function getOrCreateWishlist() {
 }
 
 export async function addVariantToWishlist(variantId: unknown) {
-  if (typeof variantId !== "string") {
-    throw new Error("Missing variant ID when adding to wishlist")
-  }
+  const wishlistVariantId = normalizeWishlistVariantId(variantId)
 
   const wishlist = await getOrCreateWishlist()
 
   await sdk.client
     .fetch(`/store/wishlists/${wishlist.id}/add-item`, {
       method: "POST",
-      body: { product_variant_id: variantId },
+      body: { product_variant_id: wishlistVariantId },
       headers: { ...(await getAuthHeaders()) },
     })
     .then(() => {

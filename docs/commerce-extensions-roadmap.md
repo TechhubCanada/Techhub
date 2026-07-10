@@ -41,6 +41,12 @@ Remaining storefront/admin follow-ups:
 5. Add approve/reject actions that call `POST /admin/product-reviews/:id/moderate`.
 6. Add Playwright coverage for viewing reviews and submitting a review while authenticated.
 
+## Wishlist storefront integration
+
+The backend uses `@alphabite/medusa-wishlist`, whose wishlist create route requires `sales_channel_id`. Storefront wishlist server actions resolve the active sales channel through `GET /store/custom/sales-channel`, which reads the publishable API key context populated by Medusa's store middleware, before posting to `POST /store/wishlists`.
+
+The account area includes `/account/wishlist`, and the account sidebar links it next to My orders and Invoices. Wishlist item reads fall back to the first customer wishlist when the `_medusa_wishlist_id` cookie is absent, so customer wishlists remain visible after login.
+
 ## Tech product details
 
 Tech product descriptions are structured through product metadata instead of a separate table. The Admin widget at `medusa/src/admin/widgets/product-tech-specs.tsx` writes `metadata.tech_product_details` through `POST /admin/custom/products/:productId/tech-specs`.

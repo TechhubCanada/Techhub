@@ -124,6 +124,8 @@ The backend installs `@alphabite/medusa-wishlist` for guest and customer wishlis
 pnpm --dir medusa exec medusa db:migrate
 ```
 
+The custom store route `GET /store/custom/sales-channel` returns the first sales channel linked to the request's publishable API key. The storefront uses this helper when creating wishlist records because the wishlist plugin validates `sales_channel_id` on `POST /store/wishlists`.
+
 The invoice plugin (`@webbers/invoices-medusa`) is intentionally not registered because its current workflow bundle re-imports Medusa core flows and duplicate-registers `create-payment-sessions` during backend startup on this Medusa version. Do not re-enable it until the plugin is upgraded or patched to avoid the core-flow barrel import.
 
 ## Admin plugin policy
