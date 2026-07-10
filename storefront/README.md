@@ -97,11 +97,11 @@ You are now ready to start up your project.
 pnpm dev:storefront
 ```
 
-In GitHub Codespaces, browser-side Medusa SDK calls are automatically sent through the storefront `/medusa` proxy when `NEXT_PUBLIC_MEDUSA_BACKEND_URL` points at an `app.github.dev` backend URL. This avoids checkout CORS failures when the forwarded backend tunnel requires authentication.
+In GitHub Codespaces, browser-side Medusa SDK calls are automatically sent through the storefront `/medusa` proxy when `NEXT_PUBLIC_MEDUSA_BACKEND_URL` points at an `app.github.dev` backend URL. The browser SDK base URL must resolve to the current origin plus `/medusa` so `new URL(...)` calls inside the Medusa JS SDK remain valid, while server-side storefront requests to a forwarded Codespaces backend must use `http://localhost:<port>` to avoid GitHub tunnel sign-in redirects. This avoids checkout CORS and failed-fetch errors when the forwarded backend tunnel requires authentication.
 
 The Vercel project root is `storefront`, so `vercel.json` uses `.next` as the output directory. Its install command steps up to the monorepo root before `pnpm install` so workspace dependencies are linked correctly, then the build runs `pnpm build` inside `storefront`.
 
-Checkout pages render the current cart on the server and pass that same cart into the checkout form plus desktop and mobile summary wrappers as React Query initial data. Client checkout rendering must continue using the server `initialCart` while React Query refetches so checkout does not briefly hydrate from a loading shell and trigger React hydration mismatches.
+Checkout pages render the current cart on the server and pass that same cart into the checkout form plus desktop and mobile summary wrappers as React Query initial data. Client checkout rendering must continue using the server `initialCart` while React Query refetches, and summary wrappers must keep the cart query disabled when that snapshot is `null`, so checkout does not hydrate from a mismatched loading shell. The Payment step must show loading/unavailable states for provider lookup, auto-select the available Square provider so the Square card form is visible without an extra click, and hide manual/test payment when Square is available.
 
 The checkout shipping step renders distinct loading, retry, empty, and ready states for delivery options, filters out unpriced options, and groups available methods under **Pickup** or **Shipping** based on the fulfillment set type returned by Medusa.
 

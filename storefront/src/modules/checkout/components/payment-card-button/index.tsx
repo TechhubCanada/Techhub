@@ -7,8 +7,8 @@ import { isSquare } from "@lib/constants"
 import { Button } from "@/components/Button"
 import { usePathname, useRouter } from "next/navigation"
 import { useInitiatePaymentSession } from "hooks/cart"
-import { withReactQueryProvider } from "@lib/util/react-query"
 import SquarePaymentForm from "@modules/checkout/components/square-payment-form"
+import type { SquarePaymentConfig } from "@lib/data/payment"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -17,6 +17,7 @@ type PaymentButtonProps = {
   createQueryString: (name: string, value: string) => string
   selectedPaymentMethod: string
   setError: (value: string | null) => void
+  initialSquarePaymentConfig: SquarePaymentConfig
 }
 
 const PaymentCardButton: React.FC<PaymentButtonProps> = ({
@@ -26,6 +27,7 @@ const PaymentCardButton: React.FC<PaymentButtonProps> = ({
   createQueryString,
   selectedPaymentMethod,
   setError,
+  initialSquarePaymentConfig,
 }) => {
   if (isSquare(selectedPaymentMethod)) {
     return (
@@ -36,6 +38,7 @@ const PaymentCardButton: React.FC<PaymentButtonProps> = ({
         selectedPaymentMethod={selectedPaymentMethod}
         setError={setError}
         setIsLoading={setIsLoading}
+        initialSquarePaymentConfig={initialSquarePaymentConfig}
       />
     )
   }
@@ -105,4 +108,4 @@ const PaymentMethodButton = ({
   )
 }
 
-export default withReactQueryProvider(PaymentCardButton)
+export default PaymentCardButton

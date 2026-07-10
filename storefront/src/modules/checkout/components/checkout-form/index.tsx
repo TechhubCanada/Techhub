@@ -12,48 +12,63 @@ import Review from "@modules/checkout/components/review"
 import { useCart } from "hooks/cart"
 import { getCheckoutStep } from "@modules/cart/utils/getCheckoutStep"
 import { Icon } from "@/components/Icon"
-import type { StoreCart } from "@medusajs/types"
+import type { HttpTypes, StoreCart } from "@medusajs/types"
+import type { SquarePaymentConfig } from "@lib/data/payment"
 
 export const CheckoutForm = withReactQueryProvider<{
   countryCode: string
   step: string | undefined
   initialCart: StoreCart
-}>(({ countryCode, step, initialCart }) => {
-  const { data: cart, isPending } = useCart({
-    enabled: true,
-    initialData: initialCart,
-  })
-  const displayCart = cart ?? initialCart
+  initialPaymentMethods: HttpTypes.StorePaymentProviderListResponse["payment_providers"]
+  initialSquarePaymentConfig: SquarePaymentConfig
+}>(
+  ({
+    countryCode,
+    step,
+    initialCart,
+    initialPaymentMethods,
+    initialSquarePaymentConfig,
+  }) => {
+    const { data: cart, isPending } = useCart({
+      enabled: true,
+      initialData: initialCart,
+    })
+    const displayCart = cart ?? initialCart
 
-  const router = useRouter()
+    const router = useRouter()
 
-  React.useEffect(() => {
-    if (!step && displayCart) {
-      const checkoutStep = getCheckoutStep(displayCart)
-      router.push(`/${countryCode}/checkout?step=${checkoutStep}`)
+    React.useEffect(() => {
+      if (!step && displayCart) {
+        const checkoutStep = getCheckoutStep(displayCart)
+        router.push(`/${countryCode}/checkout?step=${checkoutStep}`)
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [step, countryCode, displayCart])
+
+    if (isPending && !displayCart) {
+      return (
+        <div className="absolute left-0 top-20 md:top-40 lg:top-0 w-[100vw] lg:max-w-[calc(100vw-((50vw-50%)+448px))] xl:max-w-[calc(100vw-((50vw-50%)+540px))] -ml-[calc(50vw-50%)] h-screen lg:w-full flex items-center justify-center">
+          <Icon name="loader" className="w-10 md:w-20 animate-spin" />
+        </div>
+      )
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, countryCode, displayCart])
 
-  if (isPending && !displayCart) {
+    if (!displayCart) {
+      return null
+    }
+
     return (
-      <div className="absolute left-0 top-20 md:top-40 lg:top-0 w-[100vw] lg:max-w-[calc(100vw-((50vw-50%)+448px))] xl:max-w-[calc(100vw-((50vw-50%)+540px))] -ml-[calc(50vw-50%)] h-screen lg:w-full flex items-center justify-center">
-        <Icon name="loader" className="w-10 md:w-20 animate-spin" />
-      </div>
+      <Wrapper cart={displayCart}>
+        <Email countryCode={countryCode} cart={displayCart} />
+        <Addresses cart={displayCart} />
+        <Shipping cart={displayCart} />
+        <Payment
+          cart={displayCart}
+          initialPaymentMethods={initialPaymentMethods}
+          initialSquarePaymentConfig={initialSquarePaymentConfig}
+        />
+        <Review cart={displayCart} />
+      </Wrapper>
     )
   }
-
-  if (!displayCart) {
-    return null
-  }
-
-  return (
-    <Wrapper cart={displayCart}>
-      <Email countryCode={countryCode} cart={displayCart} />
-      <Addresses cart={displayCart} />
-      <Shipping cart={displayCart} />
-      <Payment cart={displayCart} />
-      <Review cart={displayCart} />
-    </Wrapper>
-  )
-})
+)

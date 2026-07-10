@@ -12,7 +12,7 @@ function CheckoutSummaryWrapper({
   initialCart: StoreCart | null
 }) {
   const { data: cart, isPending } = useCart({
-    enabled: true,
+    enabled: Boolean(initialCart),
     initialData: initialCart,
   })
   const displayCart = cart ?? initialCart

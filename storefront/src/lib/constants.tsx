@@ -17,7 +17,7 @@ export const paymentInfoMap: Record<
     icon: <PayPal />,
   },
   pp_system_default: {
-    title: "Manual Payment",
+    title: "Test payment",
     icon: <CreditCard />,
   },
 }

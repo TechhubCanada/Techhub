@@ -3,7 +3,6 @@
 import * as React from "react"
 import { PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { isPaypal } from "@lib/constants"
-import { withReactQueryProvider } from "@lib/util/react-query"
 import { StoreCart } from "@medusajs/types"
 
 type WrapperProps = {
@@ -40,4 +39,4 @@ const Wrapper: React.FC<WrapperProps> = ({ children, cart }) => {
   return <div>{children}</div>
 }
 
-export default withReactQueryProvider(Wrapper)
+export default Wrapper

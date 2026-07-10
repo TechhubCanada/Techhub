@@ -20,7 +20,11 @@ export const listCartPaymentMethods = async function (regionId: string) {
       }
     )
     .then(({ payment_providers }) => payment_providers)
-    .catch(() => {
+    .catch((error) => {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Failed to load payment providers", error)
+      }
+
       return null
     })
 }

@@ -65,13 +65,24 @@ export const useCartShippingMethods = (cartId: string) => {
   })
 }
 
-export const useCartPaymentMethods = (regionId: string) => {
+export const useCartPaymentMethods = (
+  regionId: string,
+  {
+    enabled = true,
+    initialData,
+  }: {
+    enabled?: boolean
+    initialData?: HttpTypes.StorePaymentProviderListResponse["payment_providers"]
+  } = {}
+) => {
   return useQuery({
-    queryKey: [regionId],
+    queryKey: ["payment-methods", regionId],
     queryFn: async () => {
       const res = await listCartPaymentMethods(regionId)
       return res
     },
+    enabled: enabled && Boolean(regionId),
+    initialData,
   })
 }
 
@@ -555,7 +566,12 @@ export const useInitiatePaymentSession = (
   })
 }
 
-export const useSquarePaymentConfig = (enabled: boolean) => {
+export const useSquarePaymentConfig = (
+  enabled: boolean,
+  {
+    initialData,
+  }: { initialData?: Awaited<ReturnType<typeof getSquarePaymentConfig>> } = {}
+) => {
   return useQuery({
     queryKey: ["square-payment-config"],
     queryFn: async () => {
@@ -563,6 +579,7 @@ export const useSquarePaymentConfig = (enabled: boolean) => {
       return res
     },
     enabled,
+    initialData,
   })
 }
 

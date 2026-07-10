@@ -1,11 +1,15 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { CreditCard } from "@medusajs/icons"
 import { twJoin } from "tailwind-merge"
 
-import { isSquare as isSquareFunc, paymentInfoMap } from "@lib/constants"
+import {
+  isManual,
+  isSquare as isSquareFunc,
+  paymentInfoMap,
+} from "@lib/constants"
 import PaymentContainer from "@modules/checkout/components/payment-container"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import PaymentCardButton from "@modules/checkout/components/payment-card-button"
@@ -13,11 +17,23 @@ import PaymentCardButton from "@modules/checkout/components/payment-card-button"
 import { Button } from "@/components/Button"
 import { UiRadioGroup } from "@/components/ui/Radio"
 import { useCartPaymentMethods } from "hooks/cart"
-import { StoreCart, StorePaymentSession } from "@medusajs/types"
+import { HttpTypes, StoreCart, StorePaymentSession } from "@medusajs/types"
+import type { SquarePaymentConfig } from "@lib/data/payment"
 
-const Payment = ({ cart }: { cart: StoreCart }) => {
+type PaymentProps = {
+  cart: StoreCart
+  initialPaymentMethods: HttpTypes.StorePaymentProviderListResponse["payment_providers"]
+  initialSquarePaymentConfig: SquarePaymentConfig
+}
+
+const Payment = ({
+  cart,
+  initialPaymentMethods,
+  initialSquarePaymentConfig,
+}: PaymentProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [hasHydrated, setHasHydrated] = useState(false)
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -42,6 +58,10 @@ const Payment = ({ cart }: { cart: StoreCart }) => {
   }
 
   useEffect(() => {
+    setHasHydrated(true)
+  }, [])
+
+  useEffect(() => {
     setError(null)
   }, [isOpen])
 
@@ -51,9 +71,32 @@ const Payment = ({ cart }: { cart: StoreCart }) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     activeSession?.provider_id ?? ""
   )
-  const { data: availablePaymentMethods } = useCartPaymentMethods(
-    cart?.region?.id ?? ""
-  )
+  const {
+    data: availablePaymentMethods,
+    isFetching: isFetchingPaymentMethods,
+    isLoading: isLoadingPaymentMethods,
+  } = useCartPaymentMethods(cart?.region?.id ?? "", {
+    enabled: hasHydrated && isOpen && initialPaymentMethods.length === 0,
+    initialData: initialPaymentMethods,
+  })
+  const sortedPaymentMethods = useMemo(() => {
+    const methods = [...(availablePaymentMethods ?? [])]
+    const hasSquareMethod = methods.some((method) => isSquareFunc(method.id))
+
+    return methods
+      .filter((method) => !(hasSquareMethod && isManual(method.id)))
+      .sort((a, b) => {
+        if (isSquareFunc(a.id)) return -1
+        if (isSquareFunc(b.id)) return 1
+
+        return a.id > b.id ? 1 : -1
+      })
+  }, [availablePaymentMethods])
+  const hasPaymentMethods = sortedPaymentMethods.length > 0
+  const paymentMethodsUnavailable =
+    availablePaymentMethods === null ||
+    (Array.isArray(availablePaymentMethods) &&
+      availablePaymentMethods.length === 0)
   const hasSquareToken =
     isSquareFunc(activeSession?.provider_id) &&
     Boolean(activeSession?.data?.token)
@@ -66,8 +109,18 @@ const Payment = ({ cart }: { cart: StoreCart }) => {
   useEffect(() => {
     if (activeSession?.provider_id) {
       setSelectedPaymentMethod(activeSession.provider_id)
+      return
     }
-  }, [activeSession?.provider_id])
+
+    if (
+      sortedPaymentMethods.length > 0 &&
+      !sortedPaymentMethods.some(
+        (method) => method.id === selectedPaymentMethod
+      )
+    ) {
+      setSelectedPaymentMethod(sortedPaymentMethods[0].id)
+    }
+  }, [activeSession?.provider_id, selectedPaymentMethod, sortedPaymentMethods])
 
   if (!cart) {
     return null
@@ -92,43 +145,63 @@ const Payment = ({ cart }: { cart: StoreCart }) => {
         )}
       </div>
       <div className={isOpen ? "block" : "hidden"}>
-        {availablePaymentMethods?.length && (
-          <>
-            <UiRadioGroup
-              value={selectedPaymentMethod}
-              onChange={setSelectedPaymentMethod}
-              aria-label="Payment methods"
-            >
-              {availablePaymentMethods
-                .sort((a, b) => {
-                  return a.id > b.id ? 1 : -1
-                })
-
-                .map((paymentMethod) => {
-                  return (
-                    <PaymentContainer
-                      paymentInfoMap={paymentInfoMap}
-                      paymentProviderId={paymentMethod.id}
-                      key={paymentMethod.id}
-                    />
-                  )
-                })}
-            </UiRadioGroup>
-          </>
-        )}
+        {hasHydrated &&
+        (isLoadingPaymentMethods || isFetchingPaymentMethods) &&
+        !availablePaymentMethods ? (
+          <div
+            aria-live="polite"
+            className="rounded-xs border border-grayscale-200 bg-grayscale-50 px-4 py-5"
+            role="status"
+          >
+            <p className="text-sm font-medium text-grayscale-900">
+              Loading payment methods
+            </p>
+            <p className="mt-1 text-sm text-grayscale-600">
+              We are checking the available payment options for this order.
+            </p>
+          </div>
+        ) : paymentMethodsUnavailable ? (
+          <div className="rounded-xs border border-red-200 bg-red-50 px-4 py-5">
+            <p className="text-sm font-medium text-red-900">
+              Payment methods could not be loaded.
+            </p>
+            <p className="mt-1 text-sm text-red-900">
+              Please refresh checkout, or contact us if the issue continues.
+            </p>
+          </div>
+        ) : hasPaymentMethods ? (
+          <UiRadioGroup
+            value={selectedPaymentMethod}
+            onChange={setSelectedPaymentMethod}
+            aria-label="Payment methods"
+          >
+            {sortedPaymentMethods.map((paymentMethod) => {
+              return (
+                <PaymentContainer
+                  paymentInfoMap={paymentInfoMap}
+                  paymentProviderId={paymentMethod.id}
+                  key={paymentMethod.id}
+                />
+              )
+            })}
+          </UiRadioGroup>
+        ) : null}
 
         <ErrorMessage
           error={error}
           data-testid="payment-method-error-message"
         />
-        <PaymentCardButton
-          setError={setError}
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          selectedPaymentMethod={selectedPaymentMethod}
-          createQueryString={createQueryString}
-          cart={cart}
-        />
+        {(!hasHydrated || hasPaymentMethods) && (
+          <PaymentCardButton
+            setError={setError}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            selectedPaymentMethod={selectedPaymentMethod}
+            createQueryString={createQueryString}
+            cart={cart}
+            initialSquarePaymentConfig={initialSquarePaymentConfig}
+          />
+        )}
       </div>
 
       <div className={isOpen ? "hidden" : "block"}>

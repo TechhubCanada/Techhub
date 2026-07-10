@@ -11,7 +11,6 @@ import { isManual, isPaypal, isSquare } from "@lib/constants"
 import { Button } from "@/components/Button"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { usePlaceOrder } from "hooks/cart"
-import { withReactQueryProvider } from "@lib/util/react-query"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -198,4 +197,4 @@ const PlaceOrderButton = ({
   )
 }
 
-export default withReactQueryProvider(PaymentButton)
+export default PaymentButton

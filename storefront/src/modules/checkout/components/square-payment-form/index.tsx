@@ -10,10 +10,16 @@ import {
 import { usePathname, useRouter } from "next/navigation"
 
 import { useInitiatePaymentSession, useSquarePaymentConfig } from "hooks/cart"
+import type { SquarePaymentConfig } from "@lib/data/payment"
 
 const getPaymentError = (token: {
+  status?: string
   errors?: Array<{ message?: string; detail?: string }>
 }) => {
+  if (token.status?.toLowerCase() === "cancel") {
+    return "Enter complete card details to continue."
+  }
+
   const error = token.errors?.[0]
 
   return (
@@ -28,6 +34,7 @@ type SquarePaymentFormProps = {
   selectedPaymentMethod: string
   setError: (value: string | null) => void
   setIsLoading: (value: boolean) => void
+  initialSquarePaymentConfig: SquarePaymentConfig
 }
 
 const SquarePaymentForm = ({
@@ -37,11 +44,14 @@ const SquarePaymentForm = ({
   selectedPaymentMethod,
   setError,
   setIsLoading,
+  initialSquarePaymentConfig,
 }: SquarePaymentFormProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const { data: squareConfig, isLoading: isConfigLoading } =
-    useSquarePaymentConfig(true)
+    useSquarePaymentConfig(!initialSquarePaymentConfig, {
+      initialData: initialSquarePaymentConfig,
+    })
   const initiatePaymentSession = useInitiatePaymentSession()
 
   const countryCode =
@@ -79,11 +89,7 @@ const SquarePaymentForm = ({
           setError(null)
 
           if (token.status !== "OK") {
-            setError(
-              "errors" in token
-                ? getPaymentError(token)
-                : "Payment was not completed"
-            )
+            setError(getPaymentError(token))
             return
           }
 

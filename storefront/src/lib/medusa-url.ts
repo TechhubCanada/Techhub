@@ -4,16 +4,23 @@ type MedusaBackendUrlInput = {
   publicUrl?: string
 }
 
-function isCodespacesForwardedUrl(value?: string) {
+function getCodespacesForwardedPort(value?: string) {
   if (!value) {
-    return false
+    return null
   }
 
   try {
-    return new URL(value).hostname.endsWith(".app.github.dev")
+    const { hostname } = new URL(value)
+    const match = hostname.match(/-(\d+)\.app\.github\.dev$/)
+
+    return match?.[1] ?? null
   } catch {
-    return false
+    return null
   }
+}
+
+function isCodespacesForwardedUrl(value?: string) {
+  return Boolean(getCodespacesForwardedPort(value))
 }
 
 export function getMedusaBackendUrl({
@@ -21,12 +28,22 @@ export function getMedusaBackendUrl({
   serverUrl,
   publicUrl,
 }: MedusaBackendUrlInput) {
-  if (isServer && serverUrl) {
-    return serverUrl
+  if (isServer) {
+    const forwardedPort =
+      getCodespacesForwardedPort(serverUrl) ??
+      getCodespacesForwardedPort(publicUrl)
+
+    if (forwardedPort) {
+      return `http://localhost:${forwardedPort}`
+    }
+
+    if (serverUrl) {
+      return serverUrl
+    }
   }
 
   if (!isServer && isCodespacesForwardedUrl(publicUrl)) {
-    return "/medusa"
+    return `${window.location.origin}/medusa`
   }
 
   return publicUrl || serverUrl || "http://localhost:9000"
