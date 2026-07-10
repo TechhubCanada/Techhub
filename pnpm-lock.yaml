@@ -16,7 +16,7 @@ patchedDependencies:
     hash: bf06547220175d9f674553a4ea070ad51a38967e3e947f06888d9c648050553d
     path: patches/@agilo__medusa-analytics-plugin.patch
   '@weareseeed/medusa-square-plugin@0.0.30':
-    hash: b44be74521e1c0dae064f73f70f557d4bb5b62adc896fd3e445ecded28d5a5d8
+    hash: 80c4126e55616b24ecd2791460bf36df4ab4eb0d5c5f06f819d096809c650e0f
     path: patches/@weareseeed__medusa-square-plugin@0.0.30.patch
 
 importers:
@@ -70,7 +70,7 @@ importers:
         version: 5.64.2(react@18.3.1)
       '@weareseeed/medusa-square-plugin':
         specifier: ^0.0.30
-        version: 0.0.30(patch_hash=b44be74521e1c0dae064f73f70f557d4bb5b62adc896fd3e445ecded28d5a5d8)(@medusajs/admin-sdk@2.17.2)(@medusajs/cli@2.17.2(@types/node@22.20.0))(@medusajs/framework@2.17.2(@medusajs/cli@2.17.2(@types/node@22.20.0))(@types/node@22.20.0)(ioredis@5.11.1)(vite@5.4.21(@types/node@22.20.0)(lightningcss@1.32.0)(terser@5.48.0))(zod@4.4.3))(@medusajs/icons@2.17.2(react@18.3.1))(@medusajs/medusa@2.17.2)(@medusajs/test-utils@2.17.2)(@medusajs/ui@4.1.19(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))
+        version: 0.0.30(patch_hash=80c4126e55616b24ecd2791460bf36df4ab4eb0d5c5f06f819d096809c650e0f)(@medusajs/admin-sdk@2.17.2)(@medusajs/cli@2.17.2(@types/node@22.20.0))(@medusajs/framework@2.17.2(@medusajs/cli@2.17.2(@types/node@22.20.0))(@types/node@22.20.0)(ioredis@5.11.1)(vite@5.4.21(@types/node@22.20.0)(lightningcss@1.32.0)(terser@5.48.0))(zod@4.4.3))(@medusajs/icons@2.17.2(react@18.3.1))(@medusajs/medusa@2.17.2)(@medusajs/test-utils@2.17.2)(@medusajs/ui@4.1.19(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))
       '@webbers/invoices-medusa':
         specifier: ^1.0.6
         version: 1.0.6(@medusajs/admin-sdk@2.17.2)(@medusajs/cli@2.17.2(@types/node@22.20.0))(@medusajs/framework@2.17.2(@medusajs/cli@2.17.2(@types/node@22.20.0))(@types/node@22.20.0)(ioredis@5.11.1)(vite@5.4.21(@types/node@22.20.0)(lightningcss@1.32.0)(terser@5.48.0))(zod@4.4.3))(@medusajs/icons@2.17.2(react@18.3.1))(@medusajs/medusa@2.17.2)(@medusajs/test-utils@2.17.2)(@medusajs/ui@4.1.19(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(i18next@23.7.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
@@ -16314,7 +16314,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@weareseeed/medusa-square-plugin@0.0.30(patch_hash=b44be74521e1c0dae064f73f70f557d4bb5b62adc896fd3e445ecded28d5a5d8)(@medusajs/admin-sdk@2.17.2)(@medusajs/cli@2.17.2(@types/node@22.20.0))(@medusajs/framework@2.17.2(@medusajs/cli@2.17.2(@types/node@22.20.0))(@types/node@22.20.0)(ioredis@5.11.1)(vite@5.4.21(@types/node@22.20.0)(lightningcss@1.32.0)(terser@5.48.0))(zod@4.4.3))(@medusajs/icons@2.17.2(react@18.3.1))(@medusajs/medusa@2.17.2)(@medusajs/test-utils@2.17.2)(@medusajs/ui@4.1.19(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))':
+  '@weareseeed/medusa-square-plugin@0.0.30(patch_hash=80c4126e55616b24ecd2791460bf36df4ab4eb0d5c5f06f819d096809c650e0f)(@medusajs/admin-sdk@2.17.2)(@medusajs/cli@2.17.2(@types/node@22.20.0))(@medusajs/framework@2.17.2(@medusajs/cli@2.17.2(@types/node@22.20.0))(@types/node@22.20.0)(ioredis@5.11.1)(vite@5.4.21(@types/node@22.20.0)(lightningcss@1.32.0)(terser@5.48.0))(zod@4.4.3))(@medusajs/icons@2.17.2(react@18.3.1))(@medusajs/medusa@2.17.2)(@medusajs/test-utils@2.17.2)(@medusajs/ui@4.1.19(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))':
     dependencies:
       '@medusajs/admin-sdk': 2.17.2
       '@medusajs/cli': 2.17.2(@types/node@22.20.0)
