@@ -111,6 +111,8 @@ The storefront includes detailed Privacy Policy, Cookie Policy, Terms of Use, Re
 
 Storefront CMS reads use `src/lib/data/content.ts`, which calls the Medusa Content CMS plugin's public `/content` routes through the existing Medusa JS SDK instance. Homepage, About, Inspiration, product detail, and `/buying-guides/[slug]` pages consume published CMS items with static fallbacks where appropriate. Keep CMS reads server-side unless a page specifically needs client refresh behavior, and use the `content` cache tag family when invalidating published content.
 
+Product and collection detail pages are forced dynamic because they read live Medusa catalog data, reviews, CMS items, and region pricing context. Region lookup must stay uncached across serverless invocations so a production database refresh or region replacement cannot leave product pricing requests pinned to an old region ID.
+
 Wishlist actions use `src/lib/data/wishlist.ts` and the Medusa wishlist plugin's `/store/wishlists` routes. New wishlists must be created with a `sales_channel_id`, so the storefront resolves it from Medusa's `/store/custom/sales-channel` helper before posting to `/store/wishlists`. Guest wishlists are stored in the HTTP-only `_medusa_wishlist_id` cookie and are transferred after login or signup. Signed-in customers can review saved products from `/account/wishlist`.
 
 Customer invoices download through `/api/orders/:id/invoice`, which forwards the customer auth header to Medusa's invoice route and redirects to the generated PDF URL. The account area includes `/account/invoices` as a dedicated invoice download page in addition to the order-list invoice actions.

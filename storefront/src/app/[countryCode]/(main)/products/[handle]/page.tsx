@@ -18,6 +18,8 @@ type Props = {
   params: Promise<{ countryCode: string; handle: string }>
 }
 
+export const dynamic = "force-dynamic"
+
 export async function generateStaticParams() {
   return []
 }
