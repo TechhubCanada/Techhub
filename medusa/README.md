@@ -142,4 +142,4 @@ For Codespaces, open Medusa Admin from the same public `*.app.github.dev` backen
 pnpm --dir medusa exec medusa db:migrate
 ```
 
-The Square plugin is patched in `patches/@weareseeed__medusa-square-plugin@0.0.30.patch` so reinstalling dependencies preserves the Admin UI search-param workaround and the sandbox OAuth URL normalization. See `../docs/square-oauth.md` for the production and sandbox OAuth checklist.
+The Square plugin is patched in `patches/@weareseeed__medusa-square-plugin@0.0.30.patch` so reinstalling dependencies preserves the Admin UI search-param workaround, sandbox OAuth URL normalization, and Square refund provider support. See `../docs/square-oauth.md` for the production and sandbox OAuth checklist.

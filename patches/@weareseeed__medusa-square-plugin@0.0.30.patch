@@ -91,7 +91,7 @@ index 1252c3509c5404f8d35fb2bb574b488e8e974605..6546afe2e0e27131f1b23c3aa62ba56c
    }, []);
    const showTabs = (data == null ? void 0 : data.integration_key) && ((_a = data == null ? void 0 : data.location_id) == null ? void 0 : _a.length) > 0;
 diff --git a/.medusa/server/src/api/admin/square/oauth/start/route.js b/.medusa/server/src/api/admin/square/oauth/start/route.js
-index 757960098c35f89e052d47b7450fe8b12bfc43b0..67fbd017e06aaf60ed860ead8b4645a3e5774f86 100644
+index 757960098c35f89e052d47b7450fe8b12bfc43b0..08cdadd1176fd6672876c600f2e7ac3559258299 100644
 --- a/.medusa/server/src/api/admin/square/oauth/start/route.js
 +++ b/.medusa/server/src/api/admin/square/oauth/start/route.js
 @@ -6,6 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
@@ -122,3 +122,55 @@ index 757960098c35f89e052d47b7450fe8b12bfc43b0..67fbd017e06aaf60ed860ead8b4645a3
      }
      catch (error) {
          return res.status(500).json({
+diff --git a/.medusa/server/src/providers/square-payment/service.js b/.medusa/server/src/providers/square-payment/service.js
+index bb5eeabc3ed9a710d604f3f76b8de7d984d6a76e..880e4f958ad80b4917ec6cf5325fe9548f73f9b7 100644
+--- a/.medusa/server/src/providers/square-payment/service.js
++++ b/.medusa/server/src/providers/square-payment/service.js
+@@ -305,9 +305,45 @@ class SquarePaymentProviderService extends utils_1.AbstractPaymentProvider {
+     async deletePayment(input) {
+         return { data: {} };
+     }
+-    //Not implemented
+     async refundPayment(input) {
+-        return { data: {} };
++        const _input = (0, format_data_1.FormatData)(input);
++        const paymentData = _input?.data?.payment;
++        if (!paymentData?.id) {
++            throw new utils_1.MedusaError(utils_1.MedusaError.Types.INVALID_DATA, "Square payment id is required to refund payment");
++        }
++        const currency = (_input?.data?.currency_code ??
++            _input?.currency_code ??
++            paymentData?.amountMoney?.currency ??
++            paymentData?.amount_money?.currency)?.toUpperCase();
++        if (!currency) {
++            throw new utils_1.MedusaError(utils_1.MedusaError.Types.INVALID_DATA, "Square payment currency is required to refund payment");
++        }
++        const refundAmount = Number((Number(_input?.amount?.toFixed?.(2) ?? _input?.amount ?? 0) * 100).toFixed(0));
++        if (!Number.isFinite(refundAmount) || refundAmount <= 0) {
++            throw new utils_1.MedusaError(utils_1.MedusaError.Types.INVALID_DATA, "Square refund amount must be greater than zero");
++        }
++        const config = await this.getActiveConfiguration();
++        const payload = {
++            idempotency_key: (0, crypto_1.randomUUID)(),
++            amount_money: {
++                amount: refundAmount,
++                currency,
++            },
++            payment_id: paymentData.id,
++        };
++        const { data: refundResponse } = await microservice_1.default.post("/refunds/", (0, format_data_1.FormatData)(payload), {
++            headers: {
++                "x-merchant-id": config.merchant_id,
++                "x-integration-key": config.integration_key,
++            },
++        });
++        const refund = refundResponse?.refund ?? refundResponse;
++        return {
++            data: {
++                ..._input.data,
++                refunds: [...(_input.data?.refunds ?? []), (0, format_data_1.FormatData)(refund)],
++            },
++        };
+     }
+     //Not implemented
+     async getWebhookActionAndData(payload) {
