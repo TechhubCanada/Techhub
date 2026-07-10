@@ -11,7 +11,7 @@ const ProductAgencySupportWidget = () => {
       <div className="flex flex-col gap-4 px-6 py-4">
         <Text className="text-ui-fg-subtle">
           Need help with product content, image library updates, storefront
-          design, or Medusa Admin support? Contact Agency by Naman Kataria.
+          design, or Admin support? Contact Agency by Naman Kataria.
         </Text>
         <a
           href="https://agency.namankataria.com/"

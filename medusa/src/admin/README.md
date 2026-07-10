@@ -1,6 +1,6 @@
 # Admin Customizations
 
-You can extend the Medusa Admin to add widgets and new pages. Your customizations interact with API routes to provide merchants with custom functionalities.
+You can extend the Admin dashboard to add widgets and new pages. Your customizations interact with API routes to provide merchants with custom functionalities.
 
 ## Example: Create a Widget
 
@@ -42,6 +42,8 @@ Current custom pages:
 Current custom product widgets:
 
 - `src/admin/widgets/product-agency-support.tsx` - Agency support CTA rendered in both the main product details area and product details side area.
+
+Visible custom route, widget, and component copy should use neutral Admin wording and avoid naming the underlying platform brand in merchant-facing panels.
 
 ## Custom Admin Styles
 

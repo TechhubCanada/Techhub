@@ -11,7 +11,7 @@ const productHighlights = [
   {
     label: 'Commerce stack',
     value:
-      'Medusa 2 powers the backend and Admin, while the storefront is built with Next.js for a fast customer shopping experience.',
+      'The backend and Admin power catalog, order, and operational workflows, while the storefront is built with Next.js for a fast customer shopping experience.',
   },
   {
     label: 'Merchant focus',
@@ -22,7 +22,7 @@ const productHighlights = [
 
 const agencyDetails = [
   'Product strategy and commerce workflow planning',
-  'Medusa Admin customization and operational tooling',
+  'Admin customization and operational tooling',
   'Storefront experience design for Tech Hub Canada customers',
   'Catalog presentation, product detail structure, and support workflows',
 ];
@@ -70,9 +70,9 @@ const AboutProductPage = () => {
         </div>
         <div className="flex flex-col gap-4 px-6 py-4">
           <Text size="small" leading="compact" className="text-ui-fg-subtle">
-            Agency by Naman Kataria is credited for product direction, Medusa
-            Admin customization, and the commerce experience built around Tech
-            Hub Canada's product and service catalog.
+            Agency by Naman Kataria is credited for product direction, Admin
+            customization, and the commerce experience built around Tech Hub
+            Canada's product and service catalog.
           </Text>
           <div className="grid gap-3 md:grid-cols-2">
             {agencyDetails.map((detail) => (
