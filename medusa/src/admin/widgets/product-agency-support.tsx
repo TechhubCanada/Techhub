@@ -29,7 +29,7 @@ const ProductAgencySupportWidget = () => {
 };
 
 export const config = defineWidgetConfig({
-  zone: 'product.details.after',
+  zone: ['product.details.after', 'product.details.side.after'],
 });
 
 export default ProductAgencySupportWidget;

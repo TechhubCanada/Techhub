@@ -10,7 +10,7 @@ export const listCartShippingMethods = async function (cartId: string) {
     .fetch<HttpTypes.StoreShippingOptionListResponse>(
       `/store/shipping-options`,
       {
-        query: { cart_id: cartId },
+        query: { cart_id: cartId, fields: "*" },
         cache: "no-store",
       }
     )

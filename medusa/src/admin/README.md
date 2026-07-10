@@ -39,6 +39,10 @@ Current custom pages:
 - `src/admin/routes/fashion/page.tsx` - Materials & Colors management.
 - `src/admin/routes/about-product/page.tsx` - About page for the Tech Hub Canada ecommerce product and Agency by Naman Kataria credit.
 
+Current custom product widgets:
+
+- `src/admin/widgets/product-agency-support.tsx` - Agency support CTA rendered in both the main product details area and product details side area.
+
 ## Custom Admin Styles
 
 - `src/admin/styles/admin-sidebar.css` - Hides the visual scrollbar on the Admin sidebar while preserving sidebar scrolling.

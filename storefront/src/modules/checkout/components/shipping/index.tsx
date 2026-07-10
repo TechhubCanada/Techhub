@@ -14,7 +14,16 @@ import {
 } from "@/components/ui/Radio"
 import { useCartShippingMethods, useSetShippingMethod } from "hooks/cart"
 import { StoreCart } from "@medusajs/types"
-import { getShippingMethodsViewState } from "./view-state"
+import {
+  getShippingMethodFulfillmentType,
+  getShippingMethodsViewState,
+  type ShippingMethodFulfillmentType,
+} from "./view-state"
+
+const fulfillmentGroupLabels: Record<ShippingMethodFulfillmentType, string> = {
+  pickup: "Pickup",
+  shipping: "Shipping",
+}
 
 const Shipping = ({ cart }: { cart: StoreCart }) => {
   const [error, setError] = useState<string | null>(null)
@@ -38,6 +47,14 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
   const selectedShippingMethod = availableShippingMethods?.find(
     (method) => method.id === cart.shipping_methods?.[0]?.shipping_option_id
   )
+  const fulfillmentGroups: Record<
+    ShippingMethodFulfillmentType,
+    NonNullable<typeof availableShippingMethods>
+  > = { pickup: [], shipping: [] }
+
+  ;(availableShippingMethods ?? []).forEach((method) => {
+    fulfillmentGroups[getShippingMethodFulfillmentType(method)].push(method)
+  })
 
   const handleSubmit = () => {
     router.push(pathname + "?step=payment", { scroll: false })
@@ -134,23 +151,32 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
               onChange={set}
               aria-label="Shipping methods"
             >
-              {availableShippingMethods?.map((option) => (
-                <UiRadio
-                  key={option.id}
-                  variant="outline"
-                  value={option.id}
-                  className="gap-4"
-                >
-                  <UiRadioBox />
-                  <UiRadioLabel>{option.name}</UiRadioLabel>
-                  <UiRadioLabel className="ml-auto group-data-[selected=true]:font-normal">
-                    {convertToLocale({
-                      amount: option.amount!,
-                      currency_code: cart?.currency_code,
-                    })}
-                  </UiRadioLabel>
-                </UiRadio>
-              ))}
+              {(["pickup", "shipping"] as const).map((group) =>
+                fulfillmentGroups[group].length > 0 ? (
+                  <div key={group} className="flex flex-col gap-3">
+                    <p className="text-sm font-semibold">
+                      {fulfillmentGroupLabels[group]}
+                    </p>
+                    {fulfillmentGroups[group].map((option) => (
+                      <UiRadio
+                        key={option.id}
+                        variant="outline"
+                        value={option.id}
+                        className="gap-4"
+                      >
+                        <UiRadioBox />
+                        <UiRadioLabel>{option.name}</UiRadioLabel>
+                        <UiRadioLabel className="ml-auto group-data-[selected=true]:font-normal">
+                          {convertToLocale({
+                            amount: option.amount!,
+                            currency_code: cart?.currency_code,
+                          })}
+                        </UiRadioLabel>
+                      </UiRadio>
+                    ))}
+                  </div>
+                ) : null
+              )}
             </UiRadioGroup>
 
             <ErrorMessage error={error} />

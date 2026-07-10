@@ -103,7 +103,7 @@ The Vercel project root is `storefront`, so `vercel.json` uses `.next` as the ou
 
 Checkout pages render the current cart on the server and pass that same cart into the checkout form plus desktop and mobile summary wrappers as React Query initial data. Client checkout rendering must continue using the server `initialCart` while React Query refetches so checkout does not briefly hydrate from a loading shell and trigger React hydration mismatches.
 
-The checkout shipping step renders distinct loading, retry, empty, and ready states for delivery options so customers do not see a blank shipping section with only a disabled Next button while methods are being resolved.
+The checkout shipping step renders distinct loading, retry, empty, and ready states for delivery options, filters out unpriced options, and groups available methods under **Pickup** or **Shipping** based on the fulfillment set type returned by Medusa.
 
 Vercel Speed Insights is rendered only in production builds. Keep it out of the local Turbopack dev server so checkout route transitions are not interrupted by browser performance instrumentation errors.
 
