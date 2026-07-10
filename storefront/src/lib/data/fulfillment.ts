@@ -1,5 +1,8 @@
+"use server"
+
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
+import { isPricedShippingOption } from "@lib/data/fulfillment-utils"
 
 // Shipping actions
 export const listCartShippingMethods = async function (cartId: string) {
@@ -8,11 +11,12 @@ export const listCartShippingMethods = async function (cartId: string) {
       `/store/shipping-options`,
       {
         query: { cart_id: cartId },
-        next: { tags: ["shipping"] },
-        cache: "force-cache",
+        cache: "no-store",
       }
     )
-    .then(({ shipping_options }) => shipping_options)
+    .then(({ shipping_options }) =>
+      shipping_options.filter(isPricedShippingOption)
+    )
     .catch(() => {
       return null
     })

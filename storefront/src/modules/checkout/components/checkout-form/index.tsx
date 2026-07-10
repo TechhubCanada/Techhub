@@ -23,15 +23,19 @@ export const CheckoutForm = withReactQueryProvider<{
     enabled: true,
     initialData: initialCart,
   })
+  const displayCart = cart ?? initialCart
+
   const router = useRouter()
+
   React.useEffect(() => {
-    if (!step && cart) {
-      const checkoutStep = getCheckoutStep(cart)
+    if (!step && displayCart) {
+      const checkoutStep = getCheckoutStep(displayCart)
       router.push(`/${countryCode}/checkout?step=${checkoutStep}`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step, countryCode, cart])
-  if (isPending) {
+  }, [step, countryCode, displayCart])
+
+  if (isPending && !displayCart) {
     return (
       <div className="absolute left-0 top-20 md:top-40 lg:top-0 w-[100vw] lg:max-w-[calc(100vw-((50vw-50%)+448px))] xl:max-w-[calc(100vw-((50vw-50%)+540px))] -ml-[calc(50vw-50%)] h-screen lg:w-full flex items-center justify-center">
         <Icon name="loader" className="w-10 md:w-20 animate-spin" />
@@ -39,17 +43,17 @@ export const CheckoutForm = withReactQueryProvider<{
     )
   }
 
-  if (!cart) {
+  if (!displayCart) {
     return null
   }
 
   return (
-    <Wrapper cart={cart}>
-      <Email countryCode={countryCode} cart={cart} />
-      <Addresses cart={cart} />
-      <Shipping cart={cart} />
-      <Payment cart={cart} />
-      <Review cart={cart} />
+    <Wrapper cart={displayCart}>
+      <Email countryCode={countryCode} cart={displayCart} />
+      <Addresses cart={displayCart} />
+      <Shipping cart={displayCart} />
+      <Payment cart={displayCart} />
+      <Review cart={displayCart} />
     </Wrapper>
   )
 })
