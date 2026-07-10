@@ -12,6 +12,8 @@ import { Icon } from "@/components/Icon"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { getCustomer } from "@lib/data/customer"
 import { redirect } from "next/navigation"
+import { ButtonAnchor } from "@/components/Button"
+import { getSquareReceiptUrl } from "@lib/util/square-receipt"
 
 export const metadata: Metadata = {
   title: "Account - Order",
@@ -98,12 +100,47 @@ export default async function AccountOrderPage({
 
   const { orderId } = await params
   const order = await retrieveOrder(orderId)
+  const squareReceiptUrl = getSquareReceiptUrl(order)
 
   return (
     <>
-      <h1 className="text-md md:text-lg mb-8 md:mb-16">
-        Order: {order.display_id}
-      </h1>
+      <div className="mb-8 md:mb-16 flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-md md:text-lg">Order: {order.display_id}</h1>
+        <div className="flex flex-wrap gap-3">
+          <ButtonAnchor
+            href={`/api/orders/${order.id}/invoice?preview=1`}
+            target="_blank"
+            rel="noreferrer"
+            variant="outline"
+            size="sm"
+            iconName="receipt"
+          >
+            Preview invoice
+          </ButtonAnchor>
+          <ButtonAnchor
+            href={`/api/orders/${order.id}/invoice`}
+            target="_blank"
+            rel="noreferrer"
+            variant="outline"
+            size="sm"
+            iconName="receipt"
+          >
+            Download invoice
+          </ButtonAnchor>
+          {squareReceiptUrl && (
+            <ButtonAnchor
+              href={squareReceiptUrl}
+              target="_blank"
+              rel="noreferrer"
+              variant="outline"
+              size="sm"
+              iconName="receipt"
+            >
+              Payment receipt
+            </ButtonAnchor>
+          )}
+        </div>
+      </div>
       <div className="flex flex-col gap-6">
         <div className="rounded-xs border border-grayscale-200 flex flex-wrap justify-between p-4">
           <div className="flex gap-4 items-center">

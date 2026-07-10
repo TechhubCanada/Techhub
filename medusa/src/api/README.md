@@ -100,6 +100,12 @@ export const GET = async (
 }
 ```
 
+## Admin Product Fashion Route
+
+`GET /admin/products/:id/fashion` powers the Admin product **Materials & Colors** widget. It derives material and color names from product variant options and maps those names to the local fashion module records.
+
+Products that do not have both `Material` and `Color` options are valid catalog products. The route returns an empty fashion payload for those products instead of throwing, so generic products can still render in Admin without breaking the product details page.
+
 ## Middleware
 
 You can apply middleware to your routes by creating a file called `/api/middlewares.ts`. This file must export a configuration object with what middleware you want to apply to which routes.

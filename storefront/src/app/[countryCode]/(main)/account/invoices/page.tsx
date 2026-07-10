@@ -38,6 +38,16 @@ export default async function AccountInvoicesPage() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <ButtonAnchor
+                  href={`/api/orders/${order.id}/invoice?preview=1`}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="outline"
+                  size="sm"
+                  iconName="receipt"
+                >
+                  Preview invoice
+                </ButtonAnchor>
+                <ButtonAnchor
                   href={`/api/orders/${order.id}/invoice`}
                   target="_blank"
                   rel="noreferrer"
@@ -59,9 +69,7 @@ export default async function AccountInvoicesPage() {
           ))}
         </div>
       ) : (
-        <p className="text-md mt-16">
-          You don&apos;t have any invoices yet.
-        </p>
+        <p className="text-md mt-16">You don&apos;t have any invoices yet.</p>
       )}
     </>
   )

@@ -115,7 +115,9 @@ Product and collection detail pages are forced dynamic because they read live Me
 
 Wishlist actions use `src/lib/data/wishlist.ts` and the Medusa wishlist plugin's `/store/wishlists` routes. New wishlists must be created with a `sales_channel_id`, so the storefront resolves it from Medusa's `/store/custom/sales-channel` helper before posting to `/store/wishlists`. Guest wishlists are stored in the HTTP-only `_medusa_wishlist_id` cookie and are transferred after login or signup. Signed-in customers can review saved products from `/account/wishlist`.
 
-Customer invoices download through `/api/orders/:id/invoice`, which forwards the customer auth header to Medusa's invoice route and redirects to the generated PDF URL. The account area includes `/account/invoices` as a dedicated invoice download page in addition to the order-list invoice actions.
+Customer invoices preview and download through `/api/orders/:id/invoice`, which retrieves the authenticated order and renders a printable invoice HTML document in the storefront because the backend invoice plugin is intentionally disabled. Add `?preview=1` to render inline; omit it to download the invoice HTML file. When the payment provider stores a customer-facing hosted `receipt_url` on the payment data, order details and invoice previews link to that hosted payment receipt. The account area includes `/account/invoices` as a dedicated invoice page in addition to order-list and order-detail invoice actions.
+
+Apple Pay domain verification serves `public/.well-known/apple-developer-merchantid-domain-association` directly from the storefront root. Keep `.well-known` paths excluded from country-code redirects so Square and Apple receive a 200 response at `/.well-known/apple-developer-merchantid-domain-association`.
 
 ### Open the code and start customizing
 

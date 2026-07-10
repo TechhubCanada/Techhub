@@ -22,6 +22,13 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     (option) => option.title === 'Color',
   );
 
+  if (!materialOption || !colorOption) {
+    return res.status(200).json({
+      missing_materials: [],
+      materials: [],
+    });
+  }
+
   const materialsAndColorsNamesTree = new Map<string, string[]>();
 
   for (const productVariant of product.variants) {

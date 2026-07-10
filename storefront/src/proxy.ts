@@ -161,6 +161,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|medusa|_next/static|favicon.ico|favicon.svg|_next/image|images|robots.txt).*)",
+    "/((?!api|medusa|_next/static|favicon.ico|favicon.svg|_next/image|images|robots.txt|\\.well-known).*)",
   ],
 }
