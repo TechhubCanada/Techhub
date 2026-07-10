@@ -108,7 +108,7 @@ Products that do not have both `Material` and `Color` options are valid catalog 
 
 ## Store Shipping Options Route
 
-`GET /store/shipping-options` is overridden locally to use Medusa's priced cart shipping-options workflow. This keeps the public Store API response shape as `{ shipping_options }` while avoiding the unpriced core route path that can fail when the shipping option graph does not hydrate `service_zone.fulfillment_set.location.id`.
+`GET /store/shipping-options` is overridden locally to query applicable shipping options with Medusa's query graph and pricing context. This keeps the public Store API response shape as `{ shipping_options }` while avoiding the unpriced core route path that can fail when the shipping option graph does not hydrate `service_zone.fulfillment_set.location.id`.
 
 The storefront checkout expects priced options with an `amount`, so keep this route aligned with `src/lib/data/fulfillment.ts`.
 
