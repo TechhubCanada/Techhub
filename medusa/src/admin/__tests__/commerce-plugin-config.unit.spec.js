@@ -20,7 +20,7 @@ describe('commerce plugin configuration', () => {
     process.env = originalEnv
   })
 
-  it('registers wishlist and square while keeping invoice plugin disabled', () => {
+  it('registers wishlist and square while keeping invoice plugin uninstalled', () => {
     const config = require('../../../medusa-config')
     const medusaPackage = require('../../../package.json')
 
@@ -36,6 +36,9 @@ describe('commerce plugin configuration', () => {
 
     expect(medusaPackage.dependencies).toHaveProperty(
       '@alphabite/medusa-wishlist',
+    )
+    expect(medusaPackage.dependencies).not.toHaveProperty(
+      '@webbers/invoices-medusa',
     )
 
     expect(wishlistPlugin).toMatchObject({
