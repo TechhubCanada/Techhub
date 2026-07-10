@@ -101,7 +101,7 @@ In GitHub Codespaces, browser-side Medusa SDK calls are automatically sent throu
 
 The Vercel project root is `storefront`, so `vercel.json` uses `.next` as the output directory. Its install command steps up to the monorepo root before `pnpm install` so workspace dependencies are linked correctly, then the build runs `pnpm build` inside `storefront`.
 
-Checkout pages render the current cart on the server and pass that same cart into the client React Query cache as initial data. Keep this server snapshot in sync with the first client render so checkout does not briefly hydrate from a loading shell and trigger React hydration mismatches.
+Checkout pages render the current cart on the server and pass that same cart into the checkout form plus desktop and mobile summary wrappers as React Query initial data. Client checkout rendering must continue using the server `initialCart` while React Query refetches so checkout does not briefly hydrate from a loading shell and trigger React hydration mismatches.
 
 The checkout shipping step renders distinct loading, retry, empty, and ready states for delivery options so customers do not see a blank shipping section with only a disabled Next button while methods are being resolved.
 

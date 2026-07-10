@@ -2,6 +2,7 @@ import * as React from "react"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { BrandLogo } from "@/components/BrandLogo"
+import { retrieveCart } from "@lib/data/cart"
 import dynamic from "next/dynamic"
 
 const CheckoutSummaryWrapper = dynamic(
@@ -13,11 +14,13 @@ const MobileCheckoutSummaryWrapper = dynamic(
   () => import("@modules/checkout/components/mobile-checkout-summary-wrapper"),
   { loading: () => <></> }
 )
-export default function CheckoutLayout({
+export default async function CheckoutLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const cart = await retrieveCart()
+
   return (
     <>
       <Layout className="lg:hidden">
@@ -35,7 +38,7 @@ export default function CheckoutLayout({
       <div className="w-full bg-grayscale-50 lg:hidden">
         <Layout>
           <LayoutColumn>
-            <MobileCheckoutSummaryWrapper />
+            <MobileCheckoutSummaryWrapper initialCart={cart} />
           </LayoutColumn>
         </Layout>
       </div>
@@ -52,7 +55,7 @@ export default function CheckoutLayout({
             {children}
           </div>
           <div className="sticky top-0 lg:max-w-100 xl:max-w-123 flex-1 py-32 max-lg:hidden z-10 self-start">
-            <CheckoutSummaryWrapper />
+            <CheckoutSummaryWrapper initialCart={cart} />
           </div>
           <div className="absolute right-0 top-0 lg:max-w-[calc((50vw-50%)+448px)] xl:max-w-[calc((50vw-50%)+540px)] -mr-[calc(50vw-50%)] bg-grayscale-50 h-full w-full max-lg:hidden" />
         </LayoutColumn>

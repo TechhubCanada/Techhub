@@ -1,15 +1,31 @@
 "use client"
+import type { StoreCart } from "@medusajs/types"
+
 import MobileCheckoutSummary from "@modules/checkout/templates/mobile-checkout-summary"
 import { useCart } from "hooks/cart"
 import { withReactQueryProvider } from "@lib/util/react-query"
 import SkeletonMobileCheckoutSummaryTrigger from "@modules/skeletons/components/skeleton-mobile-summary-trigger"
-function MobileCheckoutSummaryWrapper() {
-  const { data: cart, isPending } = useCart({ enabled: true })
-  if (isPending || !cart) {
+
+function MobileCheckoutSummaryWrapper({
+  initialCart,
+}: {
+  initialCart: StoreCart | null
+}) {
+  const { data: cart, isPending } = useCart({
+    enabled: true,
+    initialData: initialCart,
+  })
+  const displayCart = cart ?? initialCart
+
+  if (isPending && !displayCart) {
     return <SkeletonMobileCheckoutSummaryTrigger />
   }
 
-  return <MobileCheckoutSummary cart={cart} />
+  if (!displayCart) {
+    return null
+  }
+
+  return <MobileCheckoutSummary cart={displayCart} />
 }
 
 export default withReactQueryProvider(MobileCheckoutSummaryWrapper)
