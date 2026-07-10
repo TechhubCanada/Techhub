@@ -38,6 +38,8 @@ const monaSans = Mona_Sans({
   variable: "--font-mona-sans",
 })
 
+const shouldRenderSpeedInsights = process.env.NODE_ENV === "production"
+
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light" className="antialiased">
@@ -47,7 +49,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <main className="relative">{props.children}</main>
           </SmoothScroll>
           <RealtimeProvider />
-          <SpeedInsights />
+          {shouldRenderSpeedInsights ? <SpeedInsights /> : null}
           <WebMCPProvider />
           <CookieConsentBanner />
         </ReactQueryProvider>

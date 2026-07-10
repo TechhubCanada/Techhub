@@ -1,0 +1,5 @@
+{
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter @techhub/storefront build",
+  "outputDirectory": "storefront/.next"
+}

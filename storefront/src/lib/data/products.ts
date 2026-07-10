@@ -35,7 +35,8 @@ export const getProductByHandle = async function (
       query: {
         handle,
         region_id: regionId,
-        fields: "*variants.calculated_price,+variants.inventory_quantity",
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,+metadata,+type,+categories",
       } satisfies HttpTypes.StoreProductListParams,
       next: { tags: ["products"] },
     })
@@ -51,7 +52,8 @@ export const getLiveProductByHandle = async function (
       query: {
         handle,
         region_id: regionId,
-        fields: "*variants.calculated_price,+variants.inventory_quantity",
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,+metadata,+type,+categories",
       } satisfies HttpTypes.StoreProductListParams,
       cache: "no-store",
     })

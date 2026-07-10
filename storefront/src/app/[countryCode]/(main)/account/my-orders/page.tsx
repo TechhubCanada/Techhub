@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge"
 
 import { listOrders } from "@lib/data/orders"
 import { Pagination } from "@modules/store/components/pagination"
-import { ButtonLink } from "@/components/Button"
+import { ButtonAnchor, ButtonLink } from "@/components/Button"
 import { UiTag } from "@/components/ui/Tag"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { getCustomer } from "@lib/data/customer"
@@ -144,22 +144,25 @@ export default async function AccountMyOrdersPage({ searchParams }: PageProps) {
                 </div>
                 <div className="flex max-sm:flex-col justify-between gap-6">
                   <OrderStatus order={order} className="max-sm:hidden" />
-                  <ButtonLink
-                    href={`/account/my-orders/${order.id}`}
-                    variant="outline"
-                    size="md"
-                    className="sm:self-end md:self-start lg:self-end sm:hidden"
-                  >
-                    Check details
-                  </ButtonLink>
-                  <ButtonLink
-                    href={`/account/my-orders/${order.id}`}
-                    variant="outline"
-                    size="sm"
-                    className="sm:self-end md:self-start lg:self-end max-sm:hidden"
-                  >
-                    Check details
-                  </ButtonLink>
+                  <div className="flex flex-wrap gap-3 sm:self-end md:self-start lg:self-end">
+                    <ButtonAnchor
+                      href={`/api/orders/${order.id}/invoice`}
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="outline"
+                      size="sm"
+                      iconName="receipt"
+                    >
+                      Invoice
+                    </ButtonAnchor>
+                    <ButtonLink
+                      href={`/account/my-orders/${order.id}`}
+                      variant="outline"
+                      size="sm"
+                    >
+                      Check details
+                    </ButtonLink>
+                  </div>
                 </div>
               </div>
             ))}

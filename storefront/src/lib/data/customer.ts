@@ -12,6 +12,7 @@ import {
   removeAuthToken,
   getCartId,
 } from "@lib/data/cookies"
+import { transferWishlist } from "@lib/data/wishlist"
 import {
   customerAddressSchema,
   loginFormSchema,
@@ -123,6 +124,8 @@ export async function signup(formData: z.infer<typeof signupFormSchema>) {
       revalidateTag("cart", { expire: 0 })
     }
 
+    await transferWishlist()
+
     return { success: true, customer: createdCustomer }
   } catch (error) {
     return {
@@ -157,6 +160,8 @@ export async function login(formData: z.infer<typeof loginFormSchema>) {
       await sdk.store.cart.transferCart(cartId, {}, await getAuthHeaders())
       revalidateTag("cart", { expire: 0 })
     }
+
+    await transferWishlist()
     return { success: true, redirectUrl: redirectUrl || "/" }
   } catch (error) {
     return {

@@ -68,16 +68,85 @@ Join our [Discord server](https://discord.com/invite/medusajs) to meet other com
 - [Twitter](https://twitter.com/medusajs)
 - [LinkedIn](https://www.linkedin.com/company/medusajs)
 - [Medusa Blog](https://medusajs.com/blog/)
+
 ## Tech Hub notification setup
 
-This backend uses Medusa's Notification Module with the local notification provider and a custom Resend provider. The Resend React Email templates are source-controlled under `src/modules/resend/emails` and registered in `src/modules/resend/emails/index.ts`. The Builder/Lexical notification email admin plugin is intentionally not installed.
+This backend uses Medusa's Notification Module with the local notification provider, a custom Resend provider, and a custom Slack provider. The Resend React Email templates are source-controlled under `src/modules/resend/emails` and registered in `src/modules/resend/emails/index.ts`. Slack order alerts are sent from `src/modules/slack` when `order.placed` fires. The Builder/Lexical notification email admin plugin and the dependent Codee automations plugin are intentionally not installed.
 
-Required email environment variables:
+Required notification environment variables:
 
 ```sh
 RESEND_API_KEY=
 RESEND_FROM="TechHub <noreply@techhubcanada.com>"
+SLACK_WEBHOOK_URL=
+SLACK_ADMIN_URL=http://localhost:9000/app
 ```
 
-See `../docs/medusa-notifications.md` for provider details and template names.
+See `../docs/medusa-notifications.md` for provider details, template names, and Slack setup.
 
+## Product review setup
+
+Product reviews are implemented as a local Medusa module in `src/modules/product-review`. Storefront customers can submit authenticated reviews through `POST /store/products/:id/reviews`; submissions are stored as `pending` until an admin approves or rejects them through `POST /admin/product-reviews/:id/moderate`. Approved reviews are exposed through `GET /store/products/:id/reviews` and rendered on storefront product pages.
+
+Run migrations after pulling this feature:
+
+```sh
+pnpm --dir medusa exec medusa db:migrate --skip-links
+```
+
+Use `--skip-links` unless you intentionally want to review Medusa's removed-link cleanup prompt for old subscription tables. See `../docs/commerce-extensions-roadmap.md` for the storefront rollout plan and the next commerce extension phases.
+
+## Tech product details setup
+
+Tech product details are stored in product metadata under `tech_product_details`. The Medusa Admin product details page includes a **Tech product details** widget for editing and previewing buying summary, key specs, best-for notes, included items, compatibility, and Tech Hub support notes. Storefront product pages render this metadata as a structured **Tech specs** section, with a fallback to the seeded `metadata.specs` array when richer details have not been entered.
+
+The product details page also includes an **Agency support** widget linking to Agency by Naman Kataria for image library, product content, storefront design, and Medusa Admin support. Custom product widgets render before the built-in Metadata and JSON panels so raw metadata stays at the end of the page.
+
+## Analytics operations setup
+
+The Medusa Admin **Analytics** page includes date-range sales metrics, pending review count, missing tech specs count, low-stock and out-of-stock action cards, and a **Sales PDF** button that opens a print-ready sales report for the selected period.
+
+## Content CMS setup
+
+The backend installs and enables `medusa-plugin-content` for in-admin CMS collections and published storefront content. Run migrations after pulling plugin changes:
+
+```sh
+pnpm --dir medusa exec medusa db:migrate
+```
+
+Published content is available from the backend root routes `/content`, `/content/:slug`, `/content/:slug/items`, and `/content/:slug/items/:itemSlug`. See `../docs/medusa-content-cms.md` for storefront usage and compatibility notes.
+
+## Wishlist and invoice setup
+
+The backend installs `@alphabite/medusa-wishlist` for guest and customer wishlists, and `@webbers/invoices-medusa` for order invoice PDFs. Run migrations after pulling plugin changes:
+
+```sh
+pnpm --dir medusa exec medusa db:migrate
+```
+
+Configure invoice identity in `medusa/.env` before production invoice use:
+
+```env
+INVOICE_COMPANY_NAME="Tech Hub Canada"
+INVOICE_COMPANY_ADDRESS="Tech Hub Canada"
+INVOICE_COC_NUMBER=
+INVOICE_VAT_NUMBER=
+INVOICE_IBAN=
+INVOICE_EMAIL=info@techhubcanada.com
+```
+
+## Admin plugin policy
+
+The Reorder subscriptions plugin (`@reorderjs/reorder`) is intentionally not installed because Tech Hub does not use subscription workflows in Medusa Admin. The Agentic Commerce plugin (`@financedistrict/medusa-plugin-agentic-commerce`) is also intentionally removed for now; re-enable it only when UCP/ACP endpoints are ready to be exposed publicly with production API keys and payment handling.
+
+## Square plugin setup
+
+The backend uses `@weareseeed/medusa-square-plugin` for Square payments and the Square Admin extension. Keep `MEDUSA_BACKEND_URL` set to the public backend origin because the plugin registers the OAuth callback at `{MEDUSA_BACKEND_URL}/admin/square/oauth`.
+
+For Codespaces, open Medusa Admin from the same public `*.app.github.dev` backend URL used by `MEDUSA_BACKEND_URL` before clicking **Square → Link your account**. For sandbox testing, open the Sandbox Square Dashboard for a seller test account first; sandbox OAuth must use `https://connect.squareupsandbox.com/oauth2/authorize` without `session=false`, while production OAuth uses `https://connect.squareup.com/oauth2/authorize` with production credentials. The Square plugin migrations are required for the `square_configuration` table:
+
+```sh
+pnpm --dir medusa exec medusa db:migrate
+```
+
+The Square plugin is patched in `patches/@weareseeed__medusa-square-plugin@0.0.30.patch` so reinstalling dependencies preserves the Admin UI search-param workaround and the sandbox OAuth URL normalization. See `../docs/square-oauth.md` for the production and sandbox OAuth checklist.

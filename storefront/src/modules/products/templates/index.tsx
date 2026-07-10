@@ -4,12 +4,18 @@ import { HttpTypes } from "@medusajs/types"
 import Image from "next/image"
 
 import { collectionMetadataCustomFieldsSchema } from "@lib/util/collections"
+import type { ContentItem } from "@lib/data/content"
 import ImageGallery from "@modules/products/components/image-gallery"
 import { LiveProductDetails } from "@modules/products/components/live-product-details"
 import RelatedProducts from "@modules/products/components/related-products"
+import ProductReviews from "@modules/products/components/product-reviews"
+import TechProductDetailsSection from "@modules/products/components/tech-product-details"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { Layout, LayoutColumn } from "@/components/Layout"
+import { CmsContentCard } from "@/components/CmsContentCard"
+import type { ProductReviewsResponse } from "@lib/product-reviews"
+import { getTechProductDetails } from "@lib/util/product-details"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -24,6 +30,8 @@ type ProductTemplateProps = {
   }[]
   region: HttpTypes.StoreRegion
   countryCode: string
+  reviews: ProductReviewsResponse
+  buyingGuides: ContentItem[]
 }
 
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
@@ -31,6 +39,8 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   materials,
   region,
   countryCode,
+  reviews,
+  buyingGuides,
 }) => {
   if (!product || !product.id) {
     return notFound()
@@ -44,6 +54,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   const collectionDetails = collectionMetadataCustomFieldsSchema.safeParse(
     product.collection?.metadata ?? {}
+  )
+  const techProductDetails = getTechProductDetails(
+    product.metadata as Record<string, unknown> | null | undefined
   )
 
   return (
@@ -165,6 +178,39 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
             )}
           </Layout>
         )}
+
+      <Layout>
+        <LayoutColumn>
+          <TechProductDetailsSection details={techProductDetails} />
+          <ProductReviews
+            productId={product.id}
+            initialReviews={reviews}
+          />
+        </LayoutColumn>
+      </Layout>
+
+      {buyingGuides.length > 0 && (
+        <Layout className="mt-26 md:mt-36">
+          <LayoutColumn>
+            <h2 className="text-md md:text-2xl mb-8 md:mb-15">
+              Buying guides
+            </h2>
+          </LayoutColumn>
+          {buyingGuides.map((guide, index) => (
+            <LayoutColumn
+              key={guide.id}
+              start={index % 2 === 0 ? 1 : 7}
+              end={index % 2 === 0 ? 7 : 13}
+            >
+              <CmsContentCard
+                item={guide}
+                href={`/buying-guides/${guide.slug}`}
+                label="Guide"
+              />
+            </LayoutColumn>
+          ))}
+        </Layout>
+      )}
 
       <Suspense fallback={<SkeletonRelatedProducts />}>
         <RelatedProducts product={product} countryCode={countryCode} />

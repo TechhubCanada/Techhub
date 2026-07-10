@@ -71,6 +71,7 @@ export default async function sendOrderConfirmationHandler({
     entity: 'order',
     fields: [
       'id',
+      'display_id',
       'currency_code',
       'total',
       'subtotal',
@@ -188,6 +189,13 @@ export default async function sendOrderConfirmationHandler({
     channel: 'email',
     template: 'order-placed',
     data: { order: orderForEmail } satisfies OrderPlacedEmailProps,
+  });
+
+  await notificationModuleService.createNotifications({
+    to: 'slack-channel',
+    channel: 'slack',
+    template: 'order-created',
+    data: { order: orderForEmail },
   });
 }
 

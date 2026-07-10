@@ -29,3 +29,16 @@ export default ProductWidget
 ```
 
 This inserts a widget with the text “Product Widget” at the end of a product’s details page.
+
+## Custom Admin Pages
+
+Admin pages live under `src/admin/routes`. The folder name becomes the Admin route path, and each page exports a default React component plus `defineRouteConfig` metadata for the Admin navigation label and icon.
+
+Current custom pages:
+
+- `src/admin/routes/fashion/page.tsx` - Materials & Colors management.
+- `src/admin/routes/about-product/page.tsx` - About page for the Tech Hub Canada ecommerce product and Agency by Naman Kataria credit.
+
+## Custom Admin Styles
+
+- `src/admin/styles/admin-sidebar.css` - Hides the visual scrollbar on the Admin sidebar while preserving sidebar scrolling.

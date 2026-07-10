@@ -1,0 +1,14 @@
+aside [class*="overflow-y-auto"],
+aside [class*="overflow-y-scroll"],
+nav [class*="overflow-y-auto"],
+nav [class*="overflow-y-scroll"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+aside [class*="overflow-y-auto"]::-webkit-scrollbar,
+aside [class*="overflow-y-scroll"]::-webkit-scrollbar,
+nav [class*="overflow-y-auto"]::-webkit-scrollbar,
+nav [class*="overflow-y-scroll"]::-webkit-scrollbar {
+  display: none;
+}

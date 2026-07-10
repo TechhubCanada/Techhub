@@ -1,11 +1,17 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { listContentItems } from "@lib/data/content"
 import { getRegion } from "@lib/data/regions"
 import {
   getProductByHandle,
   getProductFashionDataByHandle,
 } from "@lib/data/products"
+import { getProductReviews } from "@lib/data/product-reviews"
+import {
+  getProductBuyingGuideTags,
+  getSortedContentItems,
+} from "@lib/util/content"
 import ProductTemplate from "@modules/products/templates"
 
 type Props = {
@@ -58,12 +64,33 @@ export default async function ProductPage({ params }: Props) {
     notFound()
   }
 
+  const guideTags = getProductBuyingGuideTags(pricedProduct)
+  const [reviews, guideResponses] = await Promise.all([
+    getProductReviews(pricedProduct.id),
+    Promise.all(
+      guideTags.map((tag) =>
+        listContentItems("buying-guides", { tag, limit: 3 }).catch(() => null)
+      )
+    ),
+  ])
+  const buyingGuides = getSortedContentItems(
+    Array.from(
+      new Map(
+        guideResponses
+          .flatMap((response) => response?.content_items ?? [])
+          .map((item) => [item.id, item])
+      ).values()
+    )
+  ).slice(0, 3)
+
   return (
     <ProductTemplate
       product={pricedProduct}
       materials={fashionData.materials}
       region={region}
       countryCode={countryCode}
+      reviews={reviews}
+      buyingGuides={buyingGuides}
     />
   )
 }

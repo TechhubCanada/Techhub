@@ -1,5 +1,7 @@
 import { Metadata } from "next"
 import Image from "next/image"
+import { getContentItem } from "@lib/data/content"
+import { getContentMetadataString } from "@lib/util/content"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 
@@ -18,15 +20,26 @@ export async function generateStaticParams() {
   return staticParams
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const aboutContent = await getContentItem(
+    "service-pages",
+    "about-techhub"
+  ).catch(() => null)
+  const heroImage =
+    getContentMetadataString(aboutContent?.metadata, "image_url") ??
+    "/images/content/techhub-modern-workstation.png"
+  const heroAlt =
+    getContentMetadataString(aboutContent?.metadata, "image_alt") ??
+    "Modern desktop and laptop workstation"
+
   return (
     <>
       <div className="max-md:pt-18">
         <Image
-          src="/images/content/techhub-modern-workstation.png"
+          src={heroImage}
           width={2880}
           height={1500}
-          alt="Modern desktop and laptop workstation"
+          alt={heroAlt}
           className="md:h-screen md:object-cover"
         />
       </div>
@@ -34,22 +47,28 @@ export default function AboutPage() {
         <Layout>
           <LayoutColumn start={1} end={{ base: 13, lg: 7 }}>
             <h3 className="text-md max-lg:mb-6 md:text-2xl">
-              TechHub Canada is a local technology store built around clear
-              products and helpful service.
+              {aboutContent?.title ??
+                "TechHub Canada is a local technology store built around clear products and helpful service."}
             </h3>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, lg: 8 }} end={13}>
             <div className="md:text-md lg:mt-18">
-              <p className="mb-5 lg:mb-9">
-                We help customers shop for computers, printers, tablets,
-                networking equipment, software, ink, toner, parts, and
-                accessories.
-              </p>
-              <p>
-                We also provide repair, setup, technical support, service, and
-                web development for people and businesses that need practical
-                help.
-              </p>
+              {aboutContent?.body ? (
+                <p className="whitespace-pre-line">{aboutContent.body}</p>
+              ) : (
+                <>
+                  <p className="mb-5 lg:mb-9">
+                    We help customers shop for computers, printers, tablets,
+                    networking equipment, software, ink, toner, parts, and
+                    accessories.
+                  </p>
+                  <p>
+                    We also provide repair, setup, technical support, service,
+                    and web development for people and businesses that need
+                    practical help.
+                  </p>
+                </>
+              )}
             </div>
           </LayoutColumn>
           <LayoutColumn>
@@ -70,8 +89,8 @@ export default function AboutPage() {
           <LayoutColumn start={1} end={{ base: 13, lg: 6 }}>
             <div className="mb-16 lg:mb-26">
               <p className="mb-5 md:mb-9">
-                Our catalog focuses on everyday technology that customers use
-                at home, at school, and at work. We carry devices, upgrades,
+                Our catalog focuses on everyday technology that customers use at
+                home, at school, and at work. We carry devices, upgrades,
                 replacement parts, cables, cartridges, and accessories.
               </p>
               <p>

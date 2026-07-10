@@ -101,7 +101,15 @@ In GitHub Codespaces, browser-side Medusa SDK calls are automatically sent throu
 
 Checkout pages render the current cart on the server and pass that same cart into the client React Query cache as initial data. Keep this server snapshot in sync with the first client render so checkout does not briefly hydrate from a loading shell and trigger React hydration mismatches.
 
+Vercel Speed Insights is rendered only in production builds. Keep it out of the local Turbopack dev server so checkout route transitions are not interrupted by browser performance instrumentation errors.
+
 The storefront includes detailed Privacy Policy, Cookie Policy, Terms of Use, Refund & Returns Policy, and Cookie Preferences pages. The cookie banner auto-closes after 45 seconds with essential cookies only unless the visitor accepts all cookies or opens preferences.
+
+Storefront CMS reads use `src/lib/data/content.ts`, which calls the Medusa Content CMS plugin's public `/content` routes through the existing Medusa JS SDK instance. Homepage, About, Inspiration, product detail, and `/buying-guides/[slug]` pages consume published CMS items with static fallbacks where appropriate. Keep CMS reads server-side unless a page specifically needs client refresh behavior, and use the `content` cache tag family when invalidating published content.
+
+Wishlist actions use `src/lib/data/wishlist.ts` and the Medusa wishlist plugin's `/store/wishlists` routes. Guest wishlists are stored in the HTTP-only `_medusa_wishlist_id` cookie and are transferred after login or signup.
+
+Customer invoices download through `/api/orders/:id/invoice`, which forwards the customer auth header to Medusa's invoice route and redirects to the generated PDF URL.
 
 ### Open the code and start customizing
 

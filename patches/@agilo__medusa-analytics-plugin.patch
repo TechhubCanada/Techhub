@@ -1,5 +1,5 @@
 diff --git a/.medusa/server/src/admin/index.js b/.medusa/server/src/admin/index.js
-index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56ffff70bd9 100644
+index 4666c074c8135537188db0d22de7dccd18a32cf1..e223434f591ba9fb553c2ace463ae2e28e75ce53 100644
 --- a/.medusa/server/src/admin/index.js
 +++ b/.medusa/server/src/admin/index.js
 @@ -7,7 +7,6 @@ const icons = require("@medusajs/icons");
@@ -49,7 +49,104 @@ index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56f
      }
    });
    return /* @__PURE__ */ jsxRuntime.jsxs(ui.DataTable, { instance: table, children: [
-@@ -1412,7 +1425,6 @@ const CustomersTable = ({
+@@ -1239,6 +1252,96 @@ const useCustomerAnalytics = (query, options) => {
+     ...options
+   });
+ };
++const hasTechSpecs = (metadata) => {
++  const details = metadata == null ? void 0 : metadata.tech_product_details;
++  if (details && typeof details === "object") {
++    return Object.values(details).some((value) => Array.isArray(value) ? value.length > 0 : Boolean(value));
++  }
++  return Array.isArray(metadata == null ? void 0 : metadata.specs) && metadata.specs.length > 0;
++};
++async function retrieveOperationsAnalytics(date) {
++  if (!date || !date.from || !(date == null ? void 0 : date.to)) {
++    return void 0;
++  }
++  const [productList, pendingReviews] = await Promise.all([
++    sdk.client.fetch("/admin/products?limit=100&fields=id,title,metadata").catch(() => ({ products: [] })),
++    sdk.client.fetch("/admin/product-reviews?status=pending&limit=1").catch(() => ({ count: 0 }))
++  ]);
++  const products2 = (productList == null ? void 0 : productList.products) || [];
++  return {
++    pending_reviews: (pendingReviews == null ? void 0 : pendingReviews.count) || 0,
++    missing_tech_specs: products2.filter((product) => !hasTechSpecs(product.metadata)).length,
++    products_checked: products2.length
++  };
++}
++const useOperationsAnalytics = (query, options) => {
++  return reactQuery.useQuery({
++    queryKey: ["operations-analytics", query == null ? void 0 : query.from, query == null ? void 0 : query.to],
++    queryFn: async () => {
++      const data = await retrieveOperationsAnalytics(query);
++      return data;
++    },
++    ...options
++  });
++};
++const OperationsCard = ({ label, value, helper }) => {
++  return /* @__PURE__ */ jsxRuntime.jsxs(ui.Container, { className: "relative", children: [
++    /* @__PURE__ */ jsxRuntime.jsx(ui.Text, { size: "small", children: label }),
++    /* @__PURE__ */ jsxRuntime.jsx(ui.Text, { size: "xlarge", weight: "plus", children: value }),
++    /* @__PURE__ */ jsxRuntime.jsx(ui.Text, { size: "xsmall", className: "text-ui-fg-muted", children: helper })
++  ] });
++};
++const formatMoney = (amount, currencyCode) => new Intl.NumberFormat("en-US", {
++  style: "currency",
++  currency: currencyCode || "CAD"
++}).format(amount || 0);
++const openSalesPdf = ({ date, orders, operations, products, customers }) => {
++  if (!date || !date.from || !date.to) {
++    return;
++  }
++  const orderCount = (orders == null ? void 0 : orders.total_orders) || 0;
++  const sales = (orders == null ? void 0 : orders.total_sales) || 0;
++  const currencyCode = (orders == null ? void 0 : orders.currency_code) || "CAD";
++  const lowStock = ((products == null ? void 0 : products.lowStockVariants) || []).filter((variant) => variant.inventoryQuantity > 0).length;
++  const outOfStock = ((products == null ? void 0 : products.lowStockVariants) || []).filter((variant) => variant.inventoryQuantity === 0).length;
++  const printWindow = window.open("", "_blank");
++  if (!printWindow) {
++    return;
++  }
++  printWindow.document.write(`
++    <html>
++      <head>
++        <title>Tech Hub Sales Report</title>
++        <style>
++          body { font-family: Arial, sans-serif; color: #111827; padding: 32px; }
++          h1 { margin-bottom: 4px; }
++          .muted { color: #6b7280; }
++          .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
++          .card { border: 1px solid #d1d5db; padding: 16px; border-radius: 8px; }
++          .label { color: #6b7280; font-size: 12px; margin-bottom: 8px; }
++          .value { font-size: 24px; font-weight: 700; }
++          @media print { button { display: none; } }
++        </style>
++      </head>
++      <body>
++        <h1>Tech Hub Sales Report</h1>
++        <p class="muted">${dateFns.format(date.from, "yyyy-MM-dd")} to ${dateFns.format(date.to, "yyyy-MM-dd")}</p>
++        <div class="grid">
++          <div class="card"><div class="label">Total sales</div><div class="value">${formatMoney(sales, currencyCode)}</div></div>
++          <div class="card"><div class="label">Total orders</div><div class="value">${orderCount}</div></div>
++          <div class="card"><div class="label">Average order value</div><div class="value">${formatMoney(orderCount > 0 ? sales / orderCount : 0, currencyCode)}</div></div>
++          <div class="card"><div class="label">Customers</div><div class="value">${(customers == null ? void 0 : customers.total_customers) || 0}</div></div>
++          <div class="card"><div class="label">Pending reviews</div><div class="value">${(operations == null ? void 0 : operations.pending_reviews) || 0}</div></div>
++          <div class="card"><div class="label">Missing tech specs</div><div class="value">${(operations == null ? void 0 : operations.missing_tech_specs) || 0}</div></div>
++          <div class="card"><div class="label">Low stock variants</div><div class="value">${lowStock}</div></div>
++          <div class="card"><div class="label">Out of stock variants</div><div class="value">${outOfStock}</div></div>
++        </div>
++        <script>window.print()</script>
++      </body>
++    </html>
++  `);
++  printWindow.document.close();
++};
+ const StackedBarChart = ({
+   data,
+   xAxisDataKey,
+@@ -1412,7 +1515,6 @@ const CustomersTable = ({
    const [sorting, setSorting] = React__namespace.useState(
      null
    );
@@ -57,7 +154,7 @@ index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56f
    const shownCustomers = React__namespace.useMemo(() => {
      let filtered = customers.filter(
        (customer) => customer.name.toLowerCase().includes(search.toLowerCase()) || customer.email.toLowerCase().includes(search.toLowerCase())
-@@ -1510,7 +1522,7 @@ const CustomersTable = ({
+@@ -1510,7 +1612,7 @@ const CustomersTable = ({
        onSortingChange: setSorting
      },
      onRowClick: (_, row) => {
@@ -66,7 +163,7 @@ index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56f
      }
    });
    return /* @__PURE__ */ jsxRuntime.jsxs(ui.DataTable, { instance: table, children: [
-@@ -1574,7 +1586,17 @@ function presetToDateRange(preset) {
+@@ -1574,7 +1676,17 @@ function presetToDateRange(preset) {
  const DATE_RANGE_REGEX = /^(\d{4}-\d{2}-\d{2})-(\d{4}-\d{2}-\d{2})$/;
  const AnalyticsPage = () => {
    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
@@ -85,11 +182,73 @@ index 4666c074c8135537188db0d22de7dccd18a32cf1..5184adf0939a61422d8764535411f56f
    const rangeParam = searchParams.get("range") || "this-month";
    const date = React__namespace.useMemo(() => {
      if (rangeParam === "this-month" || rangeParam === "last-month" || rangeParam === "last-3-months") {
+@@ -1594,6 +1706,7 @@ const AnalyticsPage = () => {
+     ["this-month", "last-month", "last-3-months"].includes(rangeParam) ? rangeParam : "custom",
+     date
+   );
++  const { data: operations, isLoading: isLoadingOperations } = useOperationsAnalytics(date);
+   const someOrderCountsGreaterThanZero = (_a = orders == null ? void 0 : orders.order_count) == null ? void 0 : _a.some(
+     (item) => item.count > 0
+   );
+@@ -1604,6 +1717,9 @@ const AnalyticsPage = () => {
+   const someCustomerCountsGreaterThanZero = (_d = customers == null ? void 0 : customers.customer_count) == null ? void 0 : _d.some(
+     (item) => (item.new_customers || 0) > 0 || (item.returning_customers || 0) > 0
+   );
++  const lowStockCount = ((_e = products == null ? void 0 : products.lowStockVariants) == null ? void 0 : _e.filter((variant) => variant.inventoryQuantity > 0).length) || 0;
++  const outOfStockCount = ((_f = products == null ? void 0 : products.lowStockVariants) == null ? void 0 : _f.filter((variant) => variant.inventoryQuantity === 0).length) || 0;
++  const averageOrderValue = (orders == null ? void 0 : orders.total_orders) ? ((orders == null ? void 0 : orders.total_sales) || 0) / orders.total_orders : 0;
+   const updateDatePreset = React__namespace.useCallback(
+     (preset) => {
+       const params = new URLSearchParams(searchParams.toString());
+@@ -1763,7 +1879,35 @@ const AnalyticsPage = () => {
+             ]
+           }
+         )
+-      ] })
++      ] }),
++      /* @__PURE__ */ jsxRuntime.jsx(
++        ui.Button,
++        {
++          size: "small",
++          variant: "secondary",
++          className: "shadow-elevation-card-rest gap-x-2",
++          title: "Open a print-ready sales report for this date range",
++          disabled: isLoadingOrders || isLoadingProducts || isLoadingCustomers || isLoadingOperations,
++          onClick: () => openSalesPdf({ date, orders, operations, products, customers }),
++          children: [
++            /* @__PURE__ */ jsxRuntime.jsx(icons.DocumentText, {}),
++            "Export sales report",
++            /* @__PURE__ */ jsxRuntime.jsx(icons.ArrowDownTray, {})
++          ]
++        }
++      )
++    ] }),
++    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid gap-4 px-6 py-4 md:grid-cols-2 xl:grid-cols-4", children: [
++      isLoadingOperations ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Pending reviews", value: (operations == null ? void 0 : operations.pending_reviews) || 0, helper: "Reviews waiting for approval" }),
++      isLoadingOperations ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Missing tech specs", value: (operations == null ? void 0 : operations.missing_tech_specs) || 0, helper: `${(operations == null ? void 0 : operations.products_checked) || 0} products checked` }),
++      isLoadingProducts ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Low stock", value: lowStockCount, helper: "Variants below stock threshold" }),
++      isLoadingProducts ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Out of stock", value: outOfStockCount, helper: "Variants with zero inventory" })
++    ] }),
++    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid gap-4 px-6 py-4 md:grid-cols-2 xl:grid-cols-4", children: [
++      isLoadingOrders ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Average order value", value: formatMoney(averageOrderValue, (orders == null ? void 0 : orders.currency_code) || "CAD"), helper: "Sales divided by orders" }),
++      isLoadingCustomers ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "New customers", value: (customers == null ? void 0 : customers.new_customers) || 0, helper: "New customers in period" }),
++      isLoadingCustomers ? /* @__PURE__ */ jsxRuntime.jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Returning customers", value: (customers == null ? void 0 : customers.returning_customers) || 0, helper: "Repeat buyers in period" }),
++      /* @__PURE__ */ jsxRuntime.jsx(OperationsCard, { label: "Next workflow", value: "Abandoned carts", helper: "Ready for recovery metrics" })
+     ] }),
+     /* @__PURE__ */ jsxRuntime.jsx("div", { className: "px-6 py-4", children: /* @__PURE__ */ jsxRuntime.jsxs(
+       ui.Tabs,
 diff --git a/.medusa/server/src/admin/index.mjs b/.medusa/server/src/admin/index.mjs
-index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c300d2e9200 100644
+index 322606636035c41e3825e49030cbc6b2c6ebf890..886a5d910a14f02fd51b9860137f694674035649 100644
 --- a/.medusa/server/src/admin/index.mjs
 +++ b/.medusa/server/src/admin/index.mjs
-@@ -7,7 +7,6 @@ import { ChartBar, Calendar, ChevronDown, ChevronLeft, ChevronRight, ShoppingCar
+@@ -2,12 +2,11 @@ import { jsx, jsxs, Fragment } from "react/jsx-runtime";
+ import * as React from "react";
+ import React__default, { useState, useEffect } from "react";
+ import { defineRouteConfig } from "@medusajs/admin-sdk";
+-import { createDataTableColumnHelper, useDataTable, DataTable, Container, Heading, Select, Tabs, Text } from "@medusajs/ui";
+-import { ChartBar, Calendar, ChevronDown, ChevronLeft, ChevronRight, ShoppingCart, User } from "@medusajs/icons";
++import { createDataTableColumnHelper, useDataTable, DataTable, Container, Heading, Select, Tabs, Text, Button as UiButton } from "@medusajs/ui";
++import { ChartBar, Calendar, ChevronDown, ChevronLeft, ChevronRight, ShoppingCart, User, DocumentText, ArrowDownTray } from "@medusajs/icons";
  import { ChartNoAxesCombined } from "lucide-react";
  import { format, parse, startOfMonth, endOfMonth, subMonths } from "date-fns";
  import { DateRangePicker, Group, DateInput, DateSegment, Button, Popover, Dialog, RangeCalendar, Heading as Heading$1, CalendarGrid, CalendarCell } from "react-aria-components";
@@ -136,7 +295,104 @@ index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c30
      }
    });
    return /* @__PURE__ */ jsxs(DataTable, { instance: table, children: [
-@@ -1392,7 +1405,6 @@ const CustomersTable = ({
+@@ -1219,6 +1232,96 @@ const useCustomerAnalytics = (query, options) => {
+     ...options
+   });
+ };
++const hasTechSpecs = (metadata) => {
++  const details = metadata == null ? void 0 : metadata.tech_product_details;
++  if (details && typeof details === "object") {
++    return Object.values(details).some((value) => Array.isArray(value) ? value.length > 0 : Boolean(value));
++  }
++  return Array.isArray(metadata == null ? void 0 : metadata.specs) && metadata.specs.length > 0;
++};
++async function retrieveOperationsAnalytics(date) {
++  if (!date || !date.from || !(date == null ? void 0 : date.to)) {
++    return void 0;
++  }
++  const [productList, pendingReviews] = await Promise.all([
++    sdk.client.fetch("/admin/products?limit=100&fields=id,title,metadata").catch(() => ({ products: [] })),
++    sdk.client.fetch("/admin/product-reviews?status=pending&limit=1").catch(() => ({ count: 0 }))
++  ]);
++  const products2 = (productList == null ? void 0 : productList.products) || [];
++  return {
++    pending_reviews: (pendingReviews == null ? void 0 : pendingReviews.count) || 0,
++    missing_tech_specs: products2.filter((product) => !hasTechSpecs(product.metadata)).length,
++    products_checked: products2.length
++  };
++}
++const useOperationsAnalytics = (query, options) => {
++  return useQuery({
++    queryKey: ["operations-analytics", query == null ? void 0 : query.from, query == null ? void 0 : query.to],
++    queryFn: async () => {
++      const data = await retrieveOperationsAnalytics(query);
++      return data;
++    },
++    ...options
++  });
++};
++const OperationsCard = ({ label, value, helper }) => {
++  return /* @__PURE__ */ jsxs(Container, { className: "relative", children: [
++    /* @__PURE__ */ jsx(Text, { size: "small", children: label }),
++    /* @__PURE__ */ jsx(Text, { size: "xlarge", weight: "plus", children: value }),
++    /* @__PURE__ */ jsx(Text, { size: "xsmall", className: "text-ui-fg-muted", children: helper })
++  ] });
++};
++const formatMoney = (amount, currencyCode) => new Intl.NumberFormat("en-US", {
++  style: "currency",
++  currency: currencyCode || "CAD"
++}).format(amount || 0);
++const openSalesPdf = ({ date, orders, operations, products, customers }) => {
++  if (!date || !date.from || !date.to) {
++    return;
++  }
++  const orderCount = (orders == null ? void 0 : orders.total_orders) || 0;
++  const sales = (orders == null ? void 0 : orders.total_sales) || 0;
++  const currencyCode = (orders == null ? void 0 : orders.currency_code) || "CAD";
++  const lowStock = ((products == null ? void 0 : products.lowStockVariants) || []).filter((variant) => variant.inventoryQuantity > 0).length;
++  const outOfStock = ((products == null ? void 0 : products.lowStockVariants) || []).filter((variant) => variant.inventoryQuantity === 0).length;
++  const printWindow = window.open("", "_blank");
++  if (!printWindow) {
++    return;
++  }
++  printWindow.document.write(`
++    <html>
++      <head>
++        <title>Tech Hub Sales Report</title>
++        <style>
++          body { font-family: Arial, sans-serif; color: #111827; padding: 32px; }
++          h1 { margin-bottom: 4px; }
++          .muted { color: #6b7280; }
++          .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
++          .card { border: 1px solid #d1d5db; padding: 16px; border-radius: 8px; }
++          .label { color: #6b7280; font-size: 12px; margin-bottom: 8px; }
++          .value { font-size: 24px; font-weight: 700; }
++          @media print { button { display: none; } }
++        </style>
++      </head>
++      <body>
++        <h1>Tech Hub Sales Report</h1>
++        <p class="muted">${format(date.from, "yyyy-MM-dd")} to ${format(date.to, "yyyy-MM-dd")}</p>
++        <div class="grid">
++          <div class="card"><div class="label">Total sales</div><div class="value">${formatMoney(sales, currencyCode)}</div></div>
++          <div class="card"><div class="label">Total orders</div><div class="value">${orderCount}</div></div>
++          <div class="card"><div class="label">Average order value</div><div class="value">${formatMoney(orderCount > 0 ? sales / orderCount : 0, currencyCode)}</div></div>
++          <div class="card"><div class="label">Customers</div><div class="value">${(customers == null ? void 0 : customers.total_customers) || 0}</div></div>
++          <div class="card"><div class="label">Pending reviews</div><div class="value">${(operations == null ? void 0 : operations.pending_reviews) || 0}</div></div>
++          <div class="card"><div class="label">Missing tech specs</div><div class="value">${(operations == null ? void 0 : operations.missing_tech_specs) || 0}</div></div>
++          <div class="card"><div class="label">Low stock variants</div><div class="value">${lowStock}</div></div>
++          <div class="card"><div class="label">Out of stock variants</div><div class="value">${outOfStock}</div></div>
++        </div>
++        <script>window.print()</script>
++      </body>
++    </html>
++  `);
++  printWindow.document.close();
++};
+ const StackedBarChart = ({
+   data,
+   xAxisDataKey,
+@@ -1392,7 +1495,6 @@ const CustomersTable = ({
    const [sorting, setSorting] = React.useState(
      null
    );
@@ -144,7 +400,7 @@ index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c30
    const shownCustomers = React.useMemo(() => {
      let filtered = customers.filter(
        (customer) => customer.name.toLowerCase().includes(search.toLowerCase()) || customer.email.toLowerCase().includes(search.toLowerCase())
-@@ -1490,7 +1502,7 @@ const CustomersTable = ({
+@@ -1490,7 +1592,7 @@ const CustomersTable = ({
        onSortingChange: setSorting
      },
      onRowClick: (_, row) => {
@@ -153,7 +409,7 @@ index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c30
      }
    });
    return /* @__PURE__ */ jsxs(DataTable, { instance: table, children: [
-@@ -1554,7 +1566,17 @@ function presetToDateRange(preset) {
+@@ -1554,7 +1656,17 @@ function presetToDateRange(preset) {
  const DATE_RANGE_REGEX = /^(\d{4}-\d{2}-\d{2})-(\d{4}-\d{2}-\d{2})$/;
  const AnalyticsPage = () => {
    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
@@ -172,3 +428,58 @@ index 322606636035c41e3825e49030cbc6b2c6ebf890..410f3642b86b5755a631b1097f5a8c30
    const rangeParam = searchParams.get("range") || "this-month";
    const date = React.useMemo(() => {
      if (rangeParam === "this-month" || rangeParam === "last-month" || rangeParam === "last-3-months") {
+@@ -1574,6 +1686,7 @@ const AnalyticsPage = () => {
+     ["this-month", "last-month", "last-3-months"].includes(rangeParam) ? rangeParam : "custom",
+     date
+   );
++  const { data: operations, isLoading: isLoadingOperations } = useOperationsAnalytics(date);
+   const someOrderCountsGreaterThanZero = (_a = orders == null ? void 0 : orders.order_count) == null ? void 0 : _a.some(
+     (item) => item.count > 0
+   );
+@@ -1584,6 +1697,9 @@ const AnalyticsPage = () => {
+   const someCustomerCountsGreaterThanZero = (_d = customers == null ? void 0 : customers.customer_count) == null ? void 0 : _d.some(
+     (item) => (item.new_customers || 0) > 0 || (item.returning_customers || 0) > 0
+   );
++  const lowStockCount = ((_e = products == null ? void 0 : products.lowStockVariants) == null ? void 0 : _e.filter((variant) => variant.inventoryQuantity > 0).length) || 0;
++  const outOfStockCount = ((_f = products == null ? void 0 : products.lowStockVariants) == null ? void 0 : _f.filter((variant) => variant.inventoryQuantity === 0).length) || 0;
++  const averageOrderValue = (orders == null ? void 0 : orders.total_orders) ? ((orders == null ? void 0 : orders.total_sales) || 0) / orders.total_orders : 0;
+   const updateDatePreset = React.useCallback(
+     (preset) => {
+       const params = new URLSearchParams(searchParams.toString());
+@@ -1743,7 +1859,35 @@ const AnalyticsPage = () => {
+             ]
+           }
+         )
+-      ] })
++      ] }),
++      /* @__PURE__ */ jsx(
++        UiButton,
++        {
++          size: "small",
++          variant: "secondary",
++          className: "shadow-elevation-card-rest gap-x-2",
++          title: "Open a print-ready sales report for this date range",
++          disabled: isLoadingOrders || isLoadingProducts || isLoadingCustomers || isLoadingOperations,
++          onClick: () => openSalesPdf({ date, orders, operations, products, customers }),
++          children: [
++            /* @__PURE__ */ jsx(DocumentText, {}),
++            "Export sales report",
++            /* @__PURE__ */ jsx(ArrowDownTray, {})
++          ]
++        }
++      )
++    ] }),
++    /* @__PURE__ */ jsxs("div", { className: "grid gap-4 px-6 py-4 md:grid-cols-2 xl:grid-cols-4", children: [
++      isLoadingOperations ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Pending reviews", value: (operations == null ? void 0 : operations.pending_reviews) || 0, helper: "Reviews waiting for approval" }),
++      isLoadingOperations ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Missing tech specs", value: (operations == null ? void 0 : operations.missing_tech_specs) || 0, helper: `${(operations == null ? void 0 : operations.products_checked) || 0} products checked` }),
++      isLoadingProducts ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Low stock", value: lowStockCount, helper: "Variants below stock threshold" }),
++      isLoadingProducts ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Out of stock", value: outOfStockCount, helper: "Variants with zero inventory" })
++    ] }),
++    /* @__PURE__ */ jsxs("div", { className: "grid gap-4 px-6 py-4 md:grid-cols-2 xl:grid-cols-4", children: [
++      isLoadingOrders ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Average order value", value: formatMoney(averageOrderValue, (orders == null ? void 0 : orders.currency_code) || "CAD"), helper: "Sales divided by orders" }),
++      isLoadingCustomers ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "New customers", value: (customers == null ? void 0 : customers.new_customers) || 0, helper: "New customers in period" }),
++      isLoadingCustomers ? /* @__PURE__ */ jsx(SmallCardSkeleton, {}) : /* @__PURE__ */ jsx(OperationsCard, { label: "Returning customers", value: (customers == null ? void 0 : customers.returning_customers) || 0, helper: "Repeat buyers in period" }),
++      /* @__PURE__ */ jsx(OperationsCard, { label: "Next workflow", value: "Abandoned carts", helper: "Ready for recovery metrics" })
+     ] }),
+     /* @__PURE__ */ jsx("div", { className: "px-6 py-4", children: /* @__PURE__ */ jsxs(
+       Tabs,

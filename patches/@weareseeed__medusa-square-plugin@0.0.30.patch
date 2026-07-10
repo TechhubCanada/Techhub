@@ -90,3 +90,35 @@ index 1252c3509c5404f8d35fb2bb574b488e8e974605..6546afe2e0e27131f1b23c3aa62ba56c
      }
    }, []);
    const showTabs = (data == null ? void 0 : data.integration_key) && ((_a = data == null ? void 0 : data.location_id) == null ? void 0 : _a.length) > 0;
+diff --git a/.medusa/server/src/api/admin/square/oauth/start/route.js b/.medusa/server/src/api/admin/square/oauth/start/route.js
+index 757960098c35f89e052d47b7450fe8b12bfc43b0..67fbd017e06aaf60ed860ead8b4645a3e5774f86 100644
+--- a/.medusa/server/src/api/admin/square/oauth/start/route.js
++++ b/.medusa/server/src/api/admin/square/oauth/start/route.js
+@@ -6,6 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.GET = void 0;
+ const config_1 = require("../../../../../modules/square/utils/config");
+ const microservice_1 = __importDefault(require("../../../../../modules/square/utils/microservice"));
++const normalizeSquareOAuthUrl = (url, environment) => {
++    const squareOAuthUrl = new URL(url);
++    if (environment === "sandbox") {
++        if (squareOAuthUrl.hostname === "squareupsandbox.com") {
++            squareOAuthUrl.hostname = "connect.squareupsandbox.com";
++        }
++        if (squareOAuthUrl.searchParams.get("session") === "false") {
++            squareOAuthUrl.searchParams.delete("session");
++        }
++    }
++    return squareOAuthUrl.toString();
++};
+ const GET = async (req, res) => {
+     try {
+         const isSandbox = req.query.is_sandbox === "true";
+@@ -16,7 +28,7 @@ const GET = async (req, res) => {
+                 environment,
+             },
+         });
+-        return res.redirect(response.data.url);
++        return res.redirect(normalizeSquareOAuthUrl(response.data.url, environment));
+     }
+     catch (error) {
+         return res.status(500).json({

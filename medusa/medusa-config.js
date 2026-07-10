@@ -97,6 +97,33 @@ const adminSingletonAliases = adminSingletonDependencies.map((dependency) => ({
   replacement: require.resolve(dependency, { paths: [__dirname] }),
 }));
 
+const getInvoiceAddress = () => {
+  return (process.env.INVOICE_COMPANY_ADDRESS || 'Tech Hub Canada')
+    .replace(/\\n/g, '\n')
+    .trim();
+};
+
+const getInvoiceAddressInfo = () => {
+  const addressInfo = {
+    companyName: process.env.INVOICE_COMPANY_NAME || 'Tech Hub Canada',
+    address: () => getInvoiceAddress(),
+    cocNumber: process.env.INVOICE_COC_NUMBER || 'Not configured',
+    vatNumber: process.env.INVOICE_VAT_NUMBER || 'Not configured',
+    iban: process.env.INVOICE_IBAN || 'Not configured',
+    email: process.env.INVOICE_EMAIL || 'info@techhubcanada.com',
+  };
+
+  if (process.env.INVOICE_COMPANY_LOGO) {
+    addressInfo.companyLogo = process.env.INVOICE_COMPANY_LOGO;
+  }
+
+  if (process.env.INVOICE_COMPANY_LOGO_WIDTH) {
+    addressInfo.companyLogoWidth = Number(process.env.INVOICE_COMPANY_LOGO_WIDTH);
+  }
+
+  return addressInfo;
+};
+
 module.exports = defineConfig({
   admin: {
     disable: process.env.DISABLE_MEDUSA_ADMIN === 'true',
@@ -140,6 +167,9 @@ module.exports = defineConfig({
     },
     {
       resolve: './src/modules/fashion',
+    },
+    {
+      resolve: './src/modules/product-review',
     },
     {
       resolve: '@medusajs/medusa/file',
@@ -198,6 +228,15 @@ module.exports = defineConfig({
                   label: 'LinkedIn',
                 },
               ],
+            },
+          },
+          {
+            resolve: './src/modules/slack',
+            id: 'slack',
+            options: {
+              channels: ['slack'],
+              webhook_url: process.env.SLACK_WEBHOOK_URL,
+              admin_url: process.env.SLACK_ADMIN_URL,
             },
           },
         ],
@@ -324,25 +363,27 @@ module.exports = defineConfig({
         },
       },
     },
-    {
-      key: 'agenticCommerce',
-      resolve:
-        '@financedistrict/medusa-plugin-agentic-commerce/modules/agentic-commerce',
-      options: {
-        api_key: process.env.AGENTIC_COMMERCE_API_KEY,
-        signatureKey: process.env.AGENTIC_COMMERCE_SIGNATURE_KEY,
-        storefront_url: process.env.STOREFRONT_URL || 'http://localhost:8000',
-        store_name: process.env.AGENTIC_STORE_NAME || 'TechHub Canada',
-        store_description:
-          process.env.AGENTIC_STORE_DESCRIPTION ||
-          'Computers, parts, accessories, and repair support from TechHub Canada.',
-        payment_provider_id:
-          process.env.AGENTIC_PAYMENT_PROVIDER || 'pp_square_square',
-        payment_handler_adapters: [],
-      },
-    },
   ],
   plugins: [
+    {
+      resolve: '@alphabite/medusa-wishlist',
+      options: {
+        allowGuestWishlist: true,
+        includeWishlistItems: true,
+        includeWishlistItemsTake: 20,
+      },
+    },
+    {
+      resolve: '@webbers/invoices-medusa',
+      options: {
+        defaultLocale: process.env.INVOICE_DEFAULT_LOCALE || 'en',
+        addressInfo: getInvoiceAddressInfo(),
+        colors: {
+          background: process.env.INVOICE_COLOR_BACKGROUND || '#111827',
+          text: process.env.INVOICE_COLOR_TEXT || '#ffffff',
+        },
+      },
+    },
     {
       resolve: '@weareseeed/medusa-square-plugin',
       options: {},
@@ -357,18 +398,6 @@ module.exports = defineConfig({
     },
     {
       resolve: '@empty-complete-org/medusa-product-attributes',
-      options: {},
-    },
-    {
-      resolve: '@reorderjs/reorder',
-      options: {},
-    },
-    {
-      resolve: '@financedistrict/medusa-plugin-agentic-commerce',
-      options: {},
-    },
-    {
-      resolve: '@codee-sh/medusa-plugin-automations',
       options: {},
     },
     {

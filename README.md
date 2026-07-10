@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.07.08.16
+Documentation version: 2026.07.10.14
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -50,7 +50,10 @@ Supporting services include:
 ## Project Documentation
 
 - `docs/medusa-only-realtime.md` - Medusa-only SSE architecture for live storefront updates without external realtime services.
-- `docs/medusa-notifications.md` - Medusa local notification and Resend email template setup.
+- `docs/medusa-notifications.md` - Medusa local notification, Resend email, and Slack order alert setup.
+- `docs/medusa-content-cms.md` - Medusa Content CMS plugin setup, public content routes, and storefront data helper usage.
+- `docs/commerce-extensions-roadmap.md` - Product reviews API details and storefront rollout plan for the next commerce extensions.
+- `docs/square-oauth.md` - Square production and sandbox OAuth setup notes.
 - `docs/superpowers/plans/2026-07-08-medusa-only-realtime-storefront.md` - Implementation plan for the Medusa-only realtime storefront work.
 
 ## Prerequisites
@@ -144,6 +147,8 @@ Important values to configure before production:
 - `NEXT_PUBLIC_PAYPAL_CLIENT_ID`
 - `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`
 - `RESEND_API_KEY`
+- `SLACK_WEBHOOK_URL`
+- `SLACK_ADMIN_URL`
 - `MEILISEARCH_MASTER_KEY`
 - `MEILISEARCH_HOST`
 - `MEILISEARCH_API_KEY`
@@ -193,6 +198,17 @@ pnpm seed
 pnpm test:medusa
 pnpm test:e2e
 ```
+
+## Vercel Storefront Builds
+
+Vercel builds the storefront from the monorepo root using `vercel.json`. The build contract is:
+
+```sh
+corepack enable && pnpm install --frozen-lockfile
+pnpm --filter @techhub/storefront build
+```
+
+Keep packages required by `storefront/next.config.js` in storefront `dependencies`, not only `devDependencies`, because the config is loaded during production builds.
 
 App-specific commands:
 

@@ -1,9 +1,15 @@
 import { Metadata } from "next"
 import Image from "next/image"
+import { listContentItems, type ContentItem } from "@lib/data/content"
+import {
+  getContentMetadataString,
+  getSortedContentItems,
+} from "@lib/util/content"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
+import { CmsContentCard } from "@/components/CmsContentCard"
 
 export const metadata: Metadata = {
   title: "Featured Tech",
@@ -20,7 +26,60 @@ export async function generateStaticParams() {
   return staticParams
 }
 
-export default function InspirationPage() {
+const InspirationCmsItems = ({
+  buyingGuides,
+  blogPosts,
+}: {
+  buyingGuides: ContentItem[]
+  blogPosts: ContentItem[]
+}) => {
+  const items = [
+    ...buyingGuides.map((item) => ({
+      item,
+      href: `/buying-guides/${item.slug}`,
+      label: "Guide",
+    })),
+    ...blogPosts.map((item) => ({
+      item,
+      href: getContentMetadataString(item.metadata, "cta_href"),
+      label: getContentMetadataString(item.metadata, "cta_label") ?? "Read",
+    })),
+  ].slice(0, 4)
+
+  if (items.length === 0) {
+    return null
+  }
+
+  return (
+    <Layout className="mb-26 md:mb-36 max-md:gap-x-2">
+      <LayoutColumn>
+        <h3 className="text-md md:text-2xl mb-8 md:mb-15">Guides and ideas</h3>
+      </LayoutColumn>
+      {items.map(({ item, href, label }, index) => (
+        <LayoutColumn
+          key={item.id}
+          start={index % 2 === 0 ? 1 : 7}
+          end={index % 2 === 0 ? 7 : 13}
+        >
+          <CmsContentCard item={item} href={href} label={label} />
+        </LayoutColumn>
+      ))}
+    </Layout>
+  )
+}
+
+export default async function InspirationPage() {
+  const [buyingGuidesResponse, blogPostsResponse] = await Promise.all([
+    listContentItems("buying-guides", { limit: 4 }).catch(() => null),
+    listContentItems("blog-posts", { limit: 4 }).catch(() => null),
+  ])
+  const buyingGuides = getSortedContentItems(
+    buyingGuidesResponse?.content_items ?? []
+  )
+  const blogPosts = getSortedContentItems(
+    blogPostsResponse?.content_items ?? []
+  )
+
   return (
     <>
       <div className="max-md:pt-18">
@@ -33,6 +92,10 @@ export default function InspirationPage() {
         />
       </div>
       <div className="pb-26 md:pb-36">
+        <InspirationCmsItems
+          buyingGuides={buyingGuides}
+          blogPosts={blogPosts}
+        />
         <Layout>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
@@ -83,16 +146,13 @@ export default function InspirationPage() {
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Build a cleaner setup at home or at work with products that
-                keep devices connected and organized.
+                Build a cleaner setup at home or at work with products that keep
+                devices connected and organized.
               </p>
             </div>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
-            <LocalizedLink
-              href="/store"
-              className="mb-8 md:mb-16 inline-block"
-            >
+            <LocalizedLink href="/store" className="mb-8 md:mb-16 inline-block">
               <Image
                 src="/images/content/techhub-ethernet-switch.png"
                 width={768}
@@ -103,9 +163,7 @@ export default function InspirationPage() {
               <div className="flex justify-between">
                 <div>
                   <p className="mb-1">Switches</p>
-                  <p className="text-grayscale-500 text-xs">
-                    Wired networking
-                  </p>
+                  <p className="text-grayscale-500 text-xs">Wired networking</p>
                 </div>
                 <div>
                   <p className="font-semibold">Shop</p>

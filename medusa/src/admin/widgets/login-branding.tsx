@@ -1,5 +1,7 @@
 import { defineWidgetConfig } from '@medusajs/admin-sdk';
 
+import '../styles/admin-sidebar.css';
+
 const LoginBranding = () => {
   return (
     <style>

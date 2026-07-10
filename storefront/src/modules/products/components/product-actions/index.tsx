@@ -20,6 +20,7 @@ import ProductPrice from "@modules/products/components/product-price"
 import { UiRadioGroup } from "@/components/ui/Radio"
 import { withReactQueryProvider } from "@lib/util/react-query"
 import { useAddLineItem } from "hooks/cart"
+import { useAddVariantToWishlist } from "hooks/wishlist"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -85,6 +86,12 @@ function ProductActions({ product, materials, disabled }: ProductActionsProps) {
   const countryCode = useCountryCode()
 
   const { mutateAsync, isPending } = useAddLineItem()
+  const {
+    mutateAsync: addVariantToWishlist,
+    isPending: isWishlistPending,
+    isSuccess: isWishlistSuccess,
+    error: wishlistError,
+  } = useAddVariantToWishlist()
 
   // If there is only 1 variant, preselect the options
   useEffect(() => {
@@ -180,6 +187,12 @@ function ProductActions({ product, materials, disabled }: ProductActionsProps) {
       quantity,
       countryCode,
     })
+  }
+
+  const handleAddToWishlist = async () => {
+    if (!selectedVariant?.id) return null
+
+    await addVariantToWishlist(selectedVariant.id)
   }
 
   const hasMultipleVariants = (product.variants?.length ?? 0) > 1
@@ -366,6 +379,26 @@ function ProductActions({ product, materials, disabled }: ProductActionsProps) {
               ? "Out of stock"
               : "Add to cart"}
         </Button>
+        <Button
+          onPress={handleAddToWishlist}
+          isDisabled={!selectedVariant || !!disabled}
+          isLoading={isWishlistPending}
+          iconName="heart"
+          variant="outline"
+          className="sm:w-44"
+        >
+          Save
+        </Button>
+      </div>
+      <div aria-live="polite" className="mt-3 min-h-5">
+        {isWishlistSuccess && (
+          <p className="text-xs text-grayscale-500">Saved to wishlist</p>
+        )}
+        {wishlistError && (
+          <p className="text-xs text-red-primary">
+            Could not save to wishlist
+          </p>
+        )}
       </div>
     </>
   )

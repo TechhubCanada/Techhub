@@ -45,3 +45,20 @@ export const setCartId = async (cartId: string) => {
 export const removeCartId = async () => {
   return (await cookies()).set("_medusa_cart_id", "", { maxAge: -1 })
 }
+
+export const getWishlistId = async () => {
+  return (await cookies()).get("_medusa_wishlist_id")?.value
+}
+
+export const setWishlistId = async (wishlistId: string) => {
+  return (await cookies()).set("_medusa_wishlist_id", wishlistId, {
+    maxAge: 60 * 60 * 24 * 30,
+    httpOnly: true,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+  })
+}
+
+export const removeWishlistId = async () => {
+  return (await cookies()).set("_medusa_wishlist_id", "", { maxAge: -1 })
+}

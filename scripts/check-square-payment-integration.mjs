@@ -25,6 +25,9 @@ const paymentCardButton = readText(
 const squarePaymentForm = readText(
   "storefront/src/modules/checkout/components/square-payment-form/index.tsx"
 )
+const squarePluginPatch = readText(
+  "patches/@weareseeed__medusa-square-plugin@0.0.30.patch"
+)
 
 assert.equal(
   medusaPackage.dependencies["@weareseeed/medusa-square-plugin"],
@@ -111,6 +114,21 @@ assert.match(
   paymentButton,
   /isSquare/,
   "Review payment button must place Square orders without Stripe confirmation"
+)
+assert.match(
+  squarePluginPatch,
+  /hostname === "squareupsandbox\.com"/,
+  "Square plugin patch must detect the sandbox OAuth host"
+)
+assert.match(
+  squarePluginPatch,
+  /hostname = "connect\.squareupsandbox\.com"/,
+  "Square plugin patch must normalize sandbox OAuth redirects to Square's connect host"
+)
+assert.match(
+  squarePluginPatch,
+  /searchParams\.delete\("session"\)/,
+  "Square plugin patch must remove session=false from sandbox OAuth redirects"
 )
 
 console.log("Square payment integration checks passed")
