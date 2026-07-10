@@ -13,7 +13,10 @@ export const SidebarNav: React.FC = () => {
   const currentPath = pathName.split(`/${countryCode}`)[1]
 
   return (
-    <>
+    <nav
+      aria-label="Account navigation"
+      className="flex gap-8 md:flex-col md:gap-0"
+    >
       <LocalizedLink
         href="/account"
         className={twJoin(
@@ -41,6 +44,15 @@ export const SidebarNav: React.FC = () => {
       >
         Wishlist
       </LocalizedLink>
-    </>
+      <LocalizedLink
+        href="/account/invoices"
+        className={twJoin(
+          "inline-flex items-start py-4 max-md:whitespace-nowrap",
+          currentPath.startsWith("/account/invoices") && "font-semibold"
+        )}
+      >
+        Invoices
+      </LocalizedLink>
+    </nav>
   )
 }

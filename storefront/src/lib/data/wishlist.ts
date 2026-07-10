@@ -70,7 +70,12 @@ export async function listWishlists() {
 }
 
 export async function retrieveWishlist(id?: string | null) {
-  const wishlistId = id ?? (await getWishlistId())
+  let wishlistId = id ?? (await getWishlistId())
+
+  if (!wishlistId) {
+    const [wishlist] = await listWishlists()
+    wishlistId = wishlist?.id
+  }
 
   if (!wishlistId) {
     return null
@@ -87,7 +92,12 @@ export async function retrieveWishlist(id?: string | null) {
 }
 
 export async function retrieveWishlistItems(id?: string | null) {
-  const wishlistId = id ?? (await getWishlistId())
+  let wishlistId = id ?? (await getWishlistId())
+
+  if (!wishlistId) {
+    const [wishlist] = await listWishlists()
+    wishlistId = wishlist?.id
+  }
 
   if (!wishlistId) {
     return []

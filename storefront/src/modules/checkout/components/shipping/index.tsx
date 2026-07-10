@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/Radio"
 import { useCartShippingMethods, useSetShippingMethod } from "hooks/cart"
 import { StoreCart } from "@medusajs/types"
+import { getShippingMethodsViewState } from "./view-state"
 
 const Shipping = ({ cart }: { cart: StoreCart }) => {
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +25,14 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
 
   const isOpen = searchParams.get("step") === "shipping"
 
-  const { data: availableShippingMethods } = useCartShippingMethods(cart.id)
+  const {
+    data: availableShippingMethods,
+    isFetching: isFetchingShippingMethods,
+    refetch: refetchShippingMethods,
+  } = useCartShippingMethods(cart.id)
+  const shippingMethodsViewState = getShippingMethodsViewState(
+    availableShippingMethods
+  )
 
   const { mutate, isPending } = useSetShippingMethod({ cartId: cart.id })
   const selectedShippingMethod = availableShippingMethods?.find(
@@ -74,8 +82,45 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
           )}
       </div>
       {isOpen ? (
-        availableShippingMethods?.length === 0 ? (
-          <div>
+        shippingMethodsViewState === "loading" ? (
+          <div
+            aria-live="polite"
+            className="rounded-xs border border-grayscale-200 bg-grayscale-50 px-4 py-5"
+            data-testid="delivery-options-loading"
+            role="status"
+          >
+            <p className="text-sm font-medium text-grayscale-900">
+              Loading shipping methods
+            </p>
+            <p className="mt-1 text-sm text-grayscale-600">
+              We are checking the available delivery options for this address.
+            </p>
+          </div>
+        ) : shippingMethodsViewState === "unavailable" ? (
+          <div
+            className="rounded-xs border border-red-200 bg-red-50 px-4 py-5"
+            data-testid="delivery-options-unavailable"
+          >
+            <p className="text-sm font-medium text-red-900">
+              Shipping methods could not be loaded.
+            </p>
+            <p className="mt-1 text-sm text-red-900">
+              Please try again, or contact us if the issue continues.
+            </p>
+            <Button
+              className="mt-4"
+              isLoading={isFetchingShippingMethods}
+              loadingText="Checking"
+              onPress={() => {
+                void refetchShippingMethods()
+              }}
+              variant="outline"
+            >
+              Try again
+            </Button>
+          </div>
+        ) : shippingMethodsViewState === "empty" ? (
+          <div data-testid="delivery-options-empty">
             <p className="text-red-900">
               There are no shipping methods available for your location. Please
               contact us for further assistance.
