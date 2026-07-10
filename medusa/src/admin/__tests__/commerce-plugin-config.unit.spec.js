@@ -20,7 +20,7 @@ describe('commerce plugin configuration', () => {
     process.env = originalEnv
   })
 
-  it('registers wishlist and invoice plugins with production defaults', () => {
+  it('registers wishlist and square while keeping invoice plugin disabled', () => {
     const config = require('../../../medusa-config')
     const medusaPackage = require('../../../package.json')
 
@@ -30,12 +30,12 @@ describe('commerce plugin configuration', () => {
     const invoicePlugin = config.plugins.find(
       (plugin) => plugin.resolve === '@webbers/invoices-medusa',
     )
+    const squarePlugin = config.plugins.find(
+      (plugin) => plugin.resolve === '@weareseeed/medusa-square-plugin',
+    )
 
     expect(medusaPackage.dependencies).toHaveProperty(
       '@alphabite/medusa-wishlist',
-    )
-    expect(medusaPackage.dependencies).toHaveProperty(
-      '@webbers/invoices-medusa',
     )
 
     expect(wishlistPlugin).toMatchObject({
@@ -46,24 +46,10 @@ describe('commerce plugin configuration', () => {
       },
     })
 
-    expect(invoicePlugin).toMatchObject({
-      options: {
-        defaultLocale: 'en',
-        addressInfo: {
-          companyName: 'Tech Hub Canada',
-          cocNumber: 'COC-123',
-          vatNumber: 'VAT-123',
-          iban: 'CA00TECH123',
-          email: 'info@techhubcanada.com',
-        },
-        colors: {
-          background: '#111827',
-          text: '#ffffff',
-        },
-      },
+    expect(squarePlugin).toEqual({
+      resolve: '@weareseeed/medusa-square-plugin',
+      options: {},
     })
-    expect(invoicePlugin.options.addressInfo.address({ ca: 'Canada' })).toBe(
-      '123 Tech Street\nToronto, Canada',
-    )
+    expect(invoicePlugin).toBeUndefined()
   })
 })

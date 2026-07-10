@@ -116,24 +116,15 @@ pnpm --dir medusa exec medusa db:migrate
 
 Published content is available from the backend root routes `/content`, `/content/:slug`, `/content/:slug/items`, and `/content/:slug/items/:itemSlug`. See `../docs/medusa-content-cms.md` for storefront usage and compatibility notes.
 
-## Wishlist and invoice setup
+## Wishlist setup
 
-The backend installs `@alphabite/medusa-wishlist` for guest and customer wishlists, and `@webbers/invoices-medusa` for order invoice PDFs. Run migrations after pulling plugin changes:
+The backend installs `@alphabite/medusa-wishlist` for guest and customer wishlists. Run migrations after pulling plugin changes:
 
 ```sh
 pnpm --dir medusa exec medusa db:migrate
 ```
 
-Configure invoice identity in `medusa/.env` before production invoice use:
-
-```env
-INVOICE_COMPANY_NAME="Tech Hub Canada"
-INVOICE_COMPANY_ADDRESS="Tech Hub Canada"
-INVOICE_COC_NUMBER=
-INVOICE_VAT_NUMBER=
-INVOICE_IBAN=
-INVOICE_EMAIL=info@techhubcanada.com
-```
+The invoice plugin (`@webbers/invoices-medusa`) is intentionally not registered because its current workflow bundle re-imports Medusa core flows and duplicate-registers `create-payment-sessions` during backend startup on this Medusa version. Do not re-enable it until the plugin is upgraded or patched to avoid the core-flow barrel import.
 
 ## Admin plugin policy
 
