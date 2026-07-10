@@ -128,6 +128,17 @@ The custom store route `GET /store/custom/sales-channel` returns the first sales
 
 The invoice plugin (`@webbers/invoices-medusa`) is intentionally not registered because its current workflow bundle re-imports Medusa core flows and duplicate-registers `create-payment-sessions` during backend startup on this Medusa version. Do not re-enable it until the plugin is upgraded or patched to avoid the core-flow barrel import.
 
+## Railway production services
+
+Production Medusa runs on Railway as separate services that share the same codebase but use different worker modes:
+
+- `Techhub Production Server` uses `MEDUSA_WORKER_MODE=server`.
+- `Techhub Production Worker` uses `MEDUSA_WORKER_MODE=worker`.
+- `Postgres` is the production Postgres database.
+- `Redis-Xbug` is the production Redis instance used for the event bus, workflow engine, cache, and locks.
+
+Both Medusa services should use the repository root directory `medusa` in Railway. Keep `railway.toml` free of an HTTP healthcheck because the worker service does not expose `/health`; Railway restart policy still restarts failed processes.
+
 ## Admin plugin policy
 
 The Reorder subscriptions plugin (`@reorderjs/reorder`) is intentionally not installed because Tech Hub does not use subscription workflows in Medusa Admin. The Agentic Commerce plugin (`@financedistrict/medusa-plugin-agentic-commerce`) is also intentionally removed for now; re-enable it only when UCP/ACP endpoints are ready to be exposed publicly with production API keys and payment handling.
