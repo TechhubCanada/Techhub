@@ -316,16 +316,16 @@ module.exports = defineConfig({
                 is_giftcard: product.is_giftcard,
                 status: product.status,
                 thumbnail: product.images?.[0]?.url ?? null,
-                collection: product.collection.title,
-                collection_handle: product.collection.handle,
+                collection: product.collection?.title ?? null,
+                collection_handle: product.collection?.handle ?? null,
                 categories:
                   product.categories?.map((category) => category.name) ?? [],
                 categories_handle:
                   product.categories?.map((category) => category.handle) ?? [],
                 type: product.type?.value,
-                tags: product.tags.map((tag) => tag.value),
-                variants: product.variants.map((variant) => variant.title),
-                sku: product.variants
+                tags: product.tags?.map((tag) => tag.value) ?? [],
+                variants: product.variants?.map((variant) => variant.title) ?? [],
+                sku: (product.variants ?? [])
                   .filter(
                     (variant) => typeof variant.sku === 'string' && variant.sku,
                   )
