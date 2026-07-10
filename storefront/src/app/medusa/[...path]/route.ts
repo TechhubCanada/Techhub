@@ -1,15 +1,12 @@
 import { NextRequest } from "next/server"
 import { getMedusaBackendUrl } from "@lib/medusa-url"
+import {
+  getProxyTimeoutMs,
+  getRealtimePublishableKey,
+  prepareForwardHeaders,
+} from "./proxy-utils"
 
 export const dynamic = "force-dynamic"
-
-const BACKEND_URL = getMedusaBackendUrl({
-  isServer: true,
-  serverUrl: process.env.MEDUSA_BACKEND_URL,
-  publicUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
-})
-
-const excludedRequestHeaders = new Set(["connection", "content-length", "host"])
 
 const excludedResponseHeaders = new Set([
   "connection",
@@ -22,20 +19,19 @@ type RouteContext = {
   params: Promise<{ path?: string[] }>
 }
 
-function getTargetUrl(request: NextRequest, path: string[] = []) {
-  const requestUrl = new URL(request.url)
-  const baseUrl = BACKEND_URL.replace(/\/$/, "")
-  const targetPath = path.map(encodeURIComponent).join("/")
-
-  return `${baseUrl}/${targetPath}${requestUrl.search}`
+function getBackendUrl() {
+  return getMedusaBackendUrl({
+    isServer: true,
+    serverUrl: process.env.MEDUSA_BACKEND_URL,
+    publicUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
+  }).replace(/\/$/, "")
 }
 
-function getForwardHeaders(request: NextRequest) {
-  const headers = new Headers(request.headers)
+function getTargetUrl(request: NextRequest, path: string[] = []) {
+  const requestUrl = new URL(request.url)
+  const targetPath = path.map(encodeURIComponent).join("/")
 
-  excludedRequestHeaders.forEach((header) => headers.delete(header))
-
-  return headers
+  return `${getBackendUrl()}/${targetPath}${requestUrl.search}`
 }
 
 function getResponseHeaders(response: Response) {
@@ -51,14 +47,41 @@ async function proxyMedusaRequest(request: NextRequest, context: RouteContext) {
   const method = request.method.toUpperCase()
   const hasBody = method !== "GET" && method !== "HEAD"
   const body = hasBody ? await request.arrayBuffer() : undefined
+  const timeoutMs = getProxyTimeoutMs(path)
+  const controller = timeoutMs ? new AbortController() : undefined
+  const timeout = timeoutMs
+    ? setTimeout(() => controller?.abort(), timeoutMs)
+    : undefined
 
-  const response = await fetch(getTargetUrl(request, path), {
-    method,
-    headers: getForwardHeaders(request),
-    body,
-    cache: "no-store",
-    redirect: "manual",
-  })
+  let response: Response
+
+  try {
+    response = await fetch(getTargetUrl(request, path), {
+      method,
+      headers: prepareForwardHeaders(
+        request.headers,
+        path,
+        getRealtimePublishableKey(new URL(request.url)) ??
+          process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+      ),
+      body,
+      cache: "no-store",
+      redirect: "manual",
+      signal: controller?.signal,
+    })
+  } catch (error) {
+    return Response.json(
+      {
+        error: "Medusa proxy request failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 502 }
+    )
+  } finally {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+  }
 
   return new Response(response.body, {
     status: response.status,

@@ -1,10 +1,14 @@
-import { getMedusaBackendUrl } from "@lib/medusa-url"
-
 export const getRealtimeUrl = () => {
-  const baseUrl = getMedusaBackendUrl({
-    isServer: false,
-    publicUrl: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
-  })
+  const params = new URLSearchParams()
 
-  return `${baseUrl.replace(/\/$/, "")}/store/realtime`
+  if (process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY) {
+    params.set(
+      "publishable_key",
+      process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+    )
+  }
+
+  const query = params.toString()
+
+  return `/medusa/store/realtime${query ? `?${query}` : ""}`
 }

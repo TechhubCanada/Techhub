@@ -8,6 +8,7 @@ The storefront realtime layer should use Medusa as the only realtime backend. It
 Medusa catalog event
   -> Medusa subscriber
   -> in-process realtime hub
+  -> storefront /medusa proxy
   -> GET /store/realtime Server-Sent Events stream
   -> storefront RealtimeProvider
   -> React Query invalidateQueries/setQueryData
@@ -34,7 +35,7 @@ The first implementation can use an in-memory hub, which is correct for one Medu
 
 ## Storefront behavior
 
-The root `RealtimeProvider` listens to `/store/realtime` and invalidates React Query keys:
+The root `RealtimeProvider` listens to the same-origin `/medusa/store/realtime` proxy route and invalidates React Query keys:
 
 - Product or inventory events invalidate `['products']` and `['product']`.
 - Collection events invalidate `['collections']` and `['products']`.
@@ -59,5 +60,6 @@ Production caveats:
 
 - The current hub is process-local. It is production-suitable for one Medusa process. For multiple Medusa processes or replicas, add a shared event bridge such as Postgres `LISTEN/NOTIFY`.
 - The hosting/proxy layer must allow long-lived SSE responses and avoid buffering `/store/realtime`.
+- Browser `EventSource` cannot send custom headers. The storefront proxy must attach the publishable API key as `x-publishable-api-key` when forwarding `/medusa/store/realtime` to Medusa, and it must not apply the normal short proxy timeout to the SSE stream.
 - `STORE_CORS` must include the storefront origin so browser EventSource connections are accepted.
 - Private cart updates are intentionally not broadcast on the public stream.
