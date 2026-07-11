@@ -106,12 +106,6 @@ export const GET = async (
 
 Products that do not have both `Material` and `Color` options are valid catalog products. The route returns an empty fashion payload for those products instead of throwing, so generic products can still render in Admin without breaking the product details page.
 
-## Store Shipping Options Route
-
-`GET /store/shipping-options` is overridden locally to query applicable shipping options with Medusa's query graph and pricing context. This keeps the public Store API response shape as `{ shipping_options }` while avoiding the unpriced core route path that can fail when the shipping option graph does not hydrate `service_zone.fulfillment_set.location.id`.
-
-The storefront checkout expects priced options with an `amount`, so keep this route aligned with `src/lib/data/fulfillment.ts`.
-
 ## Middleware
 
 You can apply middleware to your routes by creating a file called `/api/middlewares.ts`. This file must export a configuration object with what middleware you want to apply to which routes.
