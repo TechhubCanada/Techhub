@@ -1,4 +1,5 @@
 // External packages
+import React from 'react';
 import {
   Body,
   Column,

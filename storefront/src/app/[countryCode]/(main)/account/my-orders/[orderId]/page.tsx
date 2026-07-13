@@ -14,6 +14,7 @@ import { getCustomer } from "@lib/data/customer"
 import { redirect } from "next/navigation"
 import { ButtonAnchor } from "@/components/Button"
 import { getSquareReceiptUrl } from "@lib/util/square-receipt"
+import PaymentDetails from "@modules/order/components/payment-details"
 
 export const metadata: Metadata = {
   title: "Account - Order",
@@ -292,10 +293,11 @@ export default async function AccountOrderPage({
           ))}
         </div>
         <div className="rounded-xs border border-grayscale-200 p-4 flex max-sm:flex-col gap-y-4 gap-x-10 md:flex-wrap justify-between">
-          <div className="flex items-center self-baseline gap-4">
+          <div className="flex items-start self-baseline gap-4">
             <Icon name="credit-card" />
             <div>
               <p className="text-grayscale-500">Payment</p>
+              <PaymentDetails order={order} />
             </div>
           </div>
           <OrderTotals order={order} />

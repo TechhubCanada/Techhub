@@ -73,6 +73,8 @@ Join our [Discord server](https://discord.com/invite/medusajs) to meet other com
 
 This backend uses Medusa's Notification Module with the local notification provider, a custom Resend provider, and a custom Slack provider. The Resend React Email templates are source-controlled under `src/modules/resend/emails` and registered in `src/modules/resend/emails/index.ts`. Slack order alerts are sent from `src/modules/slack` when `order.placed` fires. The Builder/Lexical notification email admin plugin and the dependent Codee automations plugin are intentionally not installed.
 
+The `order-update` Resend template accepts optional `currency_code`, `payment_status`, `payment_total`, and `refunded_total` order fields. Include them when an order update is payment-related so refunded or partially refunded notices show a Payment update block in the email.
+
 Required notification environment variables:
 
 ```sh

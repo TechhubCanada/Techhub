@@ -11,6 +11,7 @@ import { UiTag } from "@/components/ui/Tag"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { getCustomer } from "@lib/data/customer"
 import { redirect } from "next/navigation"
+import { getOrderPaymentStatusSummary } from "@lib/util/order-payment-status"
 
 export const metadata: Metadata = {
   title: "Account - Orders",
@@ -67,6 +68,27 @@ const OrderStatus: React.FC<{
       className={twMerge("self-start mt-auto", className)}
     >
       Packing
+    </UiTag>
+  )
+}
+
+const PaymentStatus: React.FC<{
+  order: HttpTypes.StoreOrder
+  className?: string
+}> = ({ order, className }) => {
+  const paymentStatus = getOrderPaymentStatusSummary(order)
+
+  if (!paymentStatus.isRefunded && !paymentStatus.isPartiallyRefunded) {
+    return null
+  }
+
+  return (
+    <UiTag
+      iconName="undo"
+      isActive
+      className={twMerge("self-start mt-auto", className)}
+    >
+      {paymentStatus.label}
     </UiTag>
   )
 }
@@ -143,7 +165,10 @@ export default async function AccountMyOrdersPage({ searchParams }: PageProps) {
                   </div>
                 </div>
                 <div className="flex max-sm:flex-col justify-between gap-6">
-                  <OrderStatus order={order} className="max-sm:hidden" />
+                  <div className="flex flex-wrap gap-2">
+                    <OrderStatus order={order} className="max-sm:hidden" />
+                    <PaymentStatus order={order} />
+                  </div>
                   <div className="flex flex-wrap gap-3 sm:self-end md:self-start lg:self-end">
                     <ButtonAnchor
                       href={`/api/orders/${order.id}/invoice`}
