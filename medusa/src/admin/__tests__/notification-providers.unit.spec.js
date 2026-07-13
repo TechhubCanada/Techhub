@@ -19,6 +19,9 @@ describe('admin extension configuration', () => {
     const providerIds = notificationModule.options.providers.map(
       (provider) => provider.id,
     );
+    const resendProvider = notificationModule.options.providers.find(
+      (provider) => provider.id === 'resend',
+    );
     const pluginResolves = config.plugins.map((plugin) => plugin.resolve);
 
     expect(providerResolves).toEqual(
@@ -28,6 +31,18 @@ describe('admin extension configuration', () => {
       ]),
     );
     expect(providerIds).toEqual(expect.arrayContaining(['local', 'resend']));
+    expect(resendProvider.options.footerLinks).toEqual([
+      {
+        url: 'https://techhubcanada.com',
+        label: 'TechHub',
+      },
+    ]);
+    expect(JSON.stringify(resendProvider.options.footerLinks)).not.toContain(
+      'agilo',
+    );
+    expect(JSON.stringify(resendProvider.options.footerLinks)).not.toContain(
+      'namankataria',
+    );
     expect(pluginResolves).not.toContain(
       '@codee-sh/medusa-plugin-notification-emails',
     );

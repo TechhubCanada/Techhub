@@ -49,25 +49,25 @@ export default function WelcomeEmail({
         Welcome to TechHub!
       </Heading>
       <Text className="text-md !mb-8">
-        Welcome to TechHub! We're excited to have you join our community of
-        comfort enthusiasts. With our carefully crafted sofas, you&apos;re just
-        steps away from adding elegance and coziness to your living space.
+        Welcome to TechHub. Your account is ready for product requests, order
+        updates, invoices, and support across computers, accessories, repairs,
+        and business technology projects.
       </Text>
       <Text className="text-md font-semibold !mb-8">
-        As a new member, here&apos;s what you can expect:
+        With your account, you can:
       </Text>
       <UnorderedList className="mb-8">
         <UnorderedListItem className="text-md">
-          Premium, high-quality sofas in a range of styles and materials
+          Track TechHub orders and invoices from your account
         </UnorderedListItem>
         <UnorderedListItem className="text-md">
-          Dedicated customer support ready to assist you
+          Request computers, printers, networking gear, parts, and accessories
         </UnorderedListItem>
         <UnorderedListItem className="text-md">
-          Exclusive offers and early access to new collections
+          Coordinate repairs, setup, service, and business technology support
         </UnorderedListItem>
         <UnorderedListItem className="text-md">
-          Explore our collections and find the sofa that suits your style!
+          Save products and return to them when you are ready
         </UnorderedListItem>
       </UnorderedList>
       <Text className="text-md">

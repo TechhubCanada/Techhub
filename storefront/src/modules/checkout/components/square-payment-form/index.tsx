@@ -11,6 +11,7 @@ import { usePathname, useRouter } from "next/navigation"
 
 import { useInitiatePaymentSession, useSquarePaymentConfig } from "hooks/cart"
 import type { SquarePaymentConfig } from "@lib/data/payment"
+import { SupportedCardBrands } from "@/components/SupportedCardBrands"
 
 const getPaymentError = (token: {
   status?: string
@@ -179,6 +180,7 @@ const SquarePaymentForm = ({
           )}
         />
       </PaymentForm>
+      <SupportedCardBrands className="mt-4" />
     </div>
   )
 }

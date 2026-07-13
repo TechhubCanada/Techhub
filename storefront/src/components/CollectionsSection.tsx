@@ -2,6 +2,7 @@ import Image from "next/image"
 import { getCollectionsList } from "@lib/data/collections"
 import { Carousel } from "@/components/Carousel"
 import { LocalizedButtonLink, LocalizedLink } from "@/components/LocalizedLink"
+import { LinkPreview } from "@/components/ui/LinkPreview"
 
 export const CollectionsSection: React.FC<{ className?: string }> = async ({
   className,
@@ -39,24 +40,22 @@ export const CollectionsSection: React.FC<{ className?: string }> = async ({
       }
       className={className}
     >
-      {collections.collections.map((collection) => (
-        <div
-          className="w-[70%] sm:w-[60%] lg:w-full max-w-124 flex-shrink-0"
-          key={collection.id}
-        >
-          <LocalizedLink href={`/collections/${collection.handle}`}>
-            {typeof collection.metadata?.image === "object" &&
-              collection.metadata.image &&
-              "url" in collection.metadata.image &&
-              typeof collection.metadata.image.url === "string" && (
-                <div className="relative mb-4 md:mb-10 w-full aspect-[3/4]">
-                  <Image
-                    src={collection.metadata.image.url}
-                    alt={collection.title}
-                    fill
-                  />
-                </div>
-              )}
+      {collections.collections.map((collection) => {
+        const href = `/collections/${collection.handle}`
+        const imageUrl =
+          typeof collection.metadata?.image === "object" &&
+          collection.metadata.image &&
+          "url" in collection.metadata.image &&
+          typeof collection.metadata.image.url === "string"
+            ? collection.metadata.image.url
+            : null
+        const content = (
+          <>
+            {imageUrl && (
+              <div className="relative mb-4 md:mb-10 w-full aspect-[3/4]">
+                <Image src={imageUrl} alt={collection.title} fill />
+              </div>
+            )}
             <h3 className="md:text-lg mb-2 md:mb-4">{collection.title}</h3>
             {typeof collection.metadata?.description === "string" &&
               collection.metadata?.description.length > 0 && (
@@ -64,9 +63,31 @@ export const CollectionsSection: React.FC<{ className?: string }> = async ({
                   {collection.metadata.description}
                 </p>
               )}
-          </LocalizedLink>
-        </div>
-      ))}
+          </>
+        )
+
+        return (
+          <div
+            className="w-[70%] sm:w-[60%] lg:w-full max-w-124 flex-shrink-0"
+            key={collection.id}
+          >
+            {imageUrl ? (
+              <LinkPreview
+                url={href}
+                isStatic
+                imageSrc={imageUrl}
+                width={260}
+                height={340}
+                className="block"
+              >
+                {content}
+              </LinkPreview>
+            ) : (
+              <LocalizedLink href={href}>{content}</LocalizedLink>
+            )}
+          </div>
+        )
+      })}
     </Carousel>
   )
 }

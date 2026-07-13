@@ -13,6 +13,22 @@ type Props = {
   searchParams: Promise<{ query: string; page: string }>
 }
 
+const searchProducts = async (query: string) => {
+  if (!query) {
+    return []
+  }
+
+  try {
+    const results = await searchClient
+      .index("products")
+      .search<MeiliSearchProductHit>(query)
+
+    return results.hits.map((hit) => hit.id)
+  } catch {
+    return []
+  }
+}
+
 export const metadata: Metadata = {
   title: "Search",
   description: "Search for products",
@@ -25,9 +41,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
 
   const pageNumber = page ? parseInt(page, 10) : 1
 
-  const results = await searchClient
-    .index("products")
-    .search<MeiliSearchProductHit>(query)
+  const productIds = await searchProducts(query)
   const region = await getRegion(countryCode)
 
   return (
@@ -47,7 +61,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
             countryCode={countryCode}
             collectionId={undefined}
             categoryId={undefined}
-            productsIds={results.hits.map((h) => h.id)}
+            productsIds={productIds}
             typeId={undefined}
           />
         )}

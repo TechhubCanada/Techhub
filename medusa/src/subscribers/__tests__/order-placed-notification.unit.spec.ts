@@ -49,7 +49,7 @@ const createOrder = () => ({
 })
 
 describe('sendOrderConfirmationHandler', () => {
-  it('sends order confirmation email and Slack order alert notifications', async () => {
+  it('sends order email, Admin feed, and Slack order alert notifications', async () => {
     const order = createOrder()
     const query = {
       graph: jest.fn().mockResolvedValue({ data: [order] }),
@@ -102,6 +102,20 @@ describe('sendOrderConfirmationHandler', () => {
     })
 
     expect(notifications.createNotifications).toHaveBeenNthCalledWith(2, {
+      to: 'admin',
+      channel: 'feed',
+      template: 'admin-ui',
+      resource_id: order.id,
+      resource_type: 'order',
+      trigger_type: 'order.placed',
+      data: {
+        title: 'New order #42',
+        description:
+          'customer@example.com placed an order for CAD 129.99.',
+      },
+    })
+
+    expect(notifications.createNotifications).toHaveBeenNthCalledWith(3, {
       to: 'slack-channel',
       channel: 'slack',
       template: 'order-created',

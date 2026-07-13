@@ -192,16 +192,8 @@ module.exports = defineConfig({
               companyName: "TechHub",
               footerLinks: [
                 {
-                  url: "https://agilo.com",
-                  label: "Agilo",
-                },
-                {
-                  url: "https://www.instagram.com/agiloltd/",
-                  label: "Instagram",
-                },
-                {
-                  url: "https://www.linkedin.com/company/agilo/",
-                  label: "LinkedIn",
+                  url: "https://techhubcanada.com",
+                  label: "TechHub",
                 },
               ],
             },

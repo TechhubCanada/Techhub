@@ -9,6 +9,7 @@ const hosts =
 
 const verificationPath =
   "/.well-known/apple-developer-merchantid-domain-association"
+const expectedVerificationFileBytes = 9098
 
 const fetchVerificationFile = (host, address) =>
   new Promise((resolve, reject) => {
@@ -77,8 +78,10 @@ for (const host of hosts) {
       )
     }
 
-    if (!result.bytes) {
-      throw new Error(`${label}: Apple Pay verification file is empty`)
+    if (result.bytes !== expectedVerificationFileBytes) {
+      throw new Error(
+        `${label}: expected ${expectedVerificationFileBytes} bytes for ${verificationPath}, got ${result.bytes}`
+      )
     }
 
     console.log(

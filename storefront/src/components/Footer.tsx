@@ -7,6 +7,7 @@ import { NewsletterForm } from "@/components/NewsletterForm"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { BrandLogo } from "@/components/BrandLogo"
 import { LinkPreview } from "@/components/ui/LinkPreview"
+import { SupportedCardBrands } from "@/components/SupportedCardBrands"
 import { storeBusinessInfo } from "@lib/business-info"
 
 const footerLinkClass =
@@ -80,6 +81,8 @@ export const Footer: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              <SupportedCardBrands className="mt-7 max-w-120" />
             </div>
 
             <NewsletterForm className="border-t border-grayscale-200 pt-7 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0" />
@@ -229,8 +232,8 @@ export const Footer: React.FC = () => {
               <LinkPreview
                 url="https://agency.namankataria.com"
                 className="font-medium text-grayscale-800 underline decoration-grayscale-400 underline-offset-4 transition-colors hover:text-black"
-                width={260}
-                height={160}
+                width={320}
+                height={200}
               >
                 Agency by Naman Kataria
               </LinkPreview>

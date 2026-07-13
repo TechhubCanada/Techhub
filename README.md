@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.07.13.12
+Documentation version: 2026.07.13.14
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -164,6 +164,10 @@ Important values to configure before production:
 For the Railway `Techhub` service, `MEILISEARCH_HOST` should point at the Railway MeiliSearch public HTTPS URL, and `MEILISEARCH_API_KEY` should match the running MeiliSearch service `MEILI_MASTER_KEY`. Do not set `MEILISEARCH_PORT` when `MEILISEARCH_HOST` is already a full Railway HTTPS URL; the backend config will otherwise append that port to the public URL.
 
 Storefront search uses `NEXT_PUBLIC_SEARCH_ENDPOINT` and `NEXT_PUBLIC_SEARCH_API_KEY`. The public key must be a MeiliSearch key with the `search` action. Product indexing must tolerate products without a collection, because production catalog entries can be published before collection assignment.
+
+### Railway Medusa worker
+
+The Railway Medusa services use `medusa/railway.toml` for build and start commands. Keep the start command independent of the Admin bundle so the `Techhub Production Worker` can start with `DISABLE_MEDUSA_ADMIN=true`; otherwise the worker exits before processing subscribers such as order email and Slack notifications.
 
 ### Auth MFA
 

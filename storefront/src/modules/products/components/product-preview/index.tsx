@@ -20,15 +20,14 @@ export default function ProductPreview({
     cheapestPrice.calculated_price_number <
       (cheapestPrice?.original_price_number || 0)
 
-  return (
-    <LocalizedLink
-      href={`/products/${product.handle}`}
-      className={twMerge(
-        "group block",
-        isInteractive &&
-          "rounded-sm p-2 transition-all duration-300 hover:-translate-y-1 hover:bg-grayscale-50 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
-      )}
-    >
+  const href = `/products/${product.handle}`
+  const className = twMerge(
+    "group block",
+    isInteractive &&
+      "rounded-sm p-2 transition-all duration-300 hover:-translate-y-1 hover:bg-grayscale-50 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+  )
+  const card = (
+    <>
       <div className={twMerge(isInteractive && "overflow-hidden rounded-sm")}>
         <Thumbnail
           thumbnail={product.thumbnail}
@@ -82,6 +81,12 @@ export default function ProductPreview({
           )
         ) : null}
       </div>
+    </>
+  )
+
+  return (
+    <LocalizedLink href={href} className={className}>
+      {card}
     </LocalizedLink>
   )
 }

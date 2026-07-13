@@ -25,6 +25,25 @@ const relatedProductsSource = readFileSync(
   ),
   "utf8"
 )
+const productPreviewSource = readFileSync(
+  resolve(
+    repoRoot,
+    "storefront/src/modules/products/components/product-preview/index.tsx"
+  ),
+  "utf8"
+)
+const linkPreviewSource = readFileSync(
+  resolve(repoRoot, "storefront/src/components/ui/LinkPreview.tsx"),
+  "utf8"
+)
+const collectionsSectionSource = readFileSync(
+  resolve(repoRoot, "storefront/src/components/CollectionsSection.tsx"),
+  "utf8"
+)
+const footerSource = readFileSync(
+  resolve(repoRoot, "storefront/src/components/Footer.tsx"),
+  "utf8"
+)
 
 assert.equal(
   existsSync(
@@ -38,6 +57,19 @@ assert.equal(homepageSource.includes("marketplaceAccounts.length === 0"), true)
 assert.equal(homepageSource.includes("Best Buy Marketplace"), false)
 assert.equal(homepageSource.includes("Add Amazon link"), false)
 assert.equal(homepageSource.includes("hover:scale-105"), true)
+assert.equal(productPreviewSource.includes("LinkPreview"), false)
+assert.equal(productPreviewSource.includes("previewImage"), false)
+assert.equal(collectionsSectionSource.includes("LinkPreview"), true)
+assert.equal(collectionsSectionSource.includes("imageSrc={imageUrl}"), true)
+assert.equal(collectionsSectionSource.includes("width={260}"), true)
+assert.equal(collectionsSectionSource.includes("height={340}"), true)
+assert.equal(linkPreviewSource.includes("useCountryCode"), true)
+assert.equal(linkPreviewSource.includes("const href ="), true)
+assert.equal(linkPreviewSource.includes("previewContent"), true)
+assert.equal(footerSource.includes("previewContent={"), false)
+assert.equal(footerSource.includes("width={320}"), true)
+assert.equal(footerSource.includes("height={200}"), true)
+assert.equal(footerSource.includes("Agency by Naman Kataria"), true)
 assert.equal(
   storeProductsSource.includes("<ProductPreview product={p} isInteractive />"),
   true

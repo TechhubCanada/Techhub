@@ -27,11 +27,24 @@ export type EmailLayoutProps = {
   }[];
 };
 
+const defaultStorefrontUrl = 'https://techhubcanada.com';
+const defaultFooterLinks = [
+  {
+    url: defaultStorefrontUrl,
+    label: 'techhubcanada.com',
+  },
+];
+
 export default function EmailLayout(
   props: {
     children: any;
   } & EmailLayoutProps
 ) {
+  const storefrontUrl = process.env.STOREFRONT_URL || defaultStorefrontUrl;
+  const footerLinks = props.footerLinks?.length
+    ? props.footerLinks
+    : defaultFooterLinks;
+
   return (
     <Html>
       <Head>
@@ -140,7 +153,7 @@ export default function EmailLayout(
         <Body className="bg-grayscale-50 font-normal">
           <Container className="bg-white py-18 px-22 rounded-sm max-w-228 w-full">
             <Link
-              href={process.env.STOREFRONT_URL || 'http://localhost:8000'}
+              href={storefrontUrl}
               className="text-lg mb-18 inline-block text-black"
             >
               {props.siteTitle || 'TechHub'}
@@ -151,7 +164,7 @@ export default function EmailLayout(
               <Row>
                 <Column className="w-full">
                   <Link
-                    href={process.env.STOREFRONT_URL || 'http://localhost:8000'}
+                    href={storefrontUrl}
                     className="text-lg text-grayscale-500"
                   >
                     {props.siteTitle || 'TechHub'}
@@ -161,10 +174,10 @@ export default function EmailLayout(
                     {props.companyName || 'TechHub'}
                   </Text>
                 </Column>
-                {props.footerLinks && props.footerLinks.length > 0 && (
+                {footerLinks.length > 0 && (
                   <Column valign="top">
                     <Row>
-                      {props.footerLinks.map((link, index) => (
+                      {footerLinks.map((link, index) => (
                         <Column className="px-2" key={index}>
                           <Link href={link.url} className="text-grayscale-500">
                             {link.label}

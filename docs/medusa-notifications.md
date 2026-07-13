@@ -53,6 +53,8 @@ Notification providers are configured in `medusa/medusa-config.js`:
 
 Templates are React Email components in `medusa/src/modules/resend/emails` and are registered in `medusa/src/modules/resend/emails/index.ts`.
 
+Transactional emails use the shared `EmailLayout` footer. The default storefront link is `https://techhubcanada.com`, and provider config must keep footer links TechHub-owned. Do not add agency or legacy Agilo links to transactional email footers.
+
 Registered templates:
 
 - `auth-admin-password-reset`
@@ -67,7 +69,20 @@ Each template must have a matching subject in `subjects` and an export in the de
 
 ## Slack order alerts
 
-`medusa/src/subscribers/order-placed-notification.ts` sends a second notification after the Resend order email:
+## Admin feed notifications
+
+The Medusa Admin notification drawer reads notifications on the `feed` channel and only renders entries whose `data` includes a `title`. Use the `admin-ui` template and include `data.title` plus an optional `data.description`.
+
+Current feed entries:
+
+- `order.placed` - new order summary for Admin.
+- `customer.welcome` - new customer account.
+- `auth.password_reset` - Admin and customer password reset requests.
+- Catalog and inventory events - product, collection, category, product type, inventory-level, and inventory-item creates, updates, and deletes.
+
+## Slack order alerts
+
+`medusa/src/subscribers/order-placed-notification.ts` sends a Slack notification after the Resend order email and Admin feed entry:
 
 ```ts
 await notificationModuleService.createNotifications({

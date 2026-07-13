@@ -17,6 +17,10 @@ const paymentData = readText("storefront/src/lib/data/payment.ts")
 const cartData = readText("storefront/src/lib/data/cart.ts")
 const hooks = readText("storefront/src/hooks/cart.ts")
 const payment = readText("storefront/src/modules/checkout/components/payment/index.tsx")
+const footer = readText("storefront/src/components/Footer.tsx")
+const supportedCardBrands = readText(
+  "storefront/src/components/SupportedCardBrands.tsx"
+)
 const paymentButton = readText(
   "storefront/src/modules/checkout/components/payment-button/index.tsx"
 )
@@ -131,6 +135,31 @@ assert.match(
   squarePaymentForm,
   /GooglePay/,
   "Square payment form must include Google Pay"
+)
+assert.match(
+  squarePaymentForm,
+  /SupportedCardBrands/,
+  "Square payment form must show supported card brands outside the credit card element"
+)
+assert.match(
+  supportedCardBrands,
+  /rotateY\(180deg\)/,
+  "Supported card brands must include a hover flip treatment"
+)
+assert.match(
+  footer,
+  /SupportedCardBrands/,
+  "Footer must show supported payment brands"
+)
+assert.match(
+  supportedCardBrands,
+  /Apple Pay/,
+  "Supported payment brands must include Apple Pay"
+)
+assert.match(
+  supportedCardBrands,
+  /Google Pay/,
+  "Supported payment brands must include Google Pay"
 )
 assert.match(
   paymentButton,

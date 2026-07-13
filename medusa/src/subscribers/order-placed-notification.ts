@@ -192,6 +192,19 @@ export default async function sendOrderConfirmationHandler({
   });
 
   await notificationModuleService.createNotifications({
+    to: 'admin',
+    channel: 'feed',
+    template: 'admin-ui',
+    resource_id: order.id,
+    resource_type: 'order',
+    trigger_type: 'order.placed',
+    data: {
+      title: `New order #${order.display_id}`,
+      description: `${order.email} placed an order for ${order.currency_code.toUpperCase()} ${orderForEmail.total.toFixed(2)}.`,
+    },
+  });
+
+  await notificationModuleService.createNotifications({
     to: 'slack-channel',
     channel: 'slack',
     template: 'order-created',

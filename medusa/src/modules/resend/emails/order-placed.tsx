@@ -88,14 +88,13 @@ export default function OrderPlacedEmail({
         Order confirmation
       </Heading>
       <Text className="text-md !mb-6">
-        We are pleased to confirm that your order has been successfully placed
-        and will be processed shortly. Your order number is #100002.
+        We received your TechHub order and will begin processing it shortly.
       </Text>
       <Text className="text-md !mb-6">
-        You&apos;ll receive another update once your order is shipped. For any
-        questions, feel free to contact us at info@sofasociety.com.
+        You&apos;ll receive another update when the next fulfillment step is
+        ready. For any questions, contact us at info@techhubcanada.com.
       </Text>
-      <Text className="text-md !mb-20">Thank you for shopping with us!</Text>
+      <Text className="text-md !mb-20">Thank you for shopping with TechHub.</Text>
       <Section className="mb-6">
         <Row>
           <Column className="border border-solid p-4 border-grayscale-200 rounded-xs">

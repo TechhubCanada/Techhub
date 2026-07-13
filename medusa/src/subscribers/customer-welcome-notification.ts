@@ -30,6 +30,19 @@ export default async function sendCustomerWelcomeNotification({
     template: 'customer-welcome',
     data: { customer },
   });
+
+  await notificationModuleService.createNotifications({
+    to: 'admin',
+    channel: 'feed',
+    template: 'admin-ui',
+    resource_id: customer.id,
+    resource_type: 'customer',
+    trigger_type: 'customer.welcome',
+    data: {
+      title: 'New customer account',
+      description: `${customer.email} created a TechHub account.`,
+    },
+  });
 }
 
 export const config: SubscriberConfig = {

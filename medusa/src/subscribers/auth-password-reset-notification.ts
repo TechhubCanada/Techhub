@@ -37,6 +37,19 @@ export default async function sendPasswordResetNotification({
       },
     });
 
+    await notificationModuleService.createNotifications({
+      to: "admin",
+      channel: "feed",
+      template: "admin-ui",
+      resource_id: data.entity_id,
+      resource_type: "user",
+      trigger_type: "auth.password_reset",
+      data: {
+        title: "Admin password reset requested",
+        description: `${data.entity_id} requested an Admin password reset.`,
+      },
+    });
+
     return;
   }
 
@@ -62,6 +75,19 @@ export default async function sendPasswordResetNotification({
         ? "auth-password-reset"
         : "auth-forgot-password",
     data: { customer, token: data.token },
+  });
+
+  await notificationModuleService.createNotifications({
+    to: "admin",
+    channel: "feed",
+    template: "admin-ui",
+    resource_id: customer.id,
+    resource_type: "customer",
+    trigger_type: "auth.password_reset",
+    data: {
+      title: "Customer password reset requested",
+      description: `${customer.email} requested a password reset.`,
+    },
   });
 }
 

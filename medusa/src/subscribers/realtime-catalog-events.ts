@@ -1,4 +1,5 @@
 import type { SubscriberArgs, SubscriberConfig } from '@medusajs/medusa'
+import { Modules } from '@medusajs/framework/utils'
 import { realtimeHub } from '../lib/realtime/hub'
 import type {
   RealtimeAction,
@@ -24,6 +25,14 @@ const actionByMedusaEventSuffix: Record<string, RealtimeAction> = {
   created: 'created',
   updated: 'updated',
   deleted: 'deleted',
+}
+
+const feedEntityLabel: Record<RealtimeEntity, string> = {
+  product: 'Product',
+  collection: 'Collection',
+  category: 'Category',
+  product_type: 'Product type',
+  inventory: 'Inventory',
 }
 
 export const toRealtimeCatalogEvent = (
@@ -67,10 +76,26 @@ export default async function realtimeCatalogEventsHandler({
   }
 
   const published = realtimeHub.publish(realtimeEvent)
+  const notificationModuleService = container.resolve(Modules.NOTIFICATION)
 
   logger.info(
     `Published realtime storefront event ${published.type} for ${published.entity_id}`
   )
+
+  await notificationModuleService.createNotifications({
+    to: 'admin',
+    channel: 'feed',
+    template: 'admin-ui',
+    resource_id: realtimeEvent.entity_id,
+    resource_type: realtimeEvent.entity,
+    trigger_type: name,
+    data: {
+      title: `${feedEntityLabel[realtimeEvent.entity]} ${realtimeEvent.action}`,
+      description: `${realtimeEvent.entity_id} was ${realtimeEvent.action}.${
+        realtimeEvent.handle ? ` Handle: ${realtimeEvent.handle}.` : ''
+      }`,
+    },
+  })
 }
 
 export const config: SubscriberConfig = {

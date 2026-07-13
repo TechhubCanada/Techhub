@@ -45,6 +45,9 @@ describe('realtime catalog events', () => {
       info: jest.fn(),
       warn: jest.fn(),
     }
+    const notifications = {
+      createNotifications: jest.fn().mockResolvedValue({}),
+    }
 
     await realtimeCatalogEventsHandler({
       event: {
@@ -54,7 +57,17 @@ describe('realtime catalog events', () => {
         },
       },
       container: {
-        resolve: jest.fn(() => logger),
+        resolve: jest.fn((key: string) => {
+          if (key === 'logger') {
+            return logger
+          }
+
+          if (key === 'notification') {
+            return notifications
+          }
+
+          throw new Error(`Unexpected dependency: ${key}`)
+        }),
       },
     } as any)
 
@@ -70,5 +83,17 @@ describe('realtime catalog events', () => {
     expect(logger.info).toHaveBeenCalledWith(
       'Published realtime storefront event product.deleted for prod_123'
     )
+    expect(notifications.createNotifications).toHaveBeenCalledWith({
+      to: 'admin',
+      channel: 'feed',
+      template: 'admin-ui',
+      resource_id: 'prod_123',
+      resource_type: 'product',
+      trigger_type: 'product.deleted',
+      data: {
+        title: 'Product deleted',
+        description: 'prod_123 was deleted.',
+      },
+    })
   })
 })

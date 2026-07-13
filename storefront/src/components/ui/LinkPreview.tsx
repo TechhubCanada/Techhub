@@ -3,6 +3,7 @@
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
 import { encode } from "qss"
 import * as React from "react"
+import { useCountryCode } from "hooks/country-code"
 import {
   AnimatePresence,
   motion,
@@ -16,19 +17,20 @@ type LinkPreviewProps = {
   children: React.ReactNode
   url: string
   className?: string
+  previewContent?: React.ReactNode
   width?: number
   height?: number
   quality?: number
   layout?: string
 } & (
-  | { isStatic: true; imageSrc: string }
-  | { isStatic?: false; imageSrc?: never }
+  { isStatic: true; imageSrc: string } | { isStatic?: false; imageSrc?: never }
 )
 
 export const LinkPreview = ({
   children,
   url,
   className,
+  previewContent,
   width = 200,
   height = 125,
   quality = 50,
@@ -36,11 +38,14 @@ export const LinkPreview = ({
   isStatic = false,
   imageSrc = "",
 }: LinkPreviewProps) => {
+  const countryCode = useCountryCode()
+  const href =
+    url.startsWith("/") && countryCode ? `/${countryCode}${url}` : url
   let src
 
   if (!isStatic) {
     const params = encode({
-      url,
+      url: href,
       screenshot: true,
       meta: false,
       embed: "screenshot.url",
@@ -95,7 +100,7 @@ export const LinkPreview = ({
         <HoverCardPrimitive.Trigger
           onMouseMove={handleMouseMove}
           className={cn("text-black dark:text-white", className)}
-          href={url}
+          href={href}
         >
           {children}
         </HoverCardPrimitive.Trigger>
@@ -127,19 +132,21 @@ export const LinkPreview = ({
                 }}
               >
                 <a
-                  href={url}
+                  href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800"
-                  style={{ fontSize: 0 }}
+                  className="block overflow-hidden rounded-xl border border-neutral-200 bg-white p-1 shadow hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700"
+                  style={previewContent ? undefined : { fontSize: 0 }}
                 >
-                  <img
-                    src={isStatic ? imageSrc : src}
-                    width={width}
-                    height={height}
-                    className="rounded-lg"
-                    alt="preview image"
-                  />
+                  {previewContent ?? (
+                    <img
+                      src={isStatic ? imageSrc : src}
+                      width={width}
+                      height={height}
+                      className="rounded-xl"
+                      alt="preview image"
+                    />
+                  )}
                 </a>
               </motion.div>
             )}
