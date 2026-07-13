@@ -162,10 +162,6 @@ const SquarePaymentForm = ({
         <div className="space-y-3">
           <ApplePay />
           <GooglePay />
-          <p className="text-xs text-grayscale-500">
-            Apple Pay is available in Safari on Apple Pay-capable devices after
-            the TechHub domain is registered in Square.
-          </p>
         </div>
         <div className="flex items-center gap-3 py-1 text-xs uppercase tracking-wide text-grayscale-500">
           <span className="h-px flex-1 bg-grayscale-200" />

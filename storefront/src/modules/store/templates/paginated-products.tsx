@@ -79,7 +79,7 @@ function PaginatedProducts({
           products.map((p: StoreProduct) => {
             return (
               <LayoutColumn key={p.id} className="md:!col-span-4 !col-span-6">
-                <ProductPreview product={p} />
+                <ProductPreview product={p} isInteractive />
               </LayoutColumn>
             )
           })

@@ -123,11 +123,6 @@ assert.match(
   /\\\.well-known/,
   "Storefront country-code proxy must exclude .well-known Apple Pay verification paths"
 )
-assert.match(
-  squarePaymentForm,
-  /Apple Pay is available in Safari/,
-  "Square payment form must explain Apple Pay availability when Square hides unsupported wallets"
-)
 assert.ok(
   existsSync(join(root, "scripts/check-square-apple-pay-production.mjs")),
   "Repository must include a production Apple Pay domain verification check"

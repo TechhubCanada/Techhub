@@ -126,14 +126,6 @@ const HomepageCmsSections = ({ items }: { items: ContentItem[] }) => {
   )
 }
 
-const heroCategories = [
-  "Computers",
-  "Networking",
-  "Gaming",
-  "Repairs",
-  "B2B IT",
-] as const
-
 const featuredProductHandles = [
   "lenovo-thinkcentre-small-form-desktop",
   "logitech-business-keyboard-mouse-combo",
@@ -186,6 +178,57 @@ const FeaturedProductsSection = ({
           <ProductPreview product={product} isInteractive />
         </LayoutColumn>
       ))}
+    </Layout>
+  )
+}
+
+const AllProductsSection = ({
+  products,
+  totalCount,
+}: {
+  products: HttpTypes.StoreProduct[]
+  totalCount: number
+}) => {
+  if (products.length === 0) {
+    return null
+  }
+
+  return (
+    <Layout className="mb-26 gap-y-10 md:mb-36 md:gap-y-16">
+      <LayoutColumn start={1} end={{ base: 13, md: 7 }}>
+        <p className="mb-4 text-xs uppercase text-grayscale-500 md:text-sm">
+          Product catalog
+        </p>
+        <h3 className="text-md md:text-2xl">All products</h3>
+      </LayoutColumn>
+      <LayoutColumn start={{ base: 1, md: 8 }} end={13}>
+        <div className="mt-3 flex flex-col items-start gap-4 md:mt-0 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-130 text-sm leading-relaxed text-grayscale-600 md:text-md">
+            Browse the full TechHub product list from the homepage.
+          </p>
+          <LocalizedLink
+            href="/store"
+            className="shrink-0 border-b border-current pb-1 text-sm transition-colors hover:border-transparent md:text-base"
+          >
+            Shop all products
+          </LocalizedLink>
+        </div>
+      </LayoutColumn>
+      {products.map((product) => (
+        <LayoutColumn key={product.id} className="!col-span-6 md:!col-span-3">
+          <ProductPreview product={product} isInteractive />
+        </LayoutColumn>
+      ))}
+      {totalCount > products.length && (
+        <LayoutColumn>
+          <LocalizedLink
+            href="/store"
+            className="inline-flex border-b border-current pb-1 text-sm transition-colors hover:border-transparent md:text-base"
+          >
+            View all {totalCount} products
+          </LocalizedLink>
+        </LayoutColumn>
+      )}
     </Layout>
   )
 }
@@ -326,6 +369,7 @@ export default async function Home() {
     bannerResponse,
     sectionResponse,
     productsResponse,
+    allProductsResponse,
     marketplaceAccountsResponse,
   ] = await Promise.all([
     listContentItems("homepage-banners", { limit: 1 }).catch(() => null),
@@ -338,6 +382,13 @@ export default async function Home() {
         fields: "*variants.calculated_price,+collection",
       },
     }).catch(() => null),
+    getProductsList({
+      countryCode: "ca",
+      queryParams: {
+        limit: 100,
+        fields: "*variants.calculated_price,+collection",
+      },
+    }).catch(() => null),
     listMarketplaceAccounts().catch(() => null),
   ])
 
@@ -346,6 +397,9 @@ export default async function Home() {
   const marketplaceAccounts =
     marketplaceAccountsResponse?.marketplace_accounts ?? []
   const featuredProducts = productsResponse?.response.products ?? []
+  const allProducts = allProductsResponse?.response.products ?? []
+  const allProductsCount =
+    allProductsResponse?.response.count ?? allProducts.length
   const featuredProductsByHandle = new Map(
     featuredProducts.map((product) => [product.handle, product])
   )
@@ -365,7 +419,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="relative isolate min-h-[82svh] overflow-hidden max-md:pt-18 md:min-h-screen">
+      <section className="relative isolate min-h-[100svh] overflow-hidden max-md:pt-18">
         <Image
           src={heroImage}
           width={2880}
@@ -376,7 +430,7 @@ export default async function Home() {
         />
         <div className="absolute inset-0 -z-10 bg-black/50 md:bg-black/45" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
-        <Layout className="min-h-[calc(82svh-4.5rem)] content-end pb-7 text-white md:min-h-screen md:pb-14">
+        <Layout className="min-h-[calc(100svh-4.5rem)] content-end pb-7 text-white md:min-h-[100svh] md:pb-14">
           <LayoutColumn start={1} end={{ base: 13, lg: 8 }}>
             <BrandLogo
               className="mb-5 md:mb-8"
@@ -392,36 +446,12 @@ export default async function Home() {
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, lg: 9 }} end={13}>
             <div className="mt-5 flex h-full items-end md:mt-8 lg:mt-0">
-              <div className="md:text-md">
-                <p className="mb-4 max-w-110 text-sm text-white/85 md:mb-6 md:text-base">
-                  {banner?.body ??
-                    "Shop computers, networking, gaming gear, parts, and support for home, work, and client projects."}
-                </p>
-                <div className="mb-5 flex flex-wrap gap-2 md:mb-7">
-                  {heroCategories.map((category) => (
-                    <span
-                      key={category}
-                      className="rounded-xs border border-white/30 bg-white/10 px-2.5 py-1 text-[0.6875rem] text-white backdrop-blur md:px-3 md:py-1.5 md:text-xs"
-                    >
-                      {category}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-x-5 gap-y-2">
-                  <LocalizedLink
-                    href={heroCtaHref ?? "/store"}
-                    className="border-b border-current pb-1 transition-colors hover:border-transparent"
-                  >
-                    {heroCtaLabel}
-                  </LocalizedLink>
-                  <LocalizedLink
-                    href="/inquiry"
-                    className="hidden border-b border-current pb-1 transition-colors hover:border-transparent sm:inline"
-                  >
-                    B2B inquiries
-                  </LocalizedLink>
-                </div>
-              </div>
+              <LocalizedLink
+                href={heroCtaHref ?? "/store"}
+                className="border-b border-current pb-1 transition-colors hover:border-transparent"
+              >
+                {heroCtaLabel}
+              </LocalizedLink>
             </div>
           </LayoutColumn>
         </Layout>
@@ -430,6 +460,10 @@ export default async function Home() {
         <HomepageCmsSections items={sections} />
         <FeaturedProductsSection products={sortedFeaturedProducts} />
         <HomeSupportSection />
+        <AllProductsSection
+          products={allProducts}
+          totalCount={allProductsCount}
+        />
         <MarketplaceSection marketplaceAccounts={marketplaceAccounts} />
         <ProductTypesSection />
         <CollectionsSection className="mb-22 md:mb-36" />

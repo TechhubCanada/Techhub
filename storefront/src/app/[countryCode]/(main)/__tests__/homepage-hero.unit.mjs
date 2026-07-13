@@ -16,3 +16,11 @@ assert.equal(
 assert.equal(homepageSource.includes(`image: "${heroImagePath}"`), true)
 assert.equal(homepageSource.includes(`"${heroImagePath}"`), true)
 assert.equal(homepageSource.includes("/FINAL BANNER.png"), false)
+assert.equal(
+  homepageSource.includes(
+    "Shop computers, networking, gaming gear, parts, and support for home, work, and client projects."
+  ),
+  false
+)
+assert.equal(homepageSource.includes("heroCategories.map"), false)
+assert.equal(homepageSource.includes("B2B inquiries"), false)
