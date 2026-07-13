@@ -15,7 +15,7 @@ import {
   removeCartId,
 } from "@lib/data/cookies"
 import { getRegion } from "@lib/data/regions"
-import { addressesFormSchema } from "hooks/cart"
+import { addressesFormSchema } from "@modules/checkout/utils/address-schema"
 
 export async function retrieveCart() {
   const cartId = await getCartId()

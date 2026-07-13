@@ -18,6 +18,7 @@ import {
   listCartPaymentMethods,
 } from "@lib/data/payment"
 import { HttpTypes } from "@medusajs/types"
+import { addressesFormSchema } from "@modules/checkout/utils/address-schema"
 import {
   useMutation,
   UseMutationOptions,
@@ -434,44 +435,6 @@ export const useSetShippingMethod = (
     },
   })
 }
-
-export const addressesFormSchema = z
-  .object({
-    shipping_address: z.object({
-      first_name: z.string().min(1),
-      last_name: z.string().min(1),
-      company: z.string().optional(),
-      address_1: z.string().min(1),
-      address_2: z.string().optional(),
-      city: z.string().min(1),
-      postal_code: z.string().min(1),
-      province: z.string().optional(),
-      country_code: z.string().min(2),
-      phone: z.string().optional(),
-    }),
-  })
-  .and(
-    z.discriminatedUnion("same_as_billing", [
-      z.object({
-        same_as_billing: z.literal("on"),
-      }),
-      z.object({
-        same_as_billing: z.literal("off").optional(),
-        billing_address: z.object({
-          first_name: z.string().min(1),
-          last_name: z.string().min(1),
-          company: z.string().optional(),
-          address_1: z.string().min(1),
-          address_2: z.string().optional(),
-          city: z.string().min(1),
-          postal_code: z.string().min(1),
-          province: z.string().optional(),
-          country_code: z.string().min(2),
-          phone: z.string().optional(),
-        }),
-      }),
-    ])
-  )
 
 export const useSetShippingAddress = (
   options?: UseMutationOptions<
