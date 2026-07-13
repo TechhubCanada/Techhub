@@ -2,10 +2,12 @@ import { Metadata } from "next"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { CookiePreferencesForm } from "@/components/CookiePreferencesForm"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
+import { noIndexMetadata } from "@lib/seo"
 
 export const metadata: Metadata = {
   title: "Cookie Preferences",
-  description: "Manage optional cookies for Tech Hub Canada.",
+  description: "Manage optional cookies for TechHub.",
+  robots: noIndexMetadata,
 }
 
 export async function generateStaticParams() {

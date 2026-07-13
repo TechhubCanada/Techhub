@@ -84,6 +84,10 @@ SLACK_ADMIN_URL=http://localhost:9000/app
 
 See `../docs/medusa-notifications.md` for provider details, template names, and Slack setup.
 
+## Auth MFA setup
+
+The backend reads `AUTH_MFA_ENCRYPTION_KEY` through Medusa's default Auth module configuration. Set it in `medusa/.env` for local development and in every production backend service that can run auth code. Generate it with `openssl rand -hex 32`, keep one stable value across the server and worker, and do not rotate it after MFA enrollment because existing TOTP secrets are encrypted with this key.
+
 ## Product review setup
 
 Product reviews are implemented as a local Medusa module in `src/modules/product-review`. Storefront customers can submit authenticated reviews through `POST /store/products/:id/reviews`; submissions are stored as `pending` until an admin approves or rejects them through `POST /admin/product-reviews/:id/moderate`. Approved reviews are exposed through `GET /store/products/:id/reviews` and rendered on storefront product pages.

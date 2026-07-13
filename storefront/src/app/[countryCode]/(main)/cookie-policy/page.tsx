@@ -3,10 +3,20 @@ import { Layout, LayoutColumn } from "@/components/Layout"
 import { Link } from "@/components/Link"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { storeBusinessInfo } from "@lib/business-info"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "Cookie Policy",
-  description: "How Tech Hub Canada uses cookies and similar technologies.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Cookie Policy",
+    description: "How TechHub uses cookies and similar technologies.",
+    path: getLocalizedPath(countryCode, "cookie-policy"),
+  })
 }
 
 export async function generateStaticParams() {
@@ -37,10 +47,10 @@ export default async function CookiePolicyPage({
         className="article"
       >
         <p>
-          Tech Hub Canada uses cookies, pixels, and browser storage to run our
-          online store, remember choices, understand site performance, and
-          improve the shopping experience. This policy explains the categories
-          we use and how you can control optional cookies.
+          TechHub uses cookies, pixels, and browser storage to run our online
+          store, remember choices, understand site performance, and improve the
+          shopping experience. This policy explains the categories we use and
+          how you can control optional cookies.
         </p>
 
         <h2>1. What cookies do</h2>

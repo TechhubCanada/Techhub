@@ -4,10 +4,27 @@ import { getContentItem } from "@lib/data/content"
 import { getContentMetadataString } from "@lib/util/content"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Learn more about TechHub",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "About TechHub",
+    description:
+      "Learn about TechHub's computers, repairs, practical technology support, and business IT services in Markham, Ontario.",
+    path: getLocalizedPath(countryCode, "about"),
+    keywords: [
+      "computer store Markham",
+      "computer repair Markham",
+      "IT support",
+    ],
+    image: "/images/content/techhub-modern-workstation.png",
+  })
 }
 
 export async function generateStaticParams() {
@@ -48,7 +65,7 @@ export default async function AboutPage() {
           <LayoutColumn start={1} end={{ base: 13, lg: 7 }}>
             <h3 className="text-md max-lg:mb-6 md:text-2xl">
               {aboutContent?.title ??
-                "TechHub Canada is a local technology store built around clear products and helpful service."}
+                "TechHub is built around clear products, practical service, and business technology support."}
             </h3>
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, lg: 8 }} end={13}>
@@ -144,8 +161,8 @@ export default async function AboutPage() {
                 problem, or plan the next upgrade.
               </p>
               <p>
-                Thank you for choosing TechHub Canada for your devices, parts,
-                repairs, and support.
+                Thank you for choosing TechHub for your devices, parts, repairs,
+                and support.
               </p>
             </div>
           </LayoutColumn>

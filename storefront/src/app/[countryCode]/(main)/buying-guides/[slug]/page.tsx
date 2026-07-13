@@ -5,6 +5,7 @@ import { getContentItem } from "@lib/data/content"
 import { getContentMetadataString, getContentSummary } from "@lib/util/content"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
 type Props = {
   params: Promise<{ countryCode: string; slug: string }>
@@ -15,7 +16,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
+  const { slug, countryCode } = await params
   const guide = await getContentItem("buying-guides", slug).catch(() => null)
 
   if (!guide) {
@@ -24,10 +25,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  return {
-    title: `${guide.title} | TechHub Canada`,
-    description: getContentSummary(guide),
-  }
+  return createPageMetadata({
+    title: guide.title,
+    description:
+      getContentSummary(guide) ||
+      `Read ${guide.title}, a practical technology buying guide from TechHub.`,
+    path: getLocalizedPath(countryCode, `buying-guides/${slug}`),
+    keywords: [
+      "technology buying guide",
+      "computer buying guide",
+      ...(guide.tags?.map((tag) => tag.value) ?? []),
+    ],
+    image: getContentMetadataString(guide.metadata, "image_url"),
+    type: "article",
+    publishedTime: guide.published_at,
+  })
 }
 
 const formatPublishedDate = (value?: string | null) => {

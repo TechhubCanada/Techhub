@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import { retrieveOrder } from "@lib/data/orders"
+import { noIndexMetadata } from "@lib/seo"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -11,6 +12,7 @@ type Props = {
 export const metadata: Metadata = {
   title: "Order Confirmed",
   description: "You purchase was successful",
+  robots: noIndexMetadata,
 }
 
 export default async function OrderConfirmedPage({ params }: Props) {

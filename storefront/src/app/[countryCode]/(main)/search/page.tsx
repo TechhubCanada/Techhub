@@ -6,6 +6,7 @@ import PaginatedProducts from "@modules/store/templates/paginated-products"
 import { CollectionsSlider } from "@modules/store/components/collections-slider"
 import { MeiliSearchProductHit, searchClient } from "@lib/search-client"
 import { getRegion } from "@lib/data/regions"
+import { noIndexMetadata } from "@lib/seo"
 
 type Props = {
   params: Promise<{ countryCode: string }>
@@ -15,6 +16,7 @@ type Props = {
 export const metadata: Metadata = {
   title: "Search",
   description: "Search for products",
+  robots: noIndexMetadata,
 }
 
 export default async function SearchPage({ params, searchParams }: Props) {

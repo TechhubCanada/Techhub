@@ -38,14 +38,14 @@ export const Footer: React.FC = () => {
                 textClassName="text-lg md:text-xl"
               />
               <p className="max-w-120 text-sm leading-relaxed text-grayscale-600">
-                Practical computers, networking gear, accessories, and local IT
-                support from our Markham store.
+                Practical computers, networking gear, accessories, repairs, and
+                technology support for homes and businesses.
               </p>
 
               <div className="mt-7 grid gap-5 sm:grid-cols-2">
                 <address className="border-l border-grayscale-200 pl-4 text-sm leading-relaxed text-grayscale-600 not-italic">
                   <p className="mb-2 text-xs font-medium text-grayscale-800">
-                    Visit us
+                    Location
                   </p>
                   <a
                     href={storeBusinessInfo.mapHref}
@@ -93,7 +93,12 @@ export const Footer: React.FC = () => {
               <ul className="flex flex-col gap-1 text-sm">
                 <li>
                   <LocalizedLink href="/store" className={footerLinkClass}>
-                    Shop all
+                    Location
+                  </LocalizedLink>
+                </li>
+                <li>
+                  <LocalizedLink href="/inquiry" className={footerLinkClass}>
+                    B2B inquiries
                   </LocalizedLink>
                 </li>
                 <li>
@@ -198,7 +203,7 @@ export const Footer: React.FC = () => {
                 id="footer-hours-heading"
                 className="mb-4 text-xs font-medium text-grayscale-800"
               >
-                Store hours
+                Location hours
               </h2>
               <ul className="grid gap-2 text-sm text-grayscale-600 sm:max-w-90">
                 {storeBusinessInfo.hours.map((item) => (

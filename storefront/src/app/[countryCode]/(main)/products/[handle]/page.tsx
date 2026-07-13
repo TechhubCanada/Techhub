@@ -13,6 +13,7 @@ import {
   getSortedContentItems,
 } from "@lib/util/content"
 import ProductTemplate from "@modules/products/templates"
+import { createPageMetadata, getAbsoluteUrl, getLocalizedPath } from "@lib/seo"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -38,15 +39,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     notFound()
   }
 
-  return {
-    title: `${product.title} | Medusa Store`,
-    description: `${product.title}`,
-    openGraph: {
-      title: `${product.title} | Medusa Store`,
-      description: `${product.title}`,
-      images: product.thumbnail ? [product.thumbnail] : [],
-    },
-  }
+  const productKeywords = [
+    product.title,
+    product.type?.value,
+    ...(product.categories?.map((category) => category.name) ?? []),
+    typeof product.metadata?.brand === "string" ? product.metadata.brand : "",
+  ].filter((keyword): keyword is string => Boolean(keyword))
+  const description =
+    product.description?.replace(/\s+/g, " ").trim() ||
+    `Shop ${product.title} from TechHub.`
+
+  return createPageMetadata({
+    title: product.title,
+    description,
+    path: getLocalizedPath(countryCode, `products/${handle}`),
+    keywords: productKeywords,
+    image: product.thumbnail,
+  })
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -84,15 +93,47 @@ export default async function ProductPage({ params }: Props) {
       ).values()
     )
   ).slice(0, 3)
+  const productDescription =
+    pricedProduct.description?.replace(/\s+/g, " ").trim() ||
+    `Shop ${pricedProduct.title} from TechHub.`
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: pricedProduct.title,
+    description: productDescription,
+    url: getAbsoluteUrl(
+      getLocalizedPath(countryCode, `products/${pricedProduct.handle}`)
+    ),
+    ...(pricedProduct.thumbnail ? { image: [pricedProduct.thumbnail] } : {}),
+    ...(typeof pricedProduct.metadata?.brand === "string"
+      ? {
+          brand: {
+            "@type": "Brand",
+            name: pricedProduct.metadata.brand,
+          },
+        }
+      : {}),
+    ...(pricedProduct.variants?.[0]?.sku
+      ? { sku: pricedProduct.variants[0].sku }
+      : {}),
+  }
 
   return (
-    <ProductTemplate
-      product={pricedProduct}
-      materials={fashionData.materials}
-      region={region}
-      countryCode={countryCode}
-      reviews={reviews}
-      buyingGuides={buyingGuides}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <ProductTemplate
+        product={pricedProduct}
+        materials={fashionData.materials}
+        region={region}
+        countryCode={countryCode}
+        reviews={reviews}
+        buyingGuides={buyingGuides}
+      />
+    </>
   )
 }

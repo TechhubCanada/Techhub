@@ -55,17 +55,14 @@ To create an API route that accepts a path parameter, create a directory within 
 For example, if you want to define a route that takes a `productId` parameter, you can do so by creating a file called `/api/products/[productId]/route.ts`:
 
 ```ts
-import type {
-  MedusaRequest,
-  MedusaResponse,
-} from "@medusajs/medusa"
+import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const { productId } = req.params;
 
   res.json({
-    message: `You're looking for product ${productId}`
-  })
+    message: `You're looking for product ${productId}`,
+  });
 }
 ```
 
@@ -78,26 +75,21 @@ For example, if you want to define a route that takes both a `productId` and a `
 The Medusa container is available on `req.scope`. Use it to access modules' main services and other registered resources:
 
 ```ts
-import type {
-  MedusaRequest,
-  MedusaResponse,
-} from "@medusajs/medusa"
-import { IProductModuleService } from "@medusajs/framework/types"
-import { Modules } from "@medusajs/framework/utils"
+import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import { IProductModuleService } from "@medusajs/framework/types";
+import { Modules } from "@medusajs/framework/utils";
 
-export const GET = async (
-  req: MedusaRequest,
-  res: MedusaResponse
-) => {
-  const productModuleService: IProductModuleService =
-    req.scope.resolve(Modules.PRODUCT)
+export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
+  const productModuleService: IProductModuleService = req.scope.resolve(
+    Modules.PRODUCT,
+  );
 
-  const [, count] = await productModuleService.listAndCount()
+  const [, count] = await productModuleService.listAndCount();
 
   res.json({
     count,
-  })
-}
+  });
+};
 ```
 
 ## Admin Product Fashion Route
@@ -106,6 +98,20 @@ export const GET = async (
 
 Products that do not have both `Material` and `Color` options are valid catalog products. The route returns an empty fashion payload for those products instead of throwing, so generic products can still render in Admin without breaking the product details page.
 
+## Marketplace Account Routes
+
+Seller marketplace links are managed through authenticated Admin API routes:
+
+- `GET /admin/marketplace-accounts` lists seller accounts.
+- `POST /admin/marketplace-accounts` creates a seller account.
+- `GET /admin/marketplace-accounts/:id` retrieves one seller account.
+- `POST /admin/marketplace-accounts/:id` updates one seller account.
+- `DELETE /admin/marketplace-accounts/:id` soft-deletes one seller account.
+
+The storefront reads `GET /store/marketplace-accounts`, which returns only active seller accounts sorted by `sort_order`.
+
+Use these routes for marketplace profiles such as Best Buy Marketplace, Amazon Canada, Walmart Marketplace, or any future external sales account that should appear on the storefront homepage.
+
 ## Middleware
 
 You can apply middleware to your routes by creating a file called `/api/middlewares.ts`. This file must export a configuration object with what middleware you want to apply to which routes.
@@ -113,7 +119,7 @@ You can apply middleware to your routes by creating a file called `/api/middlewa
 For example, if you want to apply a custom middleware function to the `/store/custom` route, you can do so by adding the following to your `/api/middlewares.ts` file:
 
 ```ts
-import { defineMiddlewares } from "@medusajs/medusa"
+import { defineMiddlewares } from "@medusajs/medusa";
 import type {
   MedusaRequest,
   MedusaResponse,
@@ -123,7 +129,7 @@ import type {
 async function logger(
   req: MedusaRequest,
   res: MedusaResponse,
-  next: MedusaNextFunction
+  next: MedusaNextFunction,
 ) {
   console.log("Request received");
   next();
@@ -136,7 +142,7 @@ export default defineMiddlewares({
       middlewares: [logger],
     },
   ],
-})
+});
 ```
 
 The `matcher` property can be either a string or a regular expression. The `middlewares` property accepts an array of middleware functions.

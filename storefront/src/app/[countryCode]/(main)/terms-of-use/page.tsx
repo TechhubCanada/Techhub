@@ -2,10 +2,20 @@ import { Metadata } from "next"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { storeBusinessInfo } from "@lib/business-info"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "Terms of Use",
-  description: "Terms for using the Tech Hub Canada website.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Terms of Use",
+    description: "Terms for using the TechHub website.",
+    path: getLocalizedPath(countryCode, "terms-of-use"),
+  })
 }
 
 export async function generateStaticParams() {
@@ -30,10 +40,10 @@ export default function TermsOfUsePage() {
         className="article"
       >
         <p>
-          These terms apply when you use the Tech Hub Canada website. Tech Hub
-          Canada is operated by Samsan Inc. By browsing, creating an account,
-          placing an order, requesting support, or using our online services,
-          you agree to use the website according to these terms.
+          These terms apply when you use the TechHub website. Tech Hub Canada is
+          operated by Samsan Inc. By browsing, creating an account, placing an
+          order, requesting support, or using our online services, you agree to
+          use the website according to these terms.
         </p>
 
         <h2>1. Website use</h2>

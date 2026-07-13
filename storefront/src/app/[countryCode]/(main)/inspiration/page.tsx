@@ -10,10 +10,28 @@ import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
 import { CmsContentCard } from "@/components/CmsContentCard"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "Featured Tech",
-  description: "Explore practical tech picks from TechHub Canada",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Buying Guides & Tech Inspiration",
+    description:
+      "Explore practical buying guides, computer setups, networking ideas, and technology recommendations from TechHub.",
+    path: getLocalizedPath(countryCode, "inspiration"),
+    keywords: [
+      "computer buying guides",
+      "technology recommendations",
+      "networking guides",
+      "business technology",
+    ],
+    image: "/images/content/techhub-modern-workstation.png",
+  })
 }
 
 export async function generateStaticParams() {
@@ -84,10 +102,10 @@ export default async function InspirationPage() {
     <>
       <div className="max-md:pt-18">
         <Image
-          src="/images/content/techhub-electronics-storefront.png"
+          src="/images/content/techhub-modern-workstation.png"
           width={2880}
           height={1500}
-          alt="Electronics store exterior with large signage"
+          alt="Modern desk setup with a laptop, monitor, keyboard, and accessories"
           className="md:h-screen md:object-cover mb-8 md:mb-26"
         />
       </div>
@@ -141,13 +159,14 @@ export default async function InspirationPage() {
           </LayoutColumn>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
-              Networking gear, routers, switches, and cables for stable
-              connections.
+              Practical tech for cleaner desks, faster workflows, and setups
+              that stay ready every day.
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Build a cleaner setup at home or at work with products that keep
-                devices connected and organized.
+                Choose hardware, accessories, repair support, and connectivity
+                products for homes, offices, and gaming spaces that need a
+                better setup.
               </p>
             </div>
           </LayoutColumn>
@@ -157,13 +176,15 @@ export default async function InspirationPage() {
                 src="/images/content/techhub-ethernet-switch.png"
                 width={768}
                 height={572}
-                alt="Ethernet switch with network cables"
+                alt="Connectivity hardware and organized cables"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Switches</p>
-                  <p className="text-grayscale-500 text-xs">Wired networking</p>
+                  <p className="mb-1">Office setup</p>
+                  <p className="text-grayscale-500 text-xs">
+                    Cables and accessories
+                  </p>
                 </div>
                 <div>
                   <p className="font-semibold">Shop</p>
@@ -202,12 +223,12 @@ export default async function InspirationPage() {
         <Layout>
           <LayoutColumn start={1} end={{ base: 13, md: 8 }}>
             <h3 className="text-md mb-6 md:mb-16 md:text-2xl">
-              Gaming, audio, repairs, and accessories for a better setup.
+              Gaming products, repairs, and accessories for a better setup.
             </h3>
             <div className="md:text-md max-md:mb-16 max-w-135">
               <p>
-                Find headsets, parts, tools, and service support to keep your
-                devices working the way you need.
+                Find gaming gear, replacement parts, repair support, and
+                practical accessories to keep every device ready to use.
               </p>
             </div>
           </LayoutColumn>

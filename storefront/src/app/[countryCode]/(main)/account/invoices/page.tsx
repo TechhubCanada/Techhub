@@ -8,7 +8,7 @@ import { listOrders } from "@lib/data/orders"
 
 export const metadata: Metadata = {
   title: "Account - Invoices",
-  description: "Download invoices for your Tech Hub Canada orders",
+  description: "Download invoices for your TechHub orders",
 }
 
 export default async function AccountInvoicesPage() {

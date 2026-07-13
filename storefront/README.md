@@ -53,8 +53,9 @@ Features include:
   - Product Detail Page
   - Product Overview Page
   - Product listing pagination with a visible page summary
+  - B2B and store inquiry page for specialized product, bulk order, repair, and business technology requests
   - Footer agency attribution with Aceternity-style hover link preview
-  - Footer contact block with the Markham address, phone number, email, and weekly store hours
+  - Footer contact block with location, phone number, email, and weekly location hours
   - Search with Algolia / MeiliSearch
   - Product Collections
   - Cart
@@ -109,7 +110,23 @@ Vercel Speed Insights is rendered only in production builds. Keep it out of the 
 
 The storefront includes detailed Privacy Policy, Cookie Policy, Terms of Use, Refund & Returns Policy, and Cookie Preferences pages. The cookie banner auto-closes after 45 seconds with essential cookies only unless the visitor accepts all cookies or opens preferences.
 
-Storefront CMS reads use `src/lib/data/content.ts`, which calls the Medusa Content CMS plugin's public `/content` routes through the existing Medusa JS SDK instance. Homepage, About, Inspiration, product detail, and `/buying-guides/[slug]` pages consume published CMS items with static fallbacks where appropriate. Keep CMS reads server-side unless a page specifically needs client refresh behavior, and use the `content` cache tag family when invalidating published content.
+The storefront has an App Router SEO baseline: shared TechHub metadata and Organization/WebSite JSON-LD, route-specific canonical titles, descriptions, keywords, social metadata, product JSON-LD, plus generated `/sitemap.xml` and `/robots.txt`. Public product, collection, buying-guide, and service pages are indexed; account, auth, cart, checkout, order, search, API, proxy, and cookie-preference routes are excluded. See `../docs/storefront-seo.md` for the indexing policy.
+
+Storefront CMS reads use `src/lib/data/content.ts`, which calls the Medusa Content CMS plugin's public `/content` routes through the existing Medusa JS SDK instance. Homepage, About, Inspiration, product detail, and `/buying-guides/[slug]` pages consume published CMS items with static fallbacks where appropriate. Keep CMS reads server-side unless a page specifically needs client refresh behavior, and use the `content` cache tag family when invalidating published content. The homepage fallback hero is brand-forward: it overlays the TechHub mark, ecommerce/service positioning, compact category chips, and store plus B2B inquiry CTAs on the `techhub-homepage-hero-banner.png` product lineup visual. The homepage includes a featured product preview that reuses store product cards and live region pricing, followed by a dark support section with one Motion-powered blur text line that rotates through carried brands, business technology inquiries, repair or upgrade requests, and a marketplace section populated from the Medusa `GET /store/marketplace-accounts` endpoint only when active backend links exist.
+
+Marketplace seller accounts are managed from the Medusa Admin **Marketplace** extension page. Add Best Buy, Amazon, or any future seller profile there with a display name, platform, URL, CTA label, description, sort order, and active status. The homepage marketplace section is hidden when no active accounts are returned, so placeholder seller cards are not shown to customers. See `../docs/marketplace-accounts.md` for the backend, Admin, API, and storefront flow.
+
+Use **TechHub** for customer-facing storefront copy and metadata. Reserve **Tech Hub Canada** for legal/company context, source project naming, and domain or business listing references that require the longer name.
+
+The storefront includes `/inquiry` for B2B, store, and specialized requests. It uses a static localized App Router page with a compact one-screen light direct-intake hero, request highlight chips, response-step cues, a high-contrast hero-side Zod-validated contact form, image-led follow-up sections, Resend delivery through `/api/inquiry`, and shared business contact details from `src/lib/business-info.ts`. Configure `RESEND_API_KEY`, `RESEND_FROM`, and optionally `CONTACT_INQUIRY_TO` in the storefront environment. The linked Vercel project sets `CONTACT_INQUIRY_TO` to `info@techhubcanada.com` in Preview and Production. The visible navigation labels the product listing route as **Shop**, while the functional ecommerce path remains `/store`.
+
+The store page keeps the collection carousel, filters, sort controls, and first product row close together so shoppers can see product cards immediately below the controls on standard desktop viewports.
+
+The mobile header uses a dark treatment with 44px account, cart, and menu targets. The hamburger opens an 85vw dark drawer with search at the top, simple text navigation rows, and plain account and country controls at the bottom with safe-area padding.
+
+The desktop navbar uses the white hero treatment on `/`, `/about`, `/inspiration`, `/inquiry`, and collection pages until scrolling makes the header sticky.
+
+The homepage, store, and inspiration collections strips use the shared Embla carousel. They support swipe and arrow navigation. Homepage and store collection strips advance through collection cards automatically, while hover, focus, and reduced-motion settings stop the automatic movement.
 
 Product and collection detail pages are forced dynamic because they read live Medusa catalog data, reviews, CMS items, and region pricing context. Region lookup must stay uncached across serverless invocations so a production database refresh or region replacement cannot leave product pricing requests pinned to an old region ID.
 

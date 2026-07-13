@@ -20,6 +20,9 @@ export const CollectionsSection: React.FC<{ className?: string }> = async ({
   return (
     <Carousel
       heading={<h3 className="text-md md:text-2xl">Collections</h3>}
+      autoScroll
+      data-testid="collections-carousel"
+      aria-label="Featured collections"
       button={
         <>
           <LocalizedButtonLink

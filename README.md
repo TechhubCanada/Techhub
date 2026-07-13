@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.07.10.34
+Documentation version: 2026.07.13.6
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -53,7 +53,9 @@ Supporting services include:
 - `docs/medusa-notifications.md` - Medusa local notification, Resend email, and Slack order alert setup.
 - `docs/medusa-content-cms.md` - Medusa Content CMS plugin setup, public content routes, and storefront data helper usage.
 - `docs/commerce-extensions-roadmap.md` - Product reviews API details and storefront rollout plan for the next commerce extensions.
+- `docs/marketplace-accounts.md` - Managed seller account links for Best Buy, Amazon, and other external storefronts.
 - `docs/square-oauth.md` - Square production and sandbox OAuth setup notes.
+- `docs/storefront-seo.md` - Storefront metadata, sitemap, robots, structured data, and indexing policy.
 - `docs/superpowers/plans/2026-07-08-medusa-only-realtime-storefront.md` - Implementation plan for the Medusa-only realtime storefront work.
 
 ## Prerequisites
@@ -142,11 +144,14 @@ Important values to configure before production:
 - `DATABASE_URL`
 - `JWT_SECRET`
 - `COOKIE_SECRET`
+- `AUTH_MFA_ENCRYPTION_KEY`
 - `STRIPE_API_KEY`
 - `NEXT_PUBLIC_STRIPE_KEY`
 - `NEXT_PUBLIC_PAYPAL_CLIENT_ID`
 - `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`
 - `RESEND_API_KEY`
+- `RESEND_FROM`
+- `CONTACT_INQUIRY_TO`
 - `SLACK_WEBHOOK_URL`
 - `SLACK_ADMIN_URL`
 - `MEILISEARCH_MASTER_KEY`
@@ -159,6 +164,14 @@ Important values to configure before production:
 For the Railway `Techhub` service, `MEILISEARCH_HOST` should point at the Railway MeiliSearch public HTTPS URL, and `MEILISEARCH_API_KEY` should match the running MeiliSearch service `MEILI_MASTER_KEY`. Do not set `MEILISEARCH_PORT` when `MEILISEARCH_HOST` is already a full Railway HTTPS URL; the backend config will otherwise append that port to the public URL.
 
 Storefront search uses `NEXT_PUBLIC_SEARCH_ENDPOINT` and `NEXT_PUBLIC_SEARCH_API_KEY`. The public key must be a MeiliSearch key with the `search` action. Product indexing must tolerate products without a collection, because production catalog entries can be published before collection assignment.
+
+### Auth MFA
+
+Set `AUTH_MFA_ENCRYPTION_KEY` in local backend env files and every production backend service that can run auth code. Use a long random secret such as `openssl rand -hex 32`, keep the same value on the server and worker, and do not rotate it after users enroll MFA because TOTP secrets are encrypted with this key.
+
+### Storefront inquiry email
+
+The storefront `/inquiry` form posts to `/api/inquiry` and sends mail through Resend. Configure `RESEND_API_KEY`, `RESEND_FROM`, and optionally `CONTACT_INQUIRY_TO` in the storefront deployment environment. If `CONTACT_INQUIRY_TO` is not set, inquiries are sent to `info@techhubcanada.com`.
 
 ### Cloudflare R2 File Storage
 
@@ -233,6 +246,10 @@ The current Tech Hub Canada website presents a broad electronics catalog and cus
 ## Design Direction
 
 The redesigned experience should feel practical, trustworthy, and easy to scan. This is an electronics and IT services storefront, so the interface should prioritize clear product categories, search, filters, product specs, pricing, service calls to action, and support information over decorative marketing sections.
+
+## Brand Voice
+
+Use **TechHub** for customer-facing website copy, navigation, metadata, email templates, and UI text. Use **Tech Hub Canada** only for legal/company context, source project naming, legacy documentation, or domain/business listing references that require the longer name.
 
 ## License
 

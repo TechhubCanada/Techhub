@@ -59,6 +59,7 @@ export const Header: React.FC = async () => {
               <div className="flex items-center gap-8 max-md:hidden">
                 <LocalizedLink href="/about">About</LocalizedLink>
                 <LocalizedLink href="/inspiration">Inspiration</LocalizedLink>
+                <LocalizedLink href="/inquiry">Inquiry</LocalizedLink>
                 <LocalizedLink href="/store">Shop</LocalizedLink>
               </div>
               <div className="flex items-center gap-3 lg:gap-6 max-md:hidden">
@@ -74,8 +75,8 @@ export const Header: React.FC = async () => {
                 <LoginLink className="p-1 group-data-[light=true]:md:text-white group-data-[sticky=true]:md:text-black" />
                 <CartDrawer />
               </div>
-              <div className="flex items-center gap-4 md:hidden">
-                <LoginLink className="p-1 group-data-[light=true]:md:text-white" />
+              <div className="flex items-center gap-1.5 md:hidden">
+                <LoginLink className="min-h-11 min-w-11 p-2.5 max-md:text-white group-data-[light=true]:md:text-white" />
                 <CartDrawer />
                 <React.Suspense>
                   <HeaderDrawer countryOptions={resolvedCountryOptions} />

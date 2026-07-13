@@ -2,11 +2,7 @@ import { Metadata } from "next"
 
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
-
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
-}
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
 type Params = {
   searchParams: Promise<{
@@ -19,6 +15,28 @@ type Params = {
   params: Promise<{
     countryCode: string
   }>
+}
+
+export async function generateMetadata({
+  params,
+}: Pick<Params, "params">): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Shop Computers, Printers & Technology",
+    description:
+      "Shop laptops, desktops, printers, networking gear, parts, accessories, ink, toner, and technology products from TechHub.",
+    path: getLocalizedPath(countryCode, "store"),
+    keywords: [
+      "shop computers",
+      "laptops",
+      "desktops",
+      "printers",
+      "networking gear",
+      "computer accessories",
+      "ink and toner",
+    ],
+  })
 }
 
 export default async function StorePage({ searchParams, params }: Params) {

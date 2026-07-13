@@ -2,11 +2,21 @@ import { Metadata } from "next"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { storeBusinessInfo } from "@lib/business-info"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "Refund & Returns Policy",
-  description:
-    "Tech Hub Canada return, exchange, and refund terms for online and in-store purchases.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Refund & Returns Policy",
+    description:
+      "TechHub return, exchange, and refund terms for online and in-store purchases.",
+    path: getLocalizedPath(countryCode, "refund-policy"),
+  })
 }
 
 export async function generateStaticParams() {
@@ -33,10 +43,10 @@ export default function RefundPolicyPage() {
         className="article"
       >
         <p>
-          We want customers to be confident when shopping with Tech Hub Canada.
-          This policy explains our 30-day return window and the conditions that
-          apply to electronics, parts, accessories, consumables, software, and
-          service work.
+          We want customers to be confident when shopping with TechHub. This
+          policy explains our 30-day return window and the conditions that apply
+          to electronics, parts, accessories, consumables, software, and service
+          work.
         </p>
 
         <h2>1. 30-day return window</h2>

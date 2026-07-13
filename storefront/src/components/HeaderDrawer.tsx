@@ -7,7 +7,15 @@ import { Drawer } from "@/components/Drawer"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { RegionSwitcher } from "@/components/RegionSwitcher"
 import { SearchField } from "@/components/SearchField"
+import { BrandLogo } from "@/components/BrandLogo"
 import { useSearchParams } from "next/navigation"
+
+const navLinks = [
+  { href: "/store", label: "Shop" },
+  { href: "/inquiry", label: "Inquiry" },
+  { href: "/inspiration", label: "Inspiration" },
+  { href: "/about", label: "About" },
+]
 
 export const HeaderDrawer: React.FC<{
   countryOptions: {
@@ -29,7 +37,7 @@ export const HeaderDrawer: React.FC<{
     <>
       <Button
         variant="ghost"
-        className="p-1 group-data-[light=true]:md:text-white"
+        className="min-h-11 min-w-11 p-2.5 max-md:text-white group-data-[light=true]:md:text-white"
         onPress={() => setIsMenuOpen(true)}
         aria-label="Open menu"
       >
@@ -39,46 +47,71 @@ export const HeaderDrawer: React.FC<{
         animateFrom="left"
         isOpen={isMenuOpen}
         onOpenChange={setIsMenuOpen}
-        className="rounded-none !p-0"
+        className="w-[85vw] max-w-90 rounded-none !p-0"
       >
         {({ close }) => (
           <>
-            <div className="flex flex-col text-white h-full">
-              <div className="flex items-center justify-between pb-6 mb-8 pt-5 w-full border-b border-white px-8">
-                <SearchField
-                  countryOptions={countryOptions}
-                  isInputAlwaysShown
-                />
-                <button onClick={close} aria-label="Close menu">
-                  <Icon name="close" className="w-6" />
+            <div className="flex h-full flex-col overflow-hidden bg-black text-white">
+              <div className="flex min-h-18 w-full items-center justify-between gap-4 border-b border-white/20 px-5 py-3">
+                <LocalizedLink
+                  href="/"
+                  className="min-w-0"
+                  aria-label="TechHub home"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <BrandLogo
+                    markClassName="size-9 border-white/60"
+                    textClassName="text-sm"
+                  />
+                </LocalizedLink>
+                <button
+                  className="flex min-h-11 min-w-11 items-center justify-center"
+                  onClick={close}
+                  aria-label="Close menu"
+                >
+                  <Icon name="close" className="w-5" />
                 </button>
               </div>
-              <div className="text-lg flex flex-col gap-8 font-medium px-8">
-                <LocalizedLink
-                  href="/about"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  About
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/inspiration"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Inspiration
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/store"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Shop
-                </LocalizedLink>
+              <div className="border-b border-white/20 px-5 py-4">
+                <div className="flex min-h-13 items-center border-b border-white/40 px-1">
+                  <SearchField
+                    countryOptions={countryOptions}
+                    isInputAlwaysShown
+                  />
+                </div>
               </div>
-              <RegionSwitcher
-                countryOptions={countryOptions}
-                className="mt-auto ml-8 mb-8"
-                selectButtonClassName="max-md:text-base gap-2 p-1 w-auto"
-                selectIconClassName="text-current w-6 h-6"
-              />
+              <nav className="flex flex-1 flex-col overflow-y-auto px-5 py-2">
+                {navLinks.map(({ href, label }) => (
+                  <LocalizedLink
+                    key={href}
+                    href={href}
+                    className="group flex min-h-15 items-center border-b border-white/15 text-base font-medium"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span>{label}</span>
+                    <Icon
+                      name="chevron-right"
+                      className="ml-auto w-4 text-white/45 transition-transform group-hover:translate-x-0.5"
+                    />
+                  </LocalizedLink>
+                ))}
+              </nav>
+              <div className="border-t border-white/20 px-5 pb-[calc(1.25rem_+_env(safe-area-inset-bottom))] pt-4">
+                <LocalizedLink
+                  href="/account"
+                  className="mb-3 flex min-h-11 items-center gap-2 text-sm font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Icon name="user" className="w-4" />
+                  Account
+                </LocalizedLink>
+                <RegionSwitcher
+                  countryOptions={countryOptions}
+                  className="w-full"
+                  selectButtonClassName="min-h-11 w-auto gap-2 p-0 text-sm"
+                  selectIconClassName="text-current w-6 h-6"
+                />
+              </div>
             </div>
           </>
         )}

@@ -5,6 +5,7 @@ import { getCollectionByHandle } from "@lib/data/collections"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { collectionMetadataCustomFieldsSchema } from "@lib/util/collections"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
 type Props = {
   params: Promise<{ handle: string; countryCode: string }>
@@ -23,7 +24,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = await params
+  const { handle, countryCode } = await params
 
   const collection = await getCollectionByHandle(handle, [
     "id",
@@ -39,15 +40,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     collection.metadata ?? {}
   )
 
-  const metadata = {
-    title: `${collection.title} | Medusa Store`,
+  return createPageMetadata({
+    title: `${collection.title} Collection`,
     description:
       collectionDetails.success && collectionDetails.data.description
         ? collectionDetails.data.description
-        : `${collection.title} collection`,
-  } as Metadata
-
-  return metadata
+        : `Shop the ${collection.title} collection from TechHub.`,
+    path: getLocalizedPath(countryCode, `collections/${handle}`),
+    keywords: [collection.title, "technology collection", "TechHub shop"],
+  })
 }
 
 export default async function CollectionPage({ params, searchParams }: Props) {

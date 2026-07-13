@@ -1,7 +1,13 @@
 import * as React from "react"
+import type { Metadata } from "next"
 
 import { SignOutButton } from "@modules/account/components/SignOutButton"
 import { SidebarNav } from "@modules/account/components/SidebarNav"
+import { noIndexMetadata } from "@lib/seo"
+
+export const metadata: Metadata = {
+  robots: noIndexMetadata,
+}
 
 export default function AccountLayout(props: { children: React.ReactNode }) {
   return (

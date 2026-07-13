@@ -48,7 +48,7 @@ const StoreTemplate = async ({
   const typeIds = resolveSelectedIds(types.productTypes, type, "value")
 
   return (
-    <div className="md:pt-47 py-26 md:pb-36">
+    <div className="pt-22 pb-26 md:pt-34 md:pb-32">
       <CollectionsSlider />
       <RefinementList
         collections={Object.fromEntries(

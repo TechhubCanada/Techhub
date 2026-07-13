@@ -25,6 +25,10 @@ Use `pnpm` as the root package manager. Run workspace commands from the reposito
 
 Use TypeScript throughout. Follow existing Next.js and Medusa patterns before adding abstractions. Storefront formatting is Prettier-based: 2 spaces, double quotes, no semicolons, trailing commas, and `arrowParens: "always"`. ESLint enforces hooks rules, strict equality, no duplicate imports, `prefer-const`, and no `debugger`. Use kebab-case for route folders and PascalCase for React components.
 
+## Brand Voice
+
+Use **TechHub** for customer-facing website copy, navigation, metadata, email templates, and UI text. Use **Tech Hub Canada** only when referring to the legal/company context, source project name, legacy documentation, or domain/business listing context that explicitly requires the longer name.
+
 ## Testing Guidelines
 
 Backend tests use Jest. Unit tests match `medusa/src/**/__tests__/**/*.unit.spec.ts`; module integration tests belong under `src/modules/*/__tests__`; HTTP specs belong in `medusa/integration-tests/http/*.spec.ts`. Storefront E2E tests use Playwright under `storefront/e2e/tests`, grouped by `public` and `authenticated` flows. Run focused tests before opening a PR.
@@ -47,30 +51,32 @@ Do not commit secrets. Keep real `.env*` files ignored by Git; do not remove env
 
 <!-- gortex:communities:start -->
 <!-- gortex:skills:start -->
+
 ## Community Skills
 
-| Area | Description | Skill |
-|------|-------------|-------|
-| Components 13 Dirs | 226 symbols | `/gortex-components-13-dirs` |
-| Medusa Types 1 Dirs | 155 symbols | `/gortex-medusa-types-1-dirs` |
-| Components 38 Dirs | 143 symbols | `/gortex-components-38-dirs` |
-| Modules Fashion 8 Dirs | 105 symbols | `/gortex-modules-fashion-8-dirs` |
-| Components Ui 15 Dirs | 91 symbols | `/gortex-components-ui-15-dirs` |
-| E2e Fixtures Checkoutpage | 91 symbols | `/gortex-e2e-fixtures-checkoutpage` |
-| Components Icons 9 Dirs | 86 symbols | `/gortex-components-icons-9-dirs` |
-| Workflows 6 Dirs | 85 symbols | `/gortex-workflows-6-dirs` |
-| Account Components 9 Dirs | 70 symbols | `/gortex-account-components-9-dirs` |
-| Fixtures Account Profilepage | 62 symbols | `/gortex-fixtures-account-profilepage` |
-| Lib Data 3 Dirs Getauthheaders | 59 symbols | `/gortex-lib-data-3-dirs-getauthheaders` |
-| E2e Fixtures Cartpage | 43 symbols | `/gortex-e2e-fixtures-cartpage` |
-| Hooks 1 Dirs Onsuccess | 41 symbols | `/gortex-hooks-1-dirs-onsuccess` |
-| Hooks 2 Dirs Stripepaymentbutton | 39 symbols | `/gortex-hooks-2-dirs-stripepaymentbutton` |
-| E2e Fixtures Orderpage | 36 symbols | `/gortex-e2e-fixtures-orderpage` |
-| Components Icons 3 Dirs | 35 symbols | `/gortex-components-icons-3-dirs` |
-| Lib Data 2 Dirs | 34 symbols | `/gortex-lib-data-2-dirs` |
-| Lib Data 6 Dirs | 31 symbols | `/gortex-lib-data-6-dirs` |
-| Fixtures Account Addressmodal | 31 symbols | `/gortex-fixtures-account-addressmodal` |
-| Fixtures Account Orderpage | 31 symbols | `/gortex-fixtures-account-orderpage` |
+| Area                             | Description | Skill                                      |
+| -------------------------------- | ----------- | ------------------------------------------ |
+| Components 13 Dirs               | 226 symbols | `/gortex-components-13-dirs`               |
+| Medusa Types 1 Dirs              | 155 symbols | `/gortex-medusa-types-1-dirs`              |
+| Components 38 Dirs               | 143 symbols | `/gortex-components-38-dirs`               |
+| Modules Fashion 8 Dirs           | 105 symbols | `/gortex-modules-fashion-8-dirs`           |
+| Components Ui 15 Dirs            | 91 symbols  | `/gortex-components-ui-15-dirs`            |
+| E2e Fixtures Checkoutpage        | 91 symbols  | `/gortex-e2e-fixtures-checkoutpage`        |
+| Components Icons 9 Dirs          | 86 symbols  | `/gortex-components-icons-9-dirs`          |
+| Workflows 6 Dirs                 | 85 symbols  | `/gortex-workflows-6-dirs`                 |
+| Account Components 9 Dirs        | 70 symbols  | `/gortex-account-components-9-dirs`        |
+| Fixtures Account Profilepage     | 62 symbols  | `/gortex-fixtures-account-profilepage`     |
+| Lib Data 3 Dirs Getauthheaders   | 59 symbols  | `/gortex-lib-data-3-dirs-getauthheaders`   |
+| E2e Fixtures Cartpage            | 43 symbols  | `/gortex-e2e-fixtures-cartpage`            |
+| Hooks 1 Dirs Onsuccess           | 41 symbols  | `/gortex-hooks-1-dirs-onsuccess`           |
+| Hooks 2 Dirs Stripepaymentbutton | 39 symbols  | `/gortex-hooks-2-dirs-stripepaymentbutton` |
+| E2e Fixtures Orderpage           | 36 symbols  | `/gortex-e2e-fixtures-orderpage`           |
+| Components Icons 3 Dirs          | 35 symbols  | `/gortex-components-icons-3-dirs`          |
+| Lib Data 2 Dirs                  | 34 symbols  | `/gortex-lib-data-2-dirs`                  |
+| Lib Data 6 Dirs                  | 31 symbols  | `/gortex-lib-data-6-dirs`                  |
+| Fixtures Account Addressmodal    | 31 symbols  | `/gortex-fixtures-account-addressmodal`    |
+| Fixtures Account Orderpage       | 31 symbols  | `/gortex-fixtures-account-orderpage`       |
+
 <!-- gortex:skills:end -->
 
 <!-- gortex:communities:end -->

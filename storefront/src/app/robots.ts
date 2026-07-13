@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next"
+import { getAbsoluteUrl } from "@lib/seo"
 
 export default function robots(): MetadataRoute.Robots {
   if (process.env.DISALLOW_ROBOTS) {
@@ -14,7 +15,18 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/private/",
+      disallow: [
+        "/api/",
+        "/medusa/",
+        "/*/account/",
+        "/*/auth/",
+        "/*/cart/",
+        "/*/checkout/",
+        "/*/order/",
+        "/*/search/",
+        "/*/cookie-preferences/",
+      ],
     },
+    sitemap: getAbsoluteUrl("/sitemap.xml"),
   }
 }

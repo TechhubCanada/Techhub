@@ -86,7 +86,7 @@ export const CookieConsentBanner = () => {
             Cookies
           </p>
           <h2 className="mt-1 text-md font-medium text-black">
-            We use cookies to keep Tech Hub Canada working.
+            We use cookies to keep TechHub working.
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-grayscale-600">
             Essential cookies keep cart, checkout, account security, and saved

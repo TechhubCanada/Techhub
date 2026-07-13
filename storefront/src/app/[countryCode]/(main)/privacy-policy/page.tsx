@@ -2,11 +2,21 @@ import { Metadata } from "next"
 import { getStaticCountryCodes } from "@lib/util/static-country-codes"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import { storeBusinessInfo } from "@lib/business-info"
+import { createPageMetadata, getLocalizedPath } from "@lib/seo"
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "How Tech Hub Canada collects, uses, and protects customer information.",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ countryCode: string }>
+}): Promise<Metadata> {
+  const { countryCode } = await params
+
+  return createPageMetadata({
+    title: "Privacy Policy",
+    description:
+      "How Tech Hub Canada collects, uses, and protects customer information.",
+    path: getLocalizedPath(countryCode, "privacy-policy"),
+  })
 }
 
 export async function generateStaticParams() {

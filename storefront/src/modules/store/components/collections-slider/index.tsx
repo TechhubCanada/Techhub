@@ -24,7 +24,10 @@ export const CollectionsSlider: React.FC<{
   return (
     <Carousel
       heading={<h3 className="text-md md:text-2xl">{heading}</h3>}
-      className={twMerge("mb-26 md:mb-36", className)}
+      autoScroll
+      data-testid="store-collections-carousel"
+      aria-label="Store collections"
+      className={twMerge("mb-14 md:mb-18", className)}
     >
       {collections.collections.map((c) => (
         <div
