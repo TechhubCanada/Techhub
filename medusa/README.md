@@ -92,6 +92,10 @@ The backend reads `AUTH_MFA_ENCRYPTION_KEY` through Medusa's default Auth module
 
 Product reviews are implemented as a local Medusa module in `src/modules/product-review`. Storefront customers can submit authenticated reviews through `POST /store/products/:id/reviews`; submissions are stored as `pending` until an admin approves or rejects them through `POST /admin/product-reviews/:id/moderate`. Approved reviews are exposed through `GET /store/products/:id/reviews` and rendered on storefront product pages.
 
+## Canadian shipping setup
+
+The default Medusa seed uses the TechHub Canada region and fulfillment configuration. `pnpm seed` creates a CAD Canada region, Canadian tax region, Canada delivery geo zone, store pickup geo zone, and store-enabled Standard Shipping, Express Shipping, and Store Pickup options for fresh environments. Production storefront deployments should use `NEXT_PUBLIC_DEFAULT_REGION=ca`; after deploying shipping seed changes, run `pnpm seed:techhub` against the production database so the idempotent TechHub seed can create or repair Canadian shipping data and `/store/shipping-options?cart_id=...` can return methods for Canadian checkout addresses.
+
 Run migrations after pulling this feature:
 
 ```sh

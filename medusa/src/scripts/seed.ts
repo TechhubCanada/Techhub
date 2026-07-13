@@ -28,6 +28,15 @@ import {
 } from '@medusajs/framework/utils';
 import type FashionModuleService from '../modules/fashion/service';
 import type { MaterialModelType } from '../modules/fashion/models/material';
+import {
+  TECHHUB_COUNTRIES,
+  TECHHUB_CURRENCY_CODE,
+  TECHHUB_PICKUP_COUNTRIES,
+  TECHHUB_REGION_NAME,
+  buildTechHubDeliveryShippingOptions,
+  buildTechHubPickupShippingOptions,
+  getTechHubGeoZones,
+} from './techhub-shipping-config';
 
 async function getImageUrlContent(url: string) {
   const response = await fetch(url);
@@ -56,7 +65,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
     'fashionModuleService',
   );
 
-  const countries = ['hr', 'gb', 'de', 'dk', 'se', 'fr', 'es', 'it'];
+  const countries = TECHHUB_COUNTRIES;
 
   logger.info('Seeding store data...');
   const [store] = await storeModuleService.listStores();
@@ -85,8 +94,8 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       regions: [
         {
-          name: 'Europe',
-          currency_code: 'eur',
+          name: TECHHUB_REGION_NAME,
+          currency_code: TECHHUB_CURRENCY_CODE,
           countries,
           payment_providers: ['pp_square_square'],
         },
@@ -102,7 +111,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
       update: {
         supported_currencies: [
           {
-            currency_code: 'eur',
+            currency_code: TECHHUB_CURRENCY_CODE,
             is_default: true,
           },
           {
@@ -131,10 +140,10 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       locations: [
         {
-          name: 'European Warehouse',
+          name: 'TechHub Warehouse',
           address: {
-            city: 'Copenhagen',
-            country_code: 'DK',
+            city: 'Markham',
+            country_code: 'CA',
             address_1: '',
           },
         },
@@ -167,45 +176,12 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const shippingProfile = shippingProfileResult[0];
 
   const fulfillmentSet = await fulfillmentModuleService.createFulfillmentSets({
-    name: 'European Warehouse delivery',
+    name: 'TechHub delivery',
     type: 'shipping',
     service_zones: [
       {
-        name: 'Europe',
-        geo_zones: [
-          {
-            country_code: 'hr',
-            type: 'country',
-          },
-          {
-            country_code: 'gb',
-            type: 'country',
-          },
-          {
-            country_code: 'de',
-            type: 'country',
-          },
-          {
-            country_code: 'dk',
-            type: 'country',
-          },
-          {
-            country_code: 'se',
-            type: 'country',
-          },
-          {
-            country_code: 'fr',
-            type: 'country',
-          },
-          {
-            country_code: 'es',
-            type: 'country',
-          },
-          {
-            country_code: 'it',
-            type: 'country',
-          },
-        ],
+        name: 'Canada',
+        geo_zones: getTechHubGeoZones(countries),
       },
     ],
   });
@@ -220,84 +196,12 @@ export default async function seedDemoData({ container }: ExecArgs) {
   });
 
   await createShippingOptionsWorkflow(container).run({
-    input: [
-      {
-        name: 'Standard Shipping',
-        price_type: 'flat',
-        provider_id: 'manual_manual',
-        service_zone_id: fulfillmentSet.service_zones[0].id,
-        shipping_profile_id: shippingProfile.id,
-        type: {
-          label: 'Standard',
-          description: 'Ship in 2-3 days.',
-          code: 'standard',
-        },
-        prices: [
-          {
-            currency_code: 'usd',
-            amount: 10,
-          },
-          {
-            currency_code: 'eur',
-            amount: 10,
-          },
-          {
-            region_id: region.id,
-            amount: 10,
-          },
-        ],
-        rules: [
-          {
-            attribute: 'enabled_in_store',
-            value: '"true"',
-            operator: 'eq',
-          },
-          {
-            attribute: 'is_return',
-            value: 'false',
-            operator: 'eq',
-          },
-        ],
-      },
-      {
-        name: 'Express Shipping',
-        price_type: 'flat',
-        provider_id: 'manual_manual',
-        service_zone_id: fulfillmentSet.service_zones[0].id,
-        shipping_profile_id: shippingProfile.id,
-        type: {
-          label: 'Express',
-          description: 'Ship in 24 hours.',
-          code: 'express',
-        },
-        prices: [
-          {
-            currency_code: 'usd',
-            amount: 10,
-          },
-          {
-            currency_code: 'eur',
-            amount: 10,
-          },
-          {
-            region_id: region.id,
-            amount: 10,
-          },
-        ],
-        rules: [
-          {
-            attribute: 'enabled_in_store',
-            value: '"true"',
-            operator: 'eq',
-          },
-          {
-            attribute: 'is_return',
-            value: 'false',
-            operator: 'eq',
-          },
-        ],
-      },
-    ],
+    input: buildTechHubDeliveryShippingOptions({
+      currencyCode: TECHHUB_CURRENCY_CODE,
+      regionId: region.id,
+      serviceZoneId: fulfillmentSet.service_zones[0].id,
+      shippingProfileId: shippingProfile.id,
+    }),
   });
 
   const pickupFulfillmentSet =
@@ -307,16 +211,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
       service_zones: [
         {
           name: 'Store pickup',
-          geo_zones: [
-            {
-              country_code: 'hr',
-              type: 'country',
-            },
-            {
-              country_code: 'dk',
-              type: 'country',
-            },
-          ],
+          geo_zones: getTechHubGeoZones(TECHHUB_PICKUP_COUNTRIES),
         },
       ],
     });
@@ -331,46 +226,12 @@ export default async function seedDemoData({ container }: ExecArgs) {
   });
 
   await createShippingOptionsWorkflow(container).run({
-    input: [
-      {
-        name: 'Denmark Store Pickup',
-        price_type: 'flat',
-        provider_id: 'manual_manual',
-        service_zone_id: pickupFulfillmentSet.service_zones[0].id,
-        shipping_profile_id: shippingProfile.id,
-        type: {
-          label: 'Denmark Store Pickup',
-          description: 'Free in-store pickup.',
-          code: 'standard',
-        },
-        prices: [
-          {
-            currency_code: 'usd',
-            amount: 0,
-          },
-          {
-            currency_code: 'eur',
-            amount: 0,
-          },
-          {
-            region_id: region.id,
-            amount: 0,
-          },
-        ],
-        rules: [
-          {
-            attribute: 'enabled_in_store',
-            value: '"true"',
-            operator: 'eq',
-          },
-          {
-            attribute: 'is_return',
-            value: 'false',
-            operator: 'eq',
-          },
-        ],
-      },
-    ],
+    input: buildTechHubPickupShippingOptions({
+      currencyCode: TECHHUB_CURRENCY_CODE,
+      regionId: region.id,
+      serviceZoneId: pickupFulfillmentSet.service_zones[0].id,
+      shippingProfileId: shippingProfile.id,
+    }),
   });
 
   logger.info('Finished seeding fulfillment data.');

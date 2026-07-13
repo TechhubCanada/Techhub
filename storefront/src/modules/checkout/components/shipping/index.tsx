@@ -15,6 +15,7 @@ import {
 import { useCartShippingMethods, useSetShippingMethod } from "hooks/cart"
 import { StoreCart } from "@medusajs/types"
 import {
+  canContinueFromShipping,
   getShippingMethodFulfillmentType,
   getShippingMethodsViewState,
   type ShippingMethodFulfillmentType,
@@ -27,6 +28,9 @@ const fulfillmentGroupLabels: Record<ShippingMethodFulfillmentType, string> = {
 
 const Shipping = ({ cart }: { cart: StoreCart }) => {
   const [error, setError] = useState<string | null>(null)
+  const [selectedShippingMethodId, setSelectedShippingMethodId] = useState<
+    string | null
+  >(cart.shipping_methods?.[0]?.shipping_option_id ?? null)
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -45,7 +49,11 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
 
   const { mutate, isPending } = useSetShippingMethod({ cartId: cart.id })
   const selectedShippingMethod = availableShippingMethods?.find(
-    (method) => method.id === cart.shipping_methods?.[0]?.shipping_option_id
+    (method) => method.id === selectedShippingMethodId
+  )
+  const canContinue = canContinueFromShipping(
+    cart.shipping_methods,
+    selectedShippingMethodId
   )
   const fulfillmentGroups: Record<
     ShippingMethodFulfillmentType,
@@ -61,15 +69,27 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
   }
 
   const set = (id: string) => {
+    setError(null)
     mutate(
       { shippingMethodId: id },
-      { onError: (err) => setError(err.message) }
+      {
+        onSuccess: () => {
+          setSelectedShippingMethodId(id)
+        },
+        onError: (err) => setError(err.message),
+      }
     )
   }
 
   useEffect(() => {
     setError(null)
   }, [isOpen])
+
+  useEffect(() => {
+    setSelectedShippingMethodId(
+      cart.shipping_methods?.[0]?.shipping_option_id ?? null
+    )
+  }, [cart.shipping_methods])
 
   return (
     <>
@@ -184,7 +204,7 @@ const Shipping = ({ cart }: { cart: StoreCart }) => {
             <Button
               onPress={handleSubmit}
               isLoading={isPending}
-              isDisabled={!cart.shipping_methods?.[0]}
+              isDisabled={!canContinue || isPending}
             >
               Next
             </Button>

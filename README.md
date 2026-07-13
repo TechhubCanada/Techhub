@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.07.13.6
+Documentation version: 2026.07.13.7
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 

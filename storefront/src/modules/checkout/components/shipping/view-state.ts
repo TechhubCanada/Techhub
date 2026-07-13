@@ -36,3 +36,13 @@ export const getShippingMethodsViewState = (
 
   return "ready"
 }
+
+export const canContinueFromShipping = (
+  cartShippingMethods: readonly unknown[] | null | undefined,
+  selectedShippingMethodId?: string | null
+) => {
+  return Boolean(
+    selectedShippingMethodId ||
+      (cartShippingMethods && cartShippingMethods.length > 0)
+  )
+}

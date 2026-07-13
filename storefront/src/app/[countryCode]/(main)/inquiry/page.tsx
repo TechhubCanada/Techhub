@@ -90,34 +90,43 @@ const featureSections = [
 export default function InquiryPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-white pt-24 pb-10 text-black md:pt-28 md:pb-12 lg:pt-10 lg:pb-4">
-        <Layout className="items-center gap-y-8 lg:items-center">
+      <section className="relative isolate overflow-hidden bg-black pt-24 pb-10 text-white md:pt-28 md:pb-12 lg:pt-37 lg:pb-10">
+        <Image
+          src="/images/content/techhub-desk-setup-hero.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[58%_center] max-md:object-[52%_center]"
+        />
+        <div className="absolute inset-0 -z-10 bg-black/65 md:bg-black/55 lg:bg-black/50" />
+        <Layout className="relative items-center gap-y-8 lg:items-center">
           <LayoutColumn
             start={{ base: 1, lg: 1 }}
             end={{ base: 13, lg: 6 }}
             className="text-left"
           >
-            <p className="mb-3 text-xs uppercase tracking-[0.16em] text-grayscale-500 md:text-sm">
+            <p className="mb-3 text-xs uppercase tracking-[0.16em] text-white/70 md:text-sm">
               Direct intake
             </p>
-            <h1 className="max-w-150 text-[2rem] leading-tight md:text-[2.75rem] lg:text-[2.25rem]">
+            <h1 className="max-w-150 text-[2rem] leading-tight text-white md:text-[2.75rem] lg:text-[2.25rem]">
               Product, repair, and setup requests.
             </h1>
-            <p className="mt-4 max-w-120 text-sm leading-relaxed text-grayscale-600 md:text-base lg:max-w-110">
+            <p className="mt-4 max-w-120 text-sm leading-relaxed text-white/80 md:text-base lg:max-w-110">
               Tell us what you need, the quantity, and the timeline. The team
               will route your request to the right next step.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <ButtonAnchor
                 href={inquiryHref}
-                className="bg-black text-white hover:bg-grayscale-800"
+                className="bg-white text-black hover:bg-grayscale-100"
               >
                 Start inquiry
               </ButtonAnchor>
               <LocalizedButtonLink
                 href="/store"
                 variant="outline"
-                className="border-black text-black hover:border-grayscale-500 hover:text-grayscale-600"
+                className="border-white text-white hover:border-grayscale-200 hover:text-grayscale-200"
               >
                 Browse products
               </LocalizedButtonLink>

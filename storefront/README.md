@@ -53,7 +53,7 @@ Features include:
   - Product Detail Page
   - Product Overview Page
   - Product listing pagination with a visible page summary
-  - B2B and store inquiry page for specialized product, bulk order, repair, and business technology requests
+  - B2B and store inquiry page for specialized product, bulk order, repair, and business technology requests with desktop top spacing aligned to the storefront page rhythm
   - Footer agency attribution with Aceternity-style hover link preview
   - Footer contact block with location, phone number, email, and weekly location hours
   - Search with Algolia / MeiliSearch
