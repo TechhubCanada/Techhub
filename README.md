@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.07.13.9
+Documentation version: 2026.07.13.10
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -54,7 +54,7 @@ Supporting services include:
 - `docs/medusa-content-cms.md` - Medusa Content CMS plugin setup, public content routes, and storefront data helper usage.
 - `docs/commerce-extensions-roadmap.md` - Product reviews API details and storefront rollout plan for the next commerce extensions.
 - `docs/marketplace-accounts.md` - Managed seller account links for Best Buy, Amazon, and other external storefronts.
-- `docs/square-oauth.md` - Square production and sandbox OAuth setup notes.
+- `docs/square-oauth.md` - Square production and sandbox OAuth plus Apple Pay domain setup notes.
 - `docs/storefront-seo.md` - Storefront metadata, sitemap, robots, structured data, and indexing policy.
 - `docs/superpowers/plans/2026-07-08-medusa-only-realtime-storefront.md` - Implementation plan for the Medusa-only realtime storefront work.
 

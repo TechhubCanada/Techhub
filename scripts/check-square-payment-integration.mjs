@@ -1,4 +1,5 @@
 import assert from "node:assert/strict"
+import { existsSync, statSync } from "node:fs"
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
 
@@ -25,9 +26,13 @@ const paymentCardButton = readText(
 const squarePaymentForm = readText(
   "storefront/src/modules/checkout/components/square-payment-form/index.tsx"
 )
+const proxy = readText("storefront/src/proxy.ts")
 const squarePluginPatch = readText(
   "patches/@weareseeed__medusa-square-plugin@0.0.30.patch"
 )
+const applePayAssociationPath =
+  "storefront/public/.well-known/apple-developer-merchantid-domain-association"
+const applePayAssociationFile = join(root, applePayAssociationPath)
 
 assert.equal(
   medusaPackage.dependencies["@weareseeed/medusa-square-plugin"],
@@ -104,6 +109,28 @@ assert.match(
   squarePaymentForm,
   /ApplePay/,
   "Square payment form must include Apple Pay"
+)
+assert.ok(
+  existsSync(applePayAssociationFile),
+  "Square Apple Pay domain association file must be served from storefront public/.well-known"
+)
+assert.ok(
+  statSync(applePayAssociationFile).size > 0,
+  "Square Apple Pay domain association file must not be empty"
+)
+assert.match(
+  proxy,
+  /\\\.well-known/,
+  "Storefront country-code proxy must exclude .well-known Apple Pay verification paths"
+)
+assert.match(
+  squarePaymentForm,
+  /Apple Pay is available in Safari/,
+  "Square payment form must explain Apple Pay availability when Square hides unsupported wallets"
+)
+assert.ok(
+  existsSync(join(root, "scripts/check-square-apple-pay-production.mjs")),
+  "Repository must include a production Apple Pay domain verification check"
 )
 assert.match(
   squarePaymentForm,

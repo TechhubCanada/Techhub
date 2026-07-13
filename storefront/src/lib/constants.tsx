@@ -9,7 +9,7 @@ export const paymentInfoMap: Record<
   { title: string; icon: React.JSX.Element }
 > = {
   pp_square_square: {
-    title: "Credit card",
+    title: "Square payments",
     icon: <CreditCard />,
   },
   pp_paypal_paypal: {
