@@ -75,15 +75,15 @@ const featureSections = [
     eyebrow: "Procurement",
     title: "Products for the way your team actually works.",
     body: "Tell us what devices, accessories, or quantities you need. We can help source everyday tech for offices, schools, contractors, and growing teams.",
-    image: "/images/content/techhub-laptop-product-table.png",
-    alt: "Laptop computer on a clean product display table",
+    image: "/images/content/techhub-inquiry-business-collage.png",
+    alt: "Business meeting and field-service planning",
   },
   {
     eyebrow: "Support",
     title: "Service support after the order.",
     body: "Add repairs, setup, networking, or device refresh planning to the same inquiry so the request is handled as one complete project.",
-    image: "/images/content/techhub-repair-workbench.png",
-    alt: "Computer repair workbench with tools and devices",
+    image: "/images/content/techhub-inquiry-laptop-repair.jpg",
+    alt: "Technician repairing a laptop",
   },
 ] as const
 
@@ -201,7 +201,9 @@ export default function InquiryPage() {
                 width={1600}
                 height={1200}
                 alt={section.alt}
-                className="aspect-[4/3] w-full rounded-md object-cover"
+                className={`w-full rounded-md object-cover ${
+                  index === 0 ? "aspect-[4/5]" : "aspect-[3/2]"
+                }`}
               />
             </LayoutColumn>
             <LayoutColumn

@@ -173,17 +173,17 @@ export default async function InspirationPage() {
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
             <LocalizedLink href="/store" className="mb-8 md:mb-16 inline-block">
               <Image
-                src="/images/content/techhub-ethernet-switch.png"
+                src="/images/content/techhub-desktop-computer.jpg"
                 width={768}
                 height={572}
-                alt="Connectivity hardware and organized cables"
+                alt="Desktop computer tower"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Office setup</p>
+                  <p className="mb-1">Desktop Computers</p>
                   <p className="text-grayscale-500 text-xs">
-                    Cables and accessories
+                    Options for every task
                   </p>
                 </div>
                 <div>
@@ -193,17 +193,17 @@ export default async function InspirationPage() {
             </LocalizedLink>
             <LocalizedLink href="/store">
               <Image
-                src="/images/content/techhub-network-router.png"
+                src="/images/content/techhub-business-laptops.jpg"
                 width={768}
                 height={572}
-                alt="Network router close-up"
+                alt="Business laptops in use during a meeting"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Routers</p>
+                  <p className="mb-1">Business Laptops</p>
                   <p className="text-grayscale-500 text-xs">
-                    Wi-Fi and routing
+                    Reliable and ready
                   </p>
                 </div>
                 <div>
@@ -214,10 +214,10 @@ export default async function InspirationPage() {
           </LayoutColumn>
         </Layout>
         <Image
-          src="/images/content/techhub-dual-monitor-workstation.png"
+          src="/images/content/techhub-imac-workstation.jpg"
           width={2880}
           height={1618}
-          alt="Dual monitor desk workstation"
+          alt="Dual-monitor workstation"
           className="md:h-screen md:object-cover mt-26 md:mt-36 mb-8 md:mb-26"
         />
         <Layout>
@@ -235,17 +235,17 @@ export default async function InspirationPage() {
           <LayoutColumn start={{ base: 1, md: 9 }} end={13}>
             <LocalizedLink href="/store">
               <Image
-                src="/images/content/techhub-gaming-headset.png"
+                src="/images/content/techhub-gaming-products.jpg"
                 width={768}
                 height={572}
-                alt="Gaming headset on a desk with ambient lighting"
+                alt="Gaming computer setup"
                 className="mb-4 md:mb-6"
               />
               <div className="flex justify-between">
                 <div>
-                  <p className="mb-1">Gaming audio</p>
+                  <p className="mb-1">Gaming Products</p>
                   <p className="text-grayscale-500 text-xs">
-                    Headsets and accessories
+                    Devices and accessories
                   </p>
                 </div>
                 <div>

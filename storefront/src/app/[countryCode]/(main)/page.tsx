@@ -16,7 +16,6 @@ import { Layout, LayoutColumn } from "@/components/Layout"
 import { LocalizedLink } from "@/components/LocalizedLink"
 import { CollectionsSection } from "@/components/CollectionsSection"
 import { CmsContentCard } from "@/components/CmsContentCard"
-import { BrandLogo } from "@/components/BrandLogo"
 import { AnimatedBrandCloud } from "@/components/AnimatedBrandCloud"
 import ProductPreview from "@modules/products/components/product-preview"
 import { createPageMetadata, getLocalizedPath } from "@lib/seo"
@@ -137,7 +136,17 @@ const featuredProductHandles = [
   "hp-laserjet-pro-office-printer",
 ] as const
 
-const carriedBrands = ["Dell", "Samsung", "Acer", "ASUS", "Microsoft"] as const
+const carriedBrands = [
+  "Dell",
+  "HP",
+  "Lenovo",
+  "Panasonic",
+  "Apple",
+  "Samsung",
+  "Microsoft",
+  "ASUS",
+  "Acer",
+] as const
 
 const supportPaths = [
   {
@@ -432,11 +441,6 @@ export default async function Home() {
         <div className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
         <Layout className="min-h-[calc(100svh-4.5rem)] content-end pb-7 text-white md:min-h-[100svh] md:pb-14">
           <LayoutColumn start={1} end={{ base: 13, lg: 8 }}>
-            <BrandLogo
-              className="mb-5 md:mb-8"
-              markClassName="size-8 border-white/80 md:size-10"
-              textClassName="text-lg md:text-2xl"
-            />
             <p className="mb-3 text-xs uppercase tracking-[0.14em] text-white/75 md:mb-4 md:text-sm">
               Products, repairs, and business IT
             </p>
@@ -471,17 +475,17 @@ export default async function Home() {
           <LayoutColumn className="col-span-full">
             <h3 className="text-md md:text-2xl mb-8 md:mb-16">About TechHub</h3>
             <Image
-              src="/images/content/techhub-laptop-display.png"
+              src="/images/content/techhub-canadian-excellence-hero.png"
               width={2496}
               height={1400}
-              alt="Laptop computers displayed on a retail table"
+              alt="Laptop displaying TechHub's Canadian-owned service message"
               className="mb-8 md:mb-16 max-md:aspect-[3/2] max-md:object-cover"
             />
           </LayoutColumn>
           <LayoutColumn start={1} end={{ base: 13, md: 7 }}>
             <h2 className="text-md md:text-2xl">
-              TechHub helps customers buy, repair, and set up everyday
-              technology.
+              Since 2009, serving customers and businesses with reliable devices
+              without paying new-retail prices.
             </h2>
           </LayoutColumn>
           <LayoutColumn

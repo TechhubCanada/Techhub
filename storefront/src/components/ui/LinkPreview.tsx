@@ -8,6 +8,7 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
 } from "motion/react"
 
@@ -63,12 +64,13 @@ export const LinkPreview = ({
 
   const [isOpen, setOpen] = React.useState(false)
   const [isMounted, setIsMounted] = React.useState(false)
+  const shouldReduceMotion = useReducedMotion()
 
   React.useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  const springConfig = { stiffness: 100, damping: 15 }
+  const springConfig = { stiffness: 180, damping: 20 }
   const x = useMotionValue(0)
   const translateX = useSpring(x, springConfig)
 
@@ -114,28 +116,35 @@ export const LinkPreview = ({
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, y: 12, scale: 0.96 }
+                }
                 animate={{
                   opacity: 1,
                   y: 0,
                   scale: 1,
                   transition: {
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
+                    duration: shouldReduceMotion ? 0 : 0.18,
+                    ease: [0.16, 1, 0.3, 1],
                   },
                 }}
-                exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className="rounded-xl shadow-xl"
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0 }
+                    : { opacity: 0, y: 8, scale: 0.98 }
+                }
+                className="rounded-lg shadow-2xl"
                 style={{
-                  x: translateX,
+                  x: shouldReduceMotion ? 0 : translateX,
                 }}
               >
                 <a
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="block overflow-hidden rounded-xl border border-neutral-200 bg-white p-1 shadow hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700"
+                  className="block overflow-hidden rounded-lg border border-neutral-200 bg-white p-1 shadow-sm transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700"
                   style={previewContent ? undefined : { fontSize: 0 }}
                 >
                   {previewContent ?? (
@@ -143,7 +152,7 @@ export const LinkPreview = ({
                       src={isStatic ? imageSrc : src}
                       width={width}
                       height={height}
-                      className="rounded-xl"
+                      className="rounded-md"
                       alt="preview image"
                     />
                   )}

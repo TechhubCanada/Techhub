@@ -39,6 +39,16 @@ assert.equal(heroSource.includes("techhub-dual-monitor-workstation.png"), false)
 assert.equal(heroSource.includes("bg-black/45"), false)
 assert.equal(belowHeroSource.includes("<ContactInquiryForm />"), false)
 assert.equal(pageSource.includes("lg:grid-cols-[0.42fr_0.58fr]"), false)
+assert.equal(
+  pageSource.includes("techhub-inquiry-business-collage.png"),
+  true
+)
+assert.equal(
+  pageSource.includes("techhub-inquiry-laptop-repair.jpg"),
+  true
+)
+assert.equal(pageSource.includes('aspect-[4/5]'), true)
+assert.equal(pageSource.includes('aspect-[3/2]'), true)
 
 const formSource = readFileSync(
   resolve(

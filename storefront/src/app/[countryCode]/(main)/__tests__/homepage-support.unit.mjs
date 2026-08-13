@@ -66,10 +66,19 @@ assert.equal(collectionsSectionSource.includes("height={340}"), true)
 assert.equal(linkPreviewSource.includes("useCountryCode"), true)
 assert.equal(linkPreviewSource.includes("const href ="), true)
 assert.equal(linkPreviewSource.includes("previewContent"), true)
+assert.equal(linkPreviewSource.includes("useReducedMotion"), true)
+assert.equal(linkPreviewSource.includes("scale: 0.96"), true)
+assert.equal(linkPreviewSource.includes("ease: [0.16, 1, 0.3, 1]"), true)
+assert.equal(
+  linkPreviewSource.includes("x: shouldReduceMotion ? 0 : translateX"),
+  true
+)
 assert.equal(footerSource.includes("previewContent={"), false)
 assert.equal(footerSource.includes("width={320}"), true)
 assert.equal(footerSource.includes("height={200}"), true)
 assert.equal(footerSource.includes("Agency by Naman Kataria"), true)
+assert.equal(footerSource.includes("group relative inline-flex"), true)
+assert.equal(footerSource.includes("focus-visible:ring-2"), true)
 assert.equal(
   storeProductsSource.includes("<ProductPreview product={p} isInteractive />"),
   true
@@ -90,7 +99,38 @@ assert.equal(
   true
 )
 
-for (const brand of ["Dell", "Samsung", "Acer", "ASUS", "Microsoft"]) {
+const homeAboutImagePath =
+  "/images/content/techhub-canadian-excellence-hero.png"
+const homeStart = homepageSource.indexOf("export default async function Home")
+const heroStart = homepageSource.indexOf("<section", homeStart)
+const heroEnd = homepageSource.indexOf("</section>", heroStart)
+const heroSource = homepageSource.slice(heroStart, heroEnd)
+const normalizedHomepageSource = homepageSource.replace(/\s+/g, " ")
+
+assert.equal(
+  existsSync(resolve(repoRoot, `storefront/public${homeAboutImagePath}`)),
+  true
+)
+assert.equal(homepageSource.includes(`"${homeAboutImagePath}"`), true)
+assert.equal(
+  normalizedHomepageSource.includes(
+    "Since 2009, serving customers and businesses with reliable devices without paying new-retail prices."
+  ),
+  true
+)
+assert.equal(heroSource.includes("<BrandLogo"), false)
+
+for (const brand of [
+  "Dell",
+  "HP",
+  "Lenovo",
+  "Panasonic",
+  "Apple",
+  "Samsung",
+  "Microsoft",
+  "ASUS",
+  "Acer",
+]) {
   assert.equal(homepageSource.includes(`"${brand}"`), true)
 }
 

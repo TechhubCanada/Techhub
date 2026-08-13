@@ -231,7 +231,7 @@ export const Footer: React.FC = () => {
               Designed {"&"} developed by{" "}
               <LinkPreview
                 url="https://agency.namankataria.com"
-                className="font-medium text-grayscale-800 underline decoration-grayscale-400 underline-offset-4 transition-colors hover:text-black"
+                className="group relative inline-flex font-medium text-grayscale-800 outline-none transition-colors duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-200 hover:text-black hover:after:scale-x-100 focus-visible:text-black focus-visible:ring-2 focus-visible:ring-black/60 focus-visible:ring-offset-2 focus-visible:ring-offset-grayscale-50 focus-visible:after:scale-x-100"
                 width={320}
                 height={200}
               >

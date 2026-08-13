@@ -1,6 +1,24 @@
 # TechHub Content Image Sources
 
-These storefront content images were resized and cropped from free-to-use sources. Unsplash images are under the Unsplash License; Wikimedia/Flickr assets listed here were selected from CC0/public-domain Openverse results. Source URLs are retained for auditability.
+These storefront content images were resized and cropped from free-to-use sources, unless the source note identifies an asset supplied by TechHub. Unsplash images are under the Unsplash License; Wikimedia/Flickr assets listed here were selected from CC0/public-domain Openverse results. Source URLs are retained for auditability.
+
+## Supplied TechHub Assets
+
+The following images were supplied in `changes/drive-download-20260809T174519Z-1-001.zip` for the August 10, 2026 storefront content refresh. Use is authorized by the project owner; retain the original archive outside the public storefront bundle as the source handoff.
+
+| Target | Source filename |
+| --- | --- |
+| techhub-canadian-excellence-hero.png | ABOUT FIRST IMAGE.png |
+| techhub-delivery-box.png | DELIVERY BOX ON FLOOR.png |
+| techhub-laptop-repair-hands.jpg | HANDS REPAIRING LAPTOP.jpg |
+| techhub-customer-rating.jpg | 5 STAR HAPPY FACE PIC.jpg |
+| techhub-inquiry-business-collage.png | COLLAGE OF 2 PICS -INQUIRY PAGE.png |
+| techhub-inquiry-laptop-repair.jpg | LAPTOP REPAIR PIC FOR INQUIRY PAGE.jpg |
+| techhub-desktop-computer.jpg | desktop comp.jpg |
+| techhub-business-laptops.jpg | business.jpg |
+| techhub-imac-workstation.jpg | double imac computer replacement.jpg |
+| techhub-gaming-products.jpg | gaming.jpg |
+
 
 | Target                               | Category               | Source title                                                         | License/source note                                                                             | URL                                                                                                                                       |
 | ------------------------------------ | ---------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |

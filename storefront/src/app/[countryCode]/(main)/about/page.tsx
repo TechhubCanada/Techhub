@@ -23,7 +23,7 @@ export async function generateMetadata({
       "computer repair Markham",
       "IT support",
     ],
-    image: "/images/content/techhub-modern-workstation.png",
+    image: "/images/content/techhub-canadian-excellence-hero.png",
   })
 }
 
@@ -44,10 +44,10 @@ export default async function AboutPage() {
   ).catch(() => null)
   const heroImage =
     getContentMetadataString(aboutContent?.metadata, "image_url") ??
-    "/images/content/techhub-modern-workstation.png"
+    "/images/content/techhub-canadian-excellence-hero.png"
   const heroAlt =
     getContentMetadataString(aboutContent?.metadata, "image_alt") ??
-    "Modern desktop and laptop workstation"
+    "Laptop displaying TechHub's Canadian-owned service message"
 
   return (
     <>
@@ -75,9 +75,8 @@ export default async function AboutPage() {
               ) : (
                 <>
                   <p className="mb-5 lg:mb-9">
-                    We help customers shop for computers, printers, tablets,
-                    networking equipment, software, ink, toner, parts, and
-                    accessories.
+                    We help customers shop for computers, laptops, tablets,
+                    networking equipment, software, printers, and accessories.
                   </p>
                   <p>
                     We also provide repair, setup, technical support, service,
@@ -90,10 +89,10 @@ export default async function AboutPage() {
           </LayoutColumn>
           <LayoutColumn>
             <Image
-              src="/images/content/techhub-repair-workbench.png"
+              src="/images/content/techhub-delivery-box.png"
               width={2496}
               height={1404}
-              alt="Computer repair bench with tools and electronics"
+              alt="TechHub delivery box"
               className="mt-26 lg:mt-36 mb-8 lg:mb-26"
             />
           </LayoutColumn>
@@ -118,21 +117,14 @@ export default async function AboutPage() {
           </LayoutColumn>
           <LayoutColumn start={{ base: 2, lg: 1 }} end={{ base: 12, lg: 7 }}>
             <Image
-              src="/images/content/techhub-motherboard-repair.png"
+              src="/images/content/techhub-laptop-repair-hands.jpg"
               width={1200}
               height={1600}
-              alt="Technicians repairing a computer motherboard"
+              alt="Technician repairing a laptop"
               className="mb-16 lg:mb-46"
             />
           </LayoutColumn>
           <LayoutColumn start={{ base: 1, lg: 8 }} end={13}>
-            <div className="mb-6 lg:mb-20 xl:mb-36">
-              <p>
-                We work with customers who need a new computer, a stronger
-                network, a printer that fits their workflow, or parts to keep a
-                device running longer.
-              </p>
-            </div>
             <div className="md:text-md max-lg:mb-26">
               <p>
                 The goal is simple: make technology easier to buy, easier to
@@ -142,10 +134,10 @@ export default async function AboutPage() {
           </LayoutColumn>
         </Layout>
         <Image
-          src="/images/content/techhub-laptop-repair-kit.png"
+          src="/images/content/techhub-customer-rating.jpg"
           width={2880}
           height={1618}
-          alt="Laptop repair kit and service workbench"
+          alt="Customer satisfaction rating"
           className="mb-8 lg:mb-26"
         />
         <Layout>
