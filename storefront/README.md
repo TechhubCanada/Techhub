@@ -13,7 +13,7 @@
 </h1>
 
 <p align="center">
-Combine Medusa's modules for your commerce backend with the newest Next.js 14 features for a performant storefront.</p>
+Combine Medusa's modules for your commerce backend with the latest Next.js 16 features for a performant storefront.</p>
 
 <p align="center">
   <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
@@ -63,7 +63,7 @@ Features include:
   - User Accounts
   - Scrollbar-free mobile account sidebar tabs with explicit spacing between account links
   - Order Details
-- Full Next.js 14 support:
+- Full Next.js 16 support:
   - App Router
   - Next fetching/caching
   - Server Components

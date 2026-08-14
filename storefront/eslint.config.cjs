@@ -1,44 +1,37 @@
-const { FlatCompat } = require("@eslint/eslintrc")
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+const nextConfig = require("eslint-config-next/core-web-vitals")
+const prettierConfig = require("eslint-config-prettier")
+const nextBaseConfig = nextConfig.find((config) => config.name === "next")
+const nextTypeScriptConfig = nextConfig.find(
+  (config) => config.name === "next/typescript"
+)
 
 module.exports = [
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript", "prettier"],
-    ignorePatterns: [
-      // Dependencies
+  {
+    ignores: [
       "node_modules/",
-
-      // Build and output directories
       ".next/",
       "out/",
-
-      // Coverage
       "coverage/",
-
-      // Static and public assets
       "public/",
-
-      // Test directories
       "e2e/",
       "integration-tests/",
-
-      // Type definitions
       "**/*.d.ts",
-
-      // Environment and config files
       ".env",
       ".env.local",
       ".env.*.local",
-
-      // Linting cache
       ".eslintcache",
-
-      // Package lock files
       "pnpm-lock.yaml",
     ],
+  },
+  ...nextConfig,
+  prettierConfig,
+  {
+    plugins: {
+      react: nextBaseConfig.plugins.react,
+      "react-hooks": nextBaseConfig.plugins["react-hooks"],
+      "@next/next": nextBaseConfig.plugins["@next/next"],
+      "@typescript-eslint": nextTypeScriptConfig.plugins["@typescript-eslint"],
+    },
     rules: {
       // General best practices
       "no-console": [
@@ -65,12 +58,14 @@ module.exports = [
       // React hooks
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+      // Preserve the prior lint policy while the React Compiler rule is adopted.
+      "react-hooks/set-state-in-effect": "off",
 
       // Next.js
       "@next/next/no-img-element": "warn",
       "@next/next/no-html-link-for-pages": "error",
     },
-  }),
+  },
   // Override for config files that legitimately use require()
   {
     files: ["**/*.config.js", "**/*.config.cjs", "check-env-variables.js"],
