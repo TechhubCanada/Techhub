@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.08.13.1
+Documentation version: 2026.08.14.1
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -58,6 +58,7 @@ Supporting services include:
 - `docs/storefront-seo.md` - Storefront metadata, sitemap, robots, structured data, and indexing policy.
 - `docs/storefront-content-refresh-2026-08-10.md` - Supplied campaign asset map, About CMS publication requirements, and inquiry email delivery configuration.
 - `docs/storefront-next-16.3-upgrade.md` - Next.js 16.3 storefront dependency upgrade and verification record.
+- `docs/superpowers/specs/2026-08-14-footer-agency-link-preview-design.md` - Approved design for the footer agency link preview parity and accessibility pass.
 - `docs/superpowers/plans/2026-07-08-medusa-only-realtime-storefront.md` - Implementation plan for the Medusa-only realtime storefront work.
 
 ## Prerequisites
