@@ -16,7 +16,15 @@ Run backend migrations after installing or pulling plugin changes:
 pnpm --dir medusa exec medusa db:migrate
 ```
 
-The plugin package currently declares Medusa `2.16.0` peer dependencies while this project runs Medusa `2.17.2`. Keep that in mind when upgrading Medusa or the plugin, and verify Admin rendering plus content API responses after dependency updates.
+The project pins `medusa-plugin-content` to `0.2.6` because the previously
+locked `0.2.2` tarball is no longer available from npm. Version `0.2.6`
+declares Medusa `^2.18.0` peer dependencies while this project currently runs
+Medusa `2.17.2`. The Vercel-style filtered frozen install
+(`pnpm install --frozen-lockfile --filter @techhub/storefront...`) and
+storefront production build have been verified. Treat backend compatibility as
+provisional until the Medusa version is upgraded or the plugin's Admin UI,
+published content responses, migrations, and complete production build are
+verified together.
 
 ## Public Content API
 

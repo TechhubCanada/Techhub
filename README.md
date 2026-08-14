@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.08.14.1
+Documentation version: 2026.08.14.2
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -226,11 +226,16 @@ pnpm test:e2e
 Vercel builds the storefront from the monorepo root using `vercel.json`. The build contract is:
 
 ```sh
-corepack enable && pnpm install --frozen-lockfile
+corepack enable && pnpm install --frozen-lockfile --filter @techhub/storefront...
 pnpm --filter @techhub/storefront build
 ```
 
 Keep packages required by `storefront/next.config.js` in storefront `dependencies`, not only `devDependencies`, because the config is loaded during production builds.
+
+The shared lockfile pins `medusa-plugin-content` to `0.2.6`. The former
+`0.2.2` release was removed from npm and causes frozen Vercel installs to fail
+with `ERR_PNPM_FETCH_404`, even when installation is filtered to the
+storefront.
 
 App-specific commands:
 
