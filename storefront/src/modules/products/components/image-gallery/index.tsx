@@ -19,7 +19,7 @@ const ImageGallery = ({ images, className }: ImageGalleryProps) => {
       {filteredImages.map((image, index) => (
         <div
           key={image.id}
-          className="relative aspect-[3/4] w-full overflow-hidden"
+          className="relative aspect-square w-full bg-white overflow-hidden"
         >
           <Image
             key={image.id}
@@ -28,7 +28,7 @@ const ImageGallery = ({ images, className }: ImageGalleryProps) => {
             alt={`Product image ${index + 1}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 589px, (max-width: 1279px) 384px, 456px"
-            className="object-cover"
+            className="object-contain p-4"
           />
         </div>
       ))}

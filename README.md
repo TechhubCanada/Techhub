@@ -1,6 +1,6 @@
 # Tech Hub Canada Redesign
 
-Documentation version: 2026.08.14.2
+Documentation version: 2026.08.14.3
 
 This repository contains the redesign work for the Tech Hub Canada ecommerce website.
 
@@ -183,6 +183,11 @@ The storefront `/inquiry` form posts to `/api/inquiry` and sends mail through Re
 ### Cloudflare R2 File Storage
 
 Medusa uses the S3-compatible file provider for product images and uploaded files. Local development can use the MinIO values in `medusa/.env.template`; production should set Cloudflare R2 values in Railway for the Medusa service.
+
+The storefront renders product-detail and reusable thumbnail imagery inside
+responsive square white media surfaces with `object-contain` behavior. Product
+uploads can retain their original aspect ratio without being cropped in the
+customer-facing gallery.
 
 Use these variables in Railway:
 

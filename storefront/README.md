@@ -122,6 +122,11 @@ The storefront includes `/inquiry` for B2B, store, and specialized requests. It 
 
 The store page keeps the collection carousel, filters, sort controls, and first product row close together so shoppers can see product cards immediately below the controls on standard desktop viewports. Store and related product cards use the same interactive hover and focus animation treatment as homepage product grids. Collection tiles use Aceternity-style hover previews that show the collection image when one is available, and the footer agency attribution uses a larger live website hover preview with reduced-motion support, a calmer entrance, and an animated underline.
 
+Product detail galleries and reusable product thumbnails use responsive square
+white media surfaces with contained images and internal padding. This keeps the
+complete product visible across desktop and mobile instead of cropping
+marketplace photography to a portrait frame.
+
 The mobile header uses a dark treatment with 44px account, cart, and menu targets. The hamburger opens an 85vw dark drawer with search at the top, simple text navigation rows, and plain account and country controls at the bottom with safe-area padding.
 
 The desktop navbar uses the white hero treatment on `/`, `/about`, `/inspiration`, `/inquiry`, and collection pages until scrolling makes the header sticky.
