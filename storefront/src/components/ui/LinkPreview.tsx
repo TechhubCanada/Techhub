@@ -110,6 +110,7 @@ export const LinkPreview = ({
         </HoverCardPrimitive.Trigger>
 
         <HoverCardPrimitive.Content
+          forceMount
           className="z-50 [transform-origin:var(--radix-hover-card-content-transform-origin)]"
           side="top"
           align="center"

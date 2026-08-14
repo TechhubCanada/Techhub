@@ -15,8 +15,11 @@ const collectionsSource = readFileSync(
   resolve(repoRoot, "storefront/src/components/CollectionsSection.tsx"),
   "utf8"
 )
+const hoverCardContentOpeningTag =
+  linkPreviewSource.match(/<HoverCardPrimitive\.Content[\s\S]*?>/)?.[0] ?? ""
 
 assert.equal(linkPreviewSource.includes("previewImageAlt?: string"), true)
+assert.equal(hoverCardContentOpeningTag.includes("forceMount"), true)
 assert.equal(
   linkPreviewSource.includes('previewImageAlt = `Preview of ${url}`'),
   true
