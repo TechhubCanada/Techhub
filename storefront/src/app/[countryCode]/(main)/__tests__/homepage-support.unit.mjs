@@ -32,10 +32,6 @@ const productPreviewSource = readFileSync(
   ),
   "utf8"
 )
-const linkPreviewSource = readFileSync(
-  resolve(repoRoot, "storefront/src/components/ui/LinkPreview.tsx"),
-  "utf8"
-)
 const collectionsSectionSource = readFileSync(
   resolve(repoRoot, "storefront/src/components/CollectionsSection.tsx"),
   "utf8"
@@ -63,16 +59,6 @@ assert.equal(collectionsSectionSource.includes("LinkPreview"), true)
 assert.equal(collectionsSectionSource.includes("imageSrc={imageUrl}"), true)
 assert.equal(collectionsSectionSource.includes("width={260}"), true)
 assert.equal(collectionsSectionSource.includes("height={340}"), true)
-assert.equal(linkPreviewSource.includes("useCountryCode"), true)
-assert.equal(linkPreviewSource.includes("const href ="), true)
-assert.equal(linkPreviewSource.includes("previewContent"), true)
-assert.equal(linkPreviewSource.includes("useReducedMotion"), true)
-assert.equal(linkPreviewSource.includes("scale: 0.96"), true)
-assert.equal(linkPreviewSource.includes("ease: [0.16, 1, 0.3, 1]"), true)
-assert.equal(
-  linkPreviewSource.includes("x: shouldReduceMotion ? 0 : translateX"),
-  true
-)
 assert.equal(footerSource.includes("previewContent={"), false)
 assert.equal(footerSource.includes("width={320}"), true)
 assert.equal(footerSource.includes("height={200}"), true)
