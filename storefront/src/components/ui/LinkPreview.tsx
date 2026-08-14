@@ -19,6 +19,7 @@ type LinkPreviewProps = {
   url: string
   className?: string
   previewContent?: React.ReactNode
+  previewImageAlt?: string
   width?: number
   height?: number
   quality?: number
@@ -32,6 +33,7 @@ export const LinkPreview = ({
   url,
   className,
   previewContent,
+  previewImageAlt = `Preview of ${url}`,
   width = 200,
   height = 125,
   quality = 50,
@@ -87,8 +89,8 @@ export const LinkPreview = ({
   return (
     <>
       {isMounted ? (
-        <div className="hidden">
-          <img src={src} width={width} height={height} alt="hidden image" />
+        <div className="hidden" aria-hidden="true">
+          <img src={src} width={width} height={height} alt="" />
         </div>
       ) : null}
 
@@ -119,21 +121,26 @@ export const LinkPreview = ({
                 initial={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, y: 12, scale: 0.96 }
+                    : { opacity: 0, y: 20, scale: 0.6 }
                 }
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    duration: shouldReduceMotion ? 0 : 0.18,
-                    ease: [0.16, 1, 0.3, 1],
-                  },
-                }}
+                animate={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        },
+                      }
+                }
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, y: 8, scale: 0.98 }
+                    : { opacity: 0, y: 20, scale: 0.6 }
                 }
                 className="rounded-lg shadow-2xl"
                 style={{
@@ -143,7 +150,7 @@ export const LinkPreview = ({
                 <a
                   href={href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="block overflow-hidden rounded-lg border border-neutral-200 bg-white p-1 shadow-sm transition-colors hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700"
                   style={previewContent ? undefined : { fontSize: 0 }}
                 >
@@ -153,7 +160,7 @@ export const LinkPreview = ({
                       width={width}
                       height={height}
                       className="rounded-md"
-                      alt="preview image"
+                      alt={previewImageAlt}
                     />
                   )}
                 </a>
